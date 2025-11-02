@@ -1,0 +1,365 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=1.5cm, bottom=1cm, left=1cm, right=1cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{comment}
+\usepackage{graphicx}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2023/2024 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{  Université de Lorraine \\}
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+%\newcommand{\md}[3]{#1 \equiv #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod #3 }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod #3 }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod #3 }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\md}{\mathrm{\ mod\ }}
+
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    Feuille de TD n$^{\boldsymbol{\circ}}$6
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+
+\
+
+
+\
+\begin{ex}
+Déterminer l'ensemble des solutions de l'équation $x^2+\overline{3}x+\overline{6}=\overline{0}$, d'inconnue $x\in \Z/23\Z$.
+\end{ex}
+
+% Les solutions sont $\overline{5}$ et $\overline{15}$.
+
+
+\begin{ex}\label{exemple_RSA} \
+
+Dans un cryptosystème utilisant l'algorithme RSA, déterminer la clé secrète $(d,\varphi(n) )$ ainsi que le message envoyé $m$ de $\mathbb{Z}/n\mathbb{Z}$ pour les clés publiques $(n,e)$ et les cryptogrammes $c=m^e$ suivants:
+$$\begin{array}{clll}
+1. & n=35, &   e=5,   & c=10.\\
+2. & n=265, & e=139, &  c=10. \\
+3. &  n=667=23.29, &   e=493, &  c=10.\end{array}$$
+
+
+
+\end{ex}
+
+
+
+\
+
+\begin{ex}\label{exemple_cryptosysteme}\
+
+\begin{itemize}
+\item[$1.$] On considère le cryptosystème (sans clé) suivant: un grand nombre premier $p$ est public et les messages sont des entiers $m \in \lb 1;p-1 \rb  $. Si Alice veut envoyer un message $m$ à Bob, la marche à suivre est la suivante: 
+\begin{itemize}
+\item[•] Alice choisit un entier $a \in \lb 1; p-1 \rb$ qui est premier avec $(p-1)$, elle calcule $a'$ l'inverse de $a$ dans $(\mathbb{Z}/(p-1)\mathbb{Z})^{\times}   $ et envoie à Bob l'entier $ c=m^a \pmod p$; 
+\item[•] Bob choisit un entier $b \in \lb 1;p-1 \rb$ qui est premier avec $(p-1)$, il calcule $b'$ l'inverse de $b$ dans $(\mathbb{Z}/(p-1)\mathbb{Z})^{\times}   $ et renvoie à Alice l'entier $d=c^b \pmod p$;
+\item[•] Alice renvoie $e=d^{a'} \pmod p$ à Bob;
+\item[•] Bob calcule $e^{b'} \pmod p$ et retrouve $m$. Pourquoi?  
+\end{itemize} 
+\item[$2.$] Soit $p=31$.
+\begin{itemize}
+\item[$a)$] Quels sont les ordres multiplicatifs possibles des éléments de $(\mathbb{Z}/31 \mathbb{Z})^{*}$? Donner les ordres multiplicatifs de $2$ et de $4$. 
+\item[$b)$] Soit $\mathcal{A}=(\Z/30\Z)^\times$. Calculer le cardinal de $\mathcal{A}$ puis énumérer tous ses éléments, ainsi que leurs inverses modulo $30$.
+\item[$c)$] Déterminer l'ensemble des  $b\in \Z$ tels que $4^b\equiv 4[31]$.
+\item[$d)$] On utilise le cryptosystème précédent avec $p=31$. Un pirate intercepte les échanges entre Alice et Bob; il connait $c=4$, $d=4$ et $e=8$. Montrer que le pirate peut facilement retrouver $m$, dont on donnera la valeur.
+\end{itemize} 
+\end{itemize}
+\end{ex}
+
+
+\begin{ex}\label{RSA_mod3}\
+
+Soient $p$ et $q$ deux nombres premiers distincts tels que 
+$$ (p-1) \equiv (q-1) \equiv 1 [3].   $$ 
+\begin{itemize}
+\item[$1.$] Montrer que $2(p-1)(q-1)+1$ est divisible par $3$.
+\item[$2.$] Soient $k=\varphi(pq)$ et $$  e=\frac{2(p-1)(q-1)+1}{3}.$$ Montrer que $\overline{e}$ est inversible  dans $\mathbb{Z}/k \mathbb{Z}$ et calculer son inverse.
+
+\item[$3.$] Soient $p=17$, $q=11$; on pose $n=pq$.
+\begin{itemize}
+\item[$a)$] Alice et Bob communiquent en utilisant l'algorithme RSA. La clé publique de Bob est $(n,107)$. Quelle est sa clé secrète?
+\item[$b)$] Alice transmet le message à Bob; Bob reçoit $c=9$. Quel est le message $m$ initial?
+\end{itemize}
+
+
+\end{itemize}
+\end{ex}
+
+\
+
+
+
+
+\begin{ex}\label{RSA_Bruno_Catherine}\ $($Une attaque sur RSA : module commun$)$\\
+Bruno et Catherine ont choisi le même module RSA $n$. Leurs exposants publics $e_B$ et $e_C$ sont distincts.
+\begin{itemize}
+\item[$1.$] Expliquez pourquoi Bruno peut déchiffrer les messages reçus par Catherine et réciproquement.
+\item[$2.$] On suppose que $e_B$ et $e_C$ sont premiers entre eux et qu'Alice envoie les chiffrés d'un même message $m$ à Bruno et à Catherine. Expliquez comment l'attaquant Oscar peut obtenir $m$.
+\item[$3.$]  Application : Bruno a la clef publique $(221,11)$ et Catherine la clef $(221,7)$ ($221=13.17$). Oscar intercepte les chiffrés $210$ et $58$ à destinations respectives de Bruno et Catherine. Retrouver le message $m$ (sans factoriser $221$).
+\end{itemize} 
+\end{ex}
+%\
+
+\begin{ex}\label{attaque_exposant_petit}\ $($Une attaque sur RSA : petit exposant public commun$)$  \\
+On suppose que $k$ personnes $B_1, \ldots, B_k$ ont pour exposant public RSA $e = 3$ avec des modules respectifs $n_i$, $ i \in \lb 1;k \rb $.
+\begin{itemize}
+\item[$1.$] Pourquoi est-il raisonnable de supposer que les $n_i$, $i \in \lb 1;k \rb$ sont deux à deux premiers entre eux?
+\item[$2.$] Anne envoie les chiffrés d'un même message $m$ à tous les $B_i$. Montrer qu'un attaquant peut déterminer $m^3$ modulo $P :=\prod_{i=1}^{k} n_i$; en déduire qu'il peut calculer $m$ si $P > m^3$.
+
+
+%\item[$3.$] Quelle est la valeur minimale de $k$ qui permet de toujours faire cette attaque?
+\end{itemize}
+
+\end{ex}
+
+
+\begin{ex}\label{Chiffrement_Hill}\ $($Chiffrement de Hill$)$\\
+Dans le chiffrement de Hill, chaque lettre de l'alphabet est représentée par un entier compris entre $0$ et $25$. L'algorithme est un chiffrement par blocs de $m$ lettres, qui transforme un bloc $(x_1, \ldots, x_m)$ en un bloc $(y_1, \ldots, y_m)$ défini par la relation suivante:
+$$ (y_1, \ldots, y_m)=(x_1, \ldots, x_m).A,  $$
+où $A$ est une matrice carrée d'ordre $m$ à coefficients dans $\mathbb{Z}/26 \mathbb{Z}$, tous les calculs étant faits modulo $26$. Par exemple avec $m=2$ et $ A=\begin{pmatrix}
+\overline{5} & \overline{1} \\ 
+\overline{12} & \overline{3}
+\end{pmatrix}   $, le message $(\overline{10},\overline{21})$ est chiffré en $(\overline{10},\overline{21}).A=(\overline{10}\times \overline{5}+\overline{21}\times \overline{12},\overline{10}+\overline{21}\times \overline{3})=(\overline{16},\overline{21})$.\\
+Le déchiffrement d'un bloc se fait en multipliant le bloc chiffré par la matrice inverse de $A$. Une matrice carrée à coefficients dans $\mathbb{Z}/26 \mathbb{Z}$ est inversible si et seulement si son déterminant est inversible modulo $26$.
+\begin{itemize}
+\item[$1.$] Quelle est la formule donnant la matrice inverse lorsque $m=2$?
+\item[$2.$] Calculer la matrice inverse de celle donnée en exemple. 
+\item[$3$] On suppose que l'on sait que les couples $(\overline{2} \ \ \overline{9})$ et $(\overline{11}\ \ \overline{11})$ sont envoyés sur les couples $(\overline{7}\ \ \overline{3})$ et $(\overline{11}  \ \ \overline{23}) $. Déterminer  $A$.
+
+\end{itemize}
+\end{ex}
+
+\begin{rem}
+Un des défauts du fait  de chiffrer un message en le chiffrant lettres par lettres est que si l'on a accès à un message chiffré assez long, on peut regarder pour chaque lettre la fréquence à laquelle elle apparaît dans le message et la comparer avec la fréquence de cette lettre dans la langue du message. Le fait de chiffrer par blocs permet de pallier en partie ce problème.
+\end{rem}
+
+
+
+\begin{ex}\label{indicatrice_d_Euler}(voir Saux-Picart, \textit{cours de calcul formel})
+
+\begin{enumerate}
+
+\item Soit $p\in \mathbb{P}$ et $\alpha\in \N^*$. Déterminer $\varphi(p^\alpha)$, où $\varphi$ est l'indicatrice d'Euler. 
+
+\item En déduire que $p^\alpha=\sum_{d|p^\alpha} \varphi(d)$, où la somme est effectuée sur l'ensemble des diviseurs positifs.
+
+\item Soit $n\in \N^*$. Montrer que $n=\sum_{d|n}\varphi(d)$. (on pourra faire une récurrence sur le nombre de nombres premiers divisant $n$).
+
+
+\end{enumerate}
+\end{ex}
+
+
+
+\begin{ex}\label{nombre_racines_polynôme}
+
+Soit $K$ un corps. On rappelle que si  $(A,B)\in K[X]\times K[X]\setminus\{0\}$, alors il existe un unique couple $(Q,R)\in K[X]^2$ tel que $\deg(R)<\deg(B)$ et $A=BQ+R$.
+
+\begin{enumerate}
+
+\item Soit $P\in K[X]$ et $\alpha\in K$. On écrit $P=B(X-\alpha)+R$, avec $R\in K$. Exprimer $R$ en fonction de $P(\alpha)$. En déduire que si $P(\alpha)=0$, alors $(X-\alpha)$ divise $P$.
+
+\item Soit $P$ un polynôme non nul et  $n$ son degré. Montrer que $P$ a au plus $n$ racines.
+
+\item Soit $P=2X\in \Z/4\Z[X]$. Combien $P$ a-t-il de racines ?
+
+
+\end{enumerate}
+\end{ex}
+
+
+
+\begin{ex}\label{cyclicité_groupe_multiplicatif_corps_fini}(Cyclicité des sous-groupes finis du groupe multiplicatif d'un corps, voir Perrin, \textit{cours d'algèbre}, théorème 2.7 page 74)
+
+Soient $K$ un corps (commutatif) et $G$ un sous-groupe  de $(K,.)$. On suppose que $G$ est fini et on note $n$ son ordre. L'objectif est de montrer que $G$ est isomorphe à $\Z/n\Z$. Ce résultat s'applique en particulier à $K=\Z/p\Z$, où $p$ est un nombre premier.
+
+\begin{enumerate}
+
+\item Soit $x\in G$. Montrer que son ordre $d$ divise $n$.
+
+\item Montrer que $\langle x\rangle=\{y\in K\mid y^d=1\}$ (on pourra utiliser l'exercice~\ref{nombre_racines_polynôme}).
+
+\item Montrer que l'ensemble des éléments dont l'ordre divise $d$ est inclus dans $\langle x\rangle$.
+
+\item Soit $d\in\N$. Montrer que $\Z/d\Z$ a exactement $\varphi(d)$ éléments d'ordre $d$.
+
+\item Si $d$ est un diviseur de $n$, on note $N_d$ le nombre d'éléments de $G$ d'ordre $d$. Montrer que $N_d$ est soit nul, soit égal à $\varphi(d)$.
+
+\item Montrer que $n=\sum_{d|n} N_d$. 
+
+\item En déduire que $N_d=\varphi(d)$ pour tout $d| n$ (on pourra utiliser l'exercice~\ref{indicatrice_d_Euler}), puis que $G$ est isomorphe à $\Z/n\Z$.
+
+\end{enumerate}
+
+\end{ex}
+
+
+
+\begin{comment}
+Exercice~\ref{exemple_RSA}
+
+1. On a $\varphi=(5-1).(7-1)=24$. On constate que $5.5\equiv 1[24]$ donc $d=5$. On a $m\equiv c^d[35]\equiv 10^5[35]$. On a $10^2\equiv 30[35]\equiv -5[35]$, donc $10^4\equiv 25[35]$ donc $10^5\equiv 250 [35]\equiv 5[35]$, donc $m=5$.
+
+2. $265=5.53$, donc $\varphi=4.52=208$. Grâce à l'algorithme d'Euclide étendu on obtient  $3.139-2.208=1$, donc $d=3$. On a donc $c^d=10^3\equiv -60 [265]\equiv 205[265]$, donc $m=205$.
+
+3. $\varphi=22.28=616$. Par l'algorithme d'Euclide, on obtient $5.493-4.616=1$. On a donc $d=5$. On a $10^3\equiv 333[667]$, $10^2\equiv 100[667]$ donc $10^5\equiv 33\ 300[667]$. On a $5.667=3\ 335$ donc $50.667=33\ 350$ donc $10^5\equiv -50[667]\equiv 617 [667]$, donc $m=617$.
+
+
+
+Exercice~\ref{exemple_cryptosysteme}
+
+1. On a $e^{b'}=d^{a'b'}=c^{a'bb'}=m^{aa'bb'}=(m^{aa'})^{bb'}$. On a $bb'\equiv 1[p-1]$. Par le petit théorème de Fermat, on a donc $x^{bb'}=x$ pour tout $x\in  \Z/p\Z$. On a donc $e^{b'}=m^{aa'}=m$.
+
+
+2.a. On a admis dans le cours que $(\Z/31\Z)^\times $ est cyclique, donc $((\Z/31\Z)^\times,.)\simeq(\Z/30\Z,+)$. Par le théorème de Lagrange, l'ordre de tout élément de $\Z/30\Z$ divise $30$. Soit $d$ un diviseur de $30$. Alors $\overline{30/d}$ est d'ordre $d$ dans $\Z/30\Z$. En effet, soit $k\in \Z$. Alors $k.\overline{30/d}=\overline{0}$ si et seulement si $30$ divise $k\frac{30}{d}$ si et seulement si $\frac{30}{30/d}$ divise $k$ (car $30/d$ est un diviseur de $30$). Or $30/(30/d)=d$, donc $\overline{30/d}$ est d'ordre $d$. Les ordres multiplicatifs possibles sont donc les diviseurs de $30$ : $\{1,2,3,5,6,10,15,30\}$.
+
+On a $2^5=32\equiv 1[31]$, donc l'ordre de $\overline{2}$ dans $(\Z/31\Z)^\times$ est un diviseur de $5$. Comme $5$ est premier, on en déduit que $\overline{2}$ est d'ordre $5$ dans $(\Z/31\Z)^\times$. On a $\overline{4}^5=(\overline{2}^2)^5=(\overline{2}^5)^2=\overline{1}$. Comme $5$ est premier, on en déduit que l'ordre de $\overline{4}$ dans $(\Z/31\Z)^\times$ est $5$. 
+
+b. On a $|\mathcal{A}|=\varphi(30)=\varphi(2)\varphi(3)\varphi(5)=1.2.4=8$. On a $\mathcal{A}=\{\pm\overline{1},\pm\overline{7},\pm\overline{11},\pm\overline{13}\}$. On a $\overline{7}.\overline{13}=\overline{91}=\overline{1}$ et $\overline{11.11}=\overline{121}=\overline{1}$ donc $\overline{\pm 7}^{-1}=\overline{\pm 13}$ et $\overline{\pm 11}^{-1}=\overline{\pm 11}$.
+
+c. $4^b\equiv 4[31]$ si et seulement si $(4\mathrm{\ mod\ }31)^b=(4\mathrm{\ mod\ }31)$ si et seulement si $(4\mathrm{\ mod\ }31)^{b-1}=1\mathrm{\ mod\ }31$. Comme $4\mathrm{\ mod\ 31}$ est d'ordre $5$, on en déduit que $4^b\equiv 4[31]$ si et seulement si $5$ divise $b-1$ si et seulement si $b\equiv 1[5]$.
+
+d. On fait l'hypothèse qu'un pirate peut intercepter tous les messages. Si on choisit $b=1$, alors Bob renvoie systèmatiquement le même message qu'Alice. Pour le pirate, il est donc facile de détecter si $b=1$, et il faut donc choisir $b\neq 1$.
+
+
+On a $m^a\equiv 4[31]$ et $d=c^{b}\equiv 4^{b}[4] \equiv 4[31]$. On en déduit que $b\equiv 1[5]$. Comme $\overline{b}\in (\Z/30\Z)^\times$ on en déduit que $b\equiv 11[30]$ (par la question b.).  Par conséquent, $b'\equiv 11[30]$. Par la question 1., $m=e^{b'}$. On a donc $m\equiv 8^{11}[31]\equiv 2^{33}[31]\equiv 2^3[31]\equiv 8[31]$ donc $m=8$.
+
+
+
+Exercice 3
+
+1. On a $2(p-1)(q-1)+1\equiv 2.1+1[3]\equiv 0[3]$ donc $2(p-1)(q-1)+1$ est divisible par $3$.
+
+2. On a $3e-2k=1$, donc $e\wedge k=1$ et $\overline{3e}=\overline{1}$, donc $\overline{e}^{-1}=\overline{3}$.
+
+3.a. $(2.16.10+1)/3=321/3=107$ donc $107$ correspond à $e$ pour $p=17$ et $q=11$ donc $d=3$.
+
+3.b On a $c^d=m^{de}\equiv m[n]$. De plus, $c^d=9^3=729=4.187-19$, donc $m=187-19=168$.
+
+Exercice~\ref{RSA_Bruno_Catherine}
+
+
+
+1. Pour pouvoir déchiffrer les messages codés, Bruno et Catherine ont besoin de connaître la factorisation de $n$, c'est à dire qu'il savent écrire $n=pq$ avec $p,q\in \mathbb{P¨}$. Connaissant la factorisation de $n$, ils connaissent $\varphi=(p-1)(q-1)$. Pour déchiffrer les messages de Bruno, il suffit de connaître $d_B\in \llbracket 1,\varphi\rrbracket$ tel que $d_Be_b\equiv 1 [\varphi]$. Il suffit donc d'appliquer l'algorithme d'Euclide étendu à $e_B$ et $\varphi$. Comme Catherine a accès à $e_B$ et $\varphi$ elle a accès «~rapidement~» à $d_B$ et elle peut donc déchiffrer les messages de Bruno. De même pour Bruno. On pourra utiliser que $(58\mathrm{\ mod\ }221)^3=190\mathrm{\ mod\ }221$,  $57.190-49.221=1$ et que $121.57\equiv 46[221]$.
+
+
+2. On se place dans $\Z/n\Z$. L'attaquant a accès à $\overline{m}^{e_B}$ et à $\overline{m}^{e_C}$. Comme $e_B\wedge e_C=1$, il existe $u,v\in \Z$ tels que $ue_B+ve_C=1$. Alors $\overline{m}^{ue_B+ve_C}=(\overline{m}^{e_B})^u.(\overline{m}^{e_C})^v=\overline{m}$.
+
+3. On a $\overline{m}^{11}=\overline{210}$ et $\overline{m}^7=\overline{58}$ donc $\overline{m}^{21}=\overline{58}^3=\overline{190}$. On en déduit que $\overline{m}=\overline{m}^{22}\overline{m}^{-21}$. De plus, $\overline{57.190}=\overline{1}$ donc $\overline{m}^{-21}=\overline{57}$ et $\overline{m}^{22}=(\overline{m}^{11})^2=\overline{-11}^2=\overline{121}$. On a donc $\overline{m}=\overline{121.57}=\overline{46}$, donc $m=46$.
+
+
+
+Exercice~\ref{attaque_exposant_petit}
+
+1. Les $n_i$ s'écrivent $n_i=p_iq_i$ avec $p_i,q_i\in \mathbb{P}$. Pour que les $n_i$ soient deux à deux premiers entre eux, il suffit que  tous les $p_i$ et les $q_i$ soient distincts. Comme les $p_i$ et les $q_i$ doivent être «~grands~» (en pratique il doivent avoir 1024 bits donc être de l'ordre de $2^{1024}>10^{300}$), il est raisonnable de penser qu'ils sont tous distincts.
+
+2. Soit $\phi:\Z/P\Z\rightarrow \Z/n_1\Z\times\ldots \times \Z/n_k\Z$ l'isomorphisme chinois. Comme l'attaquant connaît $\phi\big((m\mathrm{\ mod\ }P)^3\big)$, il peut déterminer $(m\mathrm{\ mod\ }P)^3=m^3\mathrm{\ mod\ }P$. Si $P> m^3$, l'attaquant connaît alors $m^3$. Il peut alors calculer $m$ en calculant $(m^3)^{1/3}$.
+
+En pratique, les $n_i$ sont de l'ordre de $2^{2048}$ et $P$ est de l'ordre de $(2^{2048})^k$. De plus, on doit avoir $m<n_i$ pour tout $i$ donc $m^3\leq \min(n_i)^3\sim (2^{2048})^{3}$, ce qui arrive donc souvent si $k\geq 3$.
+
+
+Exercice~\ref{Chiffrement_Hill}
+
+1. Si $A=\begin{pmatrix}
+a &b\\ c& d
+\end{pmatrix}\in \mathcal{M}_2(\Z/26\Z)$ est inversible, alors la formule : $A^{-1}=\mathrm{det}(A)^{-1} {^{t\!}}\mathrm{Com}(A)$ s'écrit $A^{-1}=\mathrm{det}(A)^{-1}\begin{pmatrix}
+d & -b\\ -c & a
+\end{pmatrix}$.
+
+
+2. $\overline{3}.\overline{9}=\overline{1}$ donc $\overline{3}^{-1}=\overline{9}$. On a donc $A^{-1}=\overline{9}\begin{pmatrix}
+ \overline{3} & \overline{-12}\\ \overline{-1} & \overline{5}
+\end{pmatrix}=\begin{pmatrix}
+\overline{1} &  \overline{22}\\
+\overline{17} & \overline{19}
+\end{pmatrix}$.
+
+3. On a $\begin{pmatrix}
+\overline{2} & \overline{9}\\ \overline{11} & \overline{11}
+\end{pmatrix} A=\begin{pmatrix}
+\overline{7} & \overline{3}\\ \overline{11} & \overline{23}
+\end{pmatrix}$. De plus, $\begin{pmatrix}
+\overline{2} & \overline{9}\\ \overline{11} & \overline{11}
+\end{pmatrix}$ est inversible, car sont déterminant est $\overline{1}$ qui est inversible. Son inverse est $\begin{pmatrix}
+\overline{11} & \overline{-9}\\ \overline{-11} & \overline{2}
+\end{pmatrix}$. On a donc $A=\begin{pmatrix}
+\overline{11} & \overline{-9}\\
+\overline{-11} & \overline{2}
+\end{pmatrix}
+\begin{pmatrix}
+\overline{7} & \overline{3}\\ \overline{11} & \overline{23}
+\end{pmatrix}=\begin{pmatrix}
+\overline{4} & \overline{8}\\ \overline{23} & \overline{13}
+\end{pmatrix}$.
+
+Exercice~\ref{Occurence}
+
+\begin{tabular}{ll}
+\textbf{Algorithme} & Occurence($n,c$)\\
+$L \leftarrow $Ecr\_Dec$(n)$\\
+$x\leftarrow 0$\\
+$\ell\leftarrow \mathrm{len}(L)$\\
+pour $i$ de $0$ à $\ell$ :\\
+& \ \ \ {\rm | }si $L[i]=c$ : \\
+& \ \ \ \ \ \  {\rm | }$x\leftarrow x+1$\\        		
+Renvoyer $x$.
+\end{tabular}
+
+
+Exercice~\ref{Hanoi}
+
+Soit $n\in \N^*$. Supposons que l'on sache déplacer une tour à $n$ disques  d'un bâton à un autre. On considère une tour à $n+1$ disques placés sur $A$. On envoie d'abord les $n$ premiers disques sur $C$. On envoie le plus gros disque sur $B$ puis on déplace les $n$ disques de $C$ sur $B$. On a donc déplacé les $n+1$ disques de $A$ à $B$.
+
+\end{comment}
+\end{document}

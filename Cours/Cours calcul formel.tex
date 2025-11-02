@@ -1,0 +1,2410 @@
+  \documentclass[12pt]{report}
+\usepackage{a4wide}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{ulem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true,breaklinks=true,linkcolor=black]{hyperref} %pour faire des liens hypertextes
+\usepackage{comment}
+\bibliographystyle{alpha}%pour que les références soient une partie du nom+l'année
+\long\def\rge#1{{\color{red}#1}}
+\long\def\bl#1{{\color{blue}#1}}
+\long\def\vrt#1{{\color{ForestGreen}#1}}
+\newtheorem*{att}{Attention !!!}
+\newtheorem*{de}{Définition}
+\newtheorem*{qst}{Question}
+\newtheorem*{rep}{Réponse}
+\newtheorem*{reps}{Réponses}
+\newtheorem{thm}{Théorème}[chapter]
+\newtheorem{theoreme}[thm]{Théorème}
+\newtheorem{algo}{Algorithme}
+\newtheorem*{rap}{Rappels}
+\newtheorem{sch}[thm]{Schéma}
+\newtheorem*{ex}{Exemple}
+\newtheorem*{exo}{Exercice}
+\newtheorem*{exs}{Exemples}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rems}{Remarques}
+\newtheorem{remarque}[thm]{Remarque}
+\newtheorem{remarques}[thm]{Remarques}
+\newtheorem*{but}{But}
+\newtheorem{Def}[thm]{Définition}
+\newtheorem{definition}[thm]{Définition}
+\newtheorem{Def/prop}[thm]{Définition/Proposition}
+\newtheorem{Lem}[thm]{Lemme}
+\newtheorem{lemme}[thm]{Lemme}
+\newtheorem{exemple}[thm]{Exemple}
+\newtheorem{Prop}[thm]{Proposition}
+\newtheorem{proposition}[thm]{Proposition}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{prin}{Principe}
+\newtheorem*{nota}{Notation}
+\newtheorem*{notas}{Notations}
+
+
+\newtheorem{Cor}[thm]{Corollaire}
+\newtheorem{corollaire}[thm]{Corollaire}
+\usepackage{comment}
+
+\newcommand{\blue}[1]{{\color{blue}#1}}
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\green}[1]{{\color{green}#1}}
+\newcommand{\yellow}[1]{{\color{yellow}#1}}
+\newcommand{\magenta}[1]{{\color{magenta}#1}}
+
+
+
+\title{\Huge{Calcul formel}}
+\setcounter{secnumdepth}{3}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\PCC}{\mathscr{P}}
+\newcommand{\cont}{\mathrm{cont}}
+\newcommand{\cd}{\mathrm{cd}}
+
+\hypersetup{
+pdfauthor={Hebert, Auguste},
+pdftitle={Cours calcul formel},
+%pdfsubject={Description (article, mémoire de M2, thèse de doctorat, etc.)},
+%pdfkeywords={mots-clefs}
+}
+
+
+\begin{document}
+
+
+\maketitle
+
+\tableofcontents
+
+
+
+\chapter{Introduction aux algorithmes}
+
+
+\section{Introduction}
+
+
+D'après Wikipedia, « le calcul formel, ou parfois calcul symbolique, est le domaine des mathématiques et de l’informatique qui s’intéresse aux algorithmes opérant sur des objets de nature mathématique par le biais de représentations finies et exactes. Ainsi, un nombre entier est représenté de manière finie et exacte par la suite des chiffres de son écriture en base 2.
+
+ Étant données les représentations de deux nombres entiers, le calcul formel se pose par exemple la question de calculer celle de leur produit.  Le calcul formel est en général considéré comme un domaine distinct du calcul scientifique, cette dernière appellation faisant référence au calcul numérique approché à l'aide de nombres en virgule flottante, là où le calcul formel met l'accent sur les calculs exacts sur des expressions pouvant contenir des variables ou des nombres en précision arbitraire. »
+ 
+ Dans ce cours, nous étudierons principalement les anneaux $\Z$ et  $\Z/n\Z$, pour $n\in \N^*$. Nous nous intéresserons à différentes notions arithmétiques, comme le PGCD, les nombres premiers, le théorème des restes chinois ... et nous verrons quelques applications en cryptographie. Nous étudierons ces notions d'un point de vue algorithmique, c'est à dire que pour la plupart des quantités que nous introduirons,  nous verrons des algorithmes «~efficaces~» qui permettent de les déterminer en pratique.  
+
+ \begin{Def}
+ Un algorithme est une suite finie et non ambiguë d’opérations ou d'instructions permettant de résoudre une classe de problèmes. 
+ \end{Def}
+ 
+   
+   
+   
+   
+
+\textbf{Exemples :} Algorithmes vus à l'école primaire : addition de deux nombres entiers, multiplication de deux nombres entiers en la posant, division euclidienne, algorithme d'Euclide ...
+
+Le terme \textit{algorithme} provient du nom du mathématicien persan Al-Khwârismî, né dans les années 780 et mort vers 850. Cependant, les algorithmes sont antérieurs à ce mathématicien, puisque, par exemple, on a retrouvé une tablette d'argile datant  d'entre 2000 et 1650 avant J.-C indiquant que les babyloniens avaient des méthodes algorithmiques pour calculer l'inverse de certains nombres (voir \cite{chabert1994histoire}).
+
+
+\medskip
+
+
+
+
+Dans ce chapitre, nous voyons quelques bases de programmation. Les exemples que nous donnerons seront rédigés en \textit{pseudo-langage}, c'est à  dire en langage « presque naturel », sans faire référence à  un langage de programmation particulier. Lorsque nous implémenterons des algorithmes sur un ordinateur en revanche, nous utiliserons principalement \textit{Sage}, qui est basé sur le langage \textit{Python}.  
+
+
+
+
+
+
+\section{Les types de données}
+\subsection{Variables et valeurs}
+Pour mener à  bien des calculs, il est nécessaire de manipuler 
+des quantités données. Par exemple, pour calculer $P(2)$ avec
+$P(x) = x^2 - 1$, on remplace la valeur $2$ partout où apparaît la
+variable $x$. Le vocabulaire de l'algorithmique garde les mêmes mots.
+
+\begin{description}
+\item[Une valeur] est une quantité connue au moment du calcul. Le calcul
+concret va faire intervenir des valeurs. Par exemple, nous
+verrons souvent apparaître~:
+\begin{itemize}
+\item des valeurs entières~: 0, 72, -3, 25643, \ldots
+\item des valeurs flottantes (qui représentent des nombres réels)~:
+3.14159, 2.5, -21.876543, \ldots
+\item des valeurs booléennes~: vrai ou faux
+\item des chaînes de caractères, par exemple : 'bonjour'
+\end{itemize}
+
+\item[Une variable] est un nom, qui va servir à  décrire des calculs. En effet,
+en mathématiques on utilise la notation $P(x)=x^2-1$, et si on calcule l'image 
+de $x$ par la fonction $x\mapsto P(x)$, alors on devra porter $x$ au carré
+et soustraire $1$. Ceci reste vrai pour n'importe quelle 
+valeur\footnote{Notons que ceci est vrai car le domaine de définition 
+de $x\mapsto P(x)$ est $\R$ tout entier.} $x=1$, 
+$x=\pi$ ou $x=-2.5$. En algorithmique, on utilisera aussi ce concept, 
+et les variables serviront à  {\em stocker} des valeurs. 
+
+Ceci  permettra
+d'organiser le calcul par étapes, en stockant les résultats intermédiaires.
+On pourra imaginer qu'une variable est le nom d'un tiroir dans lequel 
+on range une valeur, et dont on peut lire la valeur qui y est rangée. 
+\end{description}
+
+
+
+
+Bien que $\Z$ soit inclus dans $\R$, il est souvent important de voir les entiers comme des entiers en Python et non comme des réels (cela se fait automatiquement en général). Cela permet par exemple de faire certaines opérations sur ces nombres, qui ne sont pas autorisées pour les réels (par exemple réduire un nombre modulo $2$). Cela permet aussi de faire des calculs exacts et d’éviter les problèmes d'arrondis propres aux flottants. Par exemple pour Sage, par défaut, $1$ est un entier, $10^{-15}$ est un nombre rationnel et $10^{-15}+0.0$ est un réel ou flottant. Les calculs utilisant des nombres entiers ou rationnels sont exacts, mais ceux utilisant des nombres réels sont des approximations. Par exemple si on calcule $a=1+0.0+10^{-15}$ en Sage, on obtient $a=1.0$. Et si on calcule $a-1$, Sage affiche  $1.11022302462516e-15$. En fait, dés que l'on rentre un nombre avec une virgule, Sage l’interprète comme un flottant, alors qu'un quotient de deux entiers est un rationnel.
+
+
+
+
+\subsection{Les listes}
+
+\begin{de}
+Une \textbf{liste} est une suite ordonnée d'expressions.
+\end{de}
+
+\begin{ex}
+$[4,5,7]$, $[5,[2,7]]$,...
+\end{ex}
+
+La liste $[$ $]$ est appelée la \textbf{liste vide}.
+
+\begin{de}
+La \textbf{longueur} d'une liste est le nombre d'éléments de la liste.
+\end{de}
+
+\begin{exs}\
+\begin{itemize}
+\item[•] La longueur de $[a_1,\ldots, a_n]$ vaut $n$.
+\item[•] La longueur de la liste vide $[\ ]$ vaut 0.
+\item[•] La longueur de $[3,1,[2,7],[3,5,6],[[2],5]]$ vaut 5.
+\end{itemize}
+\end{exs}
+
+ 
+
+
+Généralement, les indices sont des entiers allant de 0 à  la longueur de la liste à  laquelle on retire 1.\par
+On accède à  une case du tableau en précisant son indice entre crochets.
+
+\begin{ex}
+Pour $L=[0,5,7,3,12]$, , $L[0]=0$ et $L[4]=12$.  
+\end{ex}
+
+
+\begin{att}
+Bien vérifier, lorsqu'on accède à  une case de la liste, que celle-ci existe bien.  Par exemple, $L[5]$ renverra « erreur ».
+\end{att}
+
+
+
+
+
+
+\section{Les actions fondamentales}
+Un algorithme est une suite d'actions. On souhaite en faire une 
+description précise et sans ambiguïté. Dans ce but, nous convenons dans 
+cette partie d'un {\em pseudo-langage} en même temps que nous dressons 
+la liste des actions fondamentales. 
+
+\subsection{L'affectation}
+Plus haut, nous avons parlé de valeurs et de variables. L'affectation
+consiste à  stocker une valeur dans une variable, et on la note
+\begin{displaymath}
+  variable \leftarrow valeur.
+\end{displaymath}
+Par exemple~:
+\begin{eqnarray*}
+  xEntier &\leftarrow& 3 \\
+  xFlottant &\leftarrow& 3.14159 \\
+  xBooleen &\leftarrow& vrai \\
+\end{eqnarray*}
+
+\paragraph{Utilisation de la valeur stockée dans une variable}
+Une fois qu'une variable a reçu une valeur, on peut utiliser la variable pour
+rappeler la valeur. Par exemple, si $x$ contient la valeur 3, 
+alors on peut former l'expression~:
+\begin{displaymath}
+ x + 3 
+\end{displaymath}
+qui est une valeur, et qui vaut 6. 
+
+\paragraph{Modification de la valeur stockée}
+Il est important de comprendre que seule la variable à  gauche de la
+flèche est modifiée. Ainsi, l'affectation~:
+\begin{displaymath}
+ x \leftarrow pam + 3
+\end{displaymath}
+ne change que le contenu de la variable $x$, et pas celui de la 
+variable $pam$. En effet, à  droite de la flèche, on n'utilise 
+$pam$ que pour sa valeur. 
+On peut aussi écrire~: 
+\begin{eqnarray*}
+  x &\leftarrow& 3 \\
+ x &\leftarrow& x + 4
+\end{eqnarray*}
+A la fin de ces deux instructions, la variable $x$ contient la valeur 7. 
+
+\paragraph{Ordre des instructions}
+Dans nos algorithmes, on pourra en général suivre les valeurs prises par 
+les variables. Il faut toutefois garder à  l'esprit que 
+l'ordre dans lequel on effectue les instructions est important. 
+
+Par exemple, à  la fin des instructions~:
+\begin{eqnarray*}
+  i &\leftarrow & 12 \\
+  i &\leftarrow & 34
+\end{eqnarray*}
+la variable $i$ contient la valeur 34. 
+
+A la fin des instructions~:
+\begin{eqnarray*}
+  i &\leftarrow & 34 \\
+  i &\leftarrow & 12
+\end{eqnarray*}
+la variable $i$ contient la valeur 12.
+Examinons un autre exemple. A la fin des instructions~:
+ \begin{eqnarray*}
+  i &\leftarrow & 34 \\
+  j &\leftarrow & i +2  \\
+  i &\leftarrow & i +1 
+\end{eqnarray*}
+la variable $i$ contient la valeur 35 et la variable $j$ contient 
+la valeur 36. 
+En revanche, à  la fin des instructions~:
+ \begin{eqnarray*}
+  i &\leftarrow & 34 \\
+  i &\leftarrow & i +1 \\
+  j &\leftarrow & i +2  
+\end{eqnarray*}
+la variable $i$ contient la valeur 35 et la variable $j$ contient 
+la valeur 37. 
+
+
+
+\subsection{Les structures de sélection}
+
+Ces structures servent lorsqu'on est confronté à  des situations pour lesquelles une ou plusieurs instructions ne peuvent être exécutées que dans certaines conditions.
+
+
+
+L'instruction conditionnelle sert lorsqu'un bloc d'instructions ne peut être exécuté que si une condition est vraie.\\
+
+\begin{tabular}{ll}
+\textbf{Schéma.} & Condition(paramètres)\\
+& si condition \\
+& \ \ \  {\rm |} faire...
+\end{tabular}
+
+
+\ \\
+
+
+
+\textbf{Exemple :} Algorithme de calcul (exact) des racines réelles d'un polynôme de degré 2 à  coefficient dans $\R$. L'algorithme suivant prend en entrée trois réels (ou rationnels, ou entiers, ...) $a,b,c$, avec $a\neq 0$ et  renvoie la liste des solutions de l'équation $a x^2 +b x +c=0$ d'inconnue $x\in \R$.
+
+\medskip
+
+\begin{tabular}{ll}
+
+\textbf{Algorithme} & Racines($a,b,c$)\\
+ & Delta $\ \leftarrow$ $b^2-4ac$\\
+ & si Delta<0\\
+  & \ \ \ {\rm |} renvoyer $[\ ]$\\
+  & si Delta=0\\
+  & \ \ \ {\rm |} renvoyer $[-\frac{b}{2a}]$\\
+  & si Delta>0\\
+  & \ \ \ {\rm |} renvoyer $[-\frac{b}{2a}+\sqrt{\frac{\mathrm{Delta}}{2a}},-\frac{b}{2a}-\sqrt{\frac{\mathrm{Delta}}{2a}}]$.
+\end{tabular}
+
+Lorsqu'il y a un choix exclusif entre deux blocs d'instructions à  exécuter, on peut également utiliser « sinon » (else)\\
+
+
+\begin{tabular}{ll}
+\textbf{Schéma.} & Alternatif(paramètres)\\
+& si condition \\
+& \ \ \  {\rm |} faire... \\
+& sinon \\
+& \ \ \  {\rm |} faire... 
+\end{tabular}
+\ \\
+L'exemple suivant précise l'algorithme Pair.
+\ \\
+
+\begin{tabular}{ll}
+\textbf{Exemple.} &  Pair($a$)\\
+ & si $a$ mod $2=0$\\
+& \ \ \ {\rm |} renvoyer vrai \\
+ & sinon\\
+& \ \ \ {\rm |} renvoyer faux
+\end{tabular}
+
+
+Lorsqu'il y a un choix exclusif entre plusieurs blocs d'instructions, on peut aussi utiliser « sinon si » (elif dans Python).
+
+\begin{tabular}{ll}
+\textbf{Schéma.} & Multiple(paramètres)\\
+& si condition 1 \\
+& \ \ \  {\rm |} faire... \\
+& sinon si condition 2 \\
+& \ \ \  {\rm |} faire...\\
+& sinon si condition 3 \\
+& \ \ \  {\rm |} faire... \\
+& ...
+\end{tabular}
+
+
+
+
+\subsection{Boucles itératives}
+
+\subsubsection{Boucle « pour » (\textit{for})}
+
+Sert lorsqu'on doit répéter un nombre de fois déterminé la même tâche.\\
+
+\begin{tabular}{ll}
+\textbf{Schéma.} & For(paramètres)\\
+& pour $i$ de (valeur de départ) à  (valeur d'arrivée)   \\
+& \ \ \  {\rm |} faire... 
+\end{tabular}
+
+\  \\
+
+La variable $i$ est appelée \textbf{compteur}.\par
+A chaque passage dans la boucle, la valeur du compteur est automatiquement augmentée de $1$.\\
+
+Insistons sur le fait que nous nous {\bf interdisons} de modifier la 
+valeur de $i$ par une affectation\footnote{D'ailleurs, cette interdiction
+est mise en place dans les langages de programmation qui se soucient 
+de la rigueur des programmes.}. Si  nous permettions de modifier $i$ à  
+l'intérieur de la boucle, il deviendrait très difficile de prédire 
+le comportement de l'algorithme. 
+
+En revanche, dans les instructions, il est possible de faire intervenir la {\em valeur} de 
+$i$. Lors du premier passage dans la boucle, $i$ aura la valeur 1, puis
+au deuxième passage, elle aura la valeur 2, et ainsi de suite jusqu'à  $n$. 
+
+Enfin, notons que~:
+\begin{itemize}
+\item le nom du compteur de boucle importe peu, c'est-à -dire qu'il n'est
+pas obligatoire de l'appeler $i$;
+\item le compteur de boucle peut prendre des valeurs qui sont dans 
+des ensembles variés, entiers ou non, du moment qu'ils sont finis. 
+\end{itemize}
+
+\medskip
+
+\begin{tabular}{ll}
+\textbf{Exemple.} & Somme($n$)\\
+& $s \leftarrow 0$  \\
+& pour $i$ de $1$ à  $n$ \\
+& \ \ \  {\rm |} $s  \leftarrow  s+i$ \\
+& renvoyer $s$ 
+\end{tabular}
+
+
+
+
+
+\subsubsection{Boucle « tant que » (\textit{while})}
+
+Sert à  exécuter une commande tant qu'une condition est vraie.
+
+\begin{att}\
+\begin{itemize}
+\item[•] Avant la boucle, prévoir une condition initiale.
+\item[•] Éviter les boucles infinies, et pour cela, vérifier que la boucle s'arrête à  un moment de l'itération.
+\end{itemize}
+\end{att}
+
+\begin{tabular}{ll}
+\textbf{Schéma.} & While(paramètres)\\
+& condition initiale \\
+& tant que condition vraie \\
+& \ \ \  {\rm |} faire... 
+\end{tabular}
+
+
+
+
+\begin{tabular}{ll}
+\textbf{Exemple.} & Somme2($n$)\\
+& $s \leftarrow 0$  \\
+& $i\leftarrow 0$\\
+& tant que  $i\leq  n$ \\
+& \ \ \  {\rm |} $s  \leftarrow  s+i$ \\
+& \ \ \  {\rm |} $i  \leftarrow  i+1$ \\
+& renvoyer $s$ 
+\end{tabular}
+
+\begin{tabular}{ll}
+\textbf{Exemple.} & Division\_euclidienne($n,b$)\\
+& $r \leftarrow n $  \\
+&   $q \leftarrow 0 $ \\
+& tant que $r\geq b$ \\
+& \ \ \  {\rm |} $r \leftarrow r-b$ \\
+& \ \ \ {\rm |}   $q \leftarrow q+1 $ \\
+& renvoyer $(q,r)$
+\end{tabular}
+
+\begin{tabular}{ll}
+\textbf{Exemple à  éviter.} & $n \leftarrow 0$ \\
+& tant que $n$ mod $2=0$   \\
+& \ \ \  {\rm |} $n \leftarrow n+2$\\
+& renvoyer $n$.
+\end{tabular}
+
+
+
+
+\section{Récursivité}
+
+\subsection{Définitions}
+
+\begin{de}
+On appelle récursive toute fonction ou procédure qui s'appelle elle-même.
+\end{de}
+
+\begin{att}
+Comme dans le cas d'une boucle, il faut un cas d'arrêt où l'on ne fait pas d'appel récursif.
+\end{att}
+
+\begin{tabular}{ll}
+\textbf{Schéma.} & Récursive(paramètres)\\
+& si cas particulier \\
+& \  \ \  {\rm |} faire... \\
+& sinon \\
+&  \ \  \  {\rm |} ...  \\
+& \ \ \ {\rm |} Récursive(paramètres modifiés) \\
+& \ \ \ {\rm |}   ... 
+\end{tabular}
+\ \\
+
+La fonction suivante décrit $n!$.
+\ \\
+
+\begin{tabular}{ll}
+\textbf{Exemple.} & Factorielle($n$)\\
+& si $n=0$ \\
+& \  \ \  {\rm |} renvoyer $1$ \\
+& sinon \\
+&  \ \  \  {\rm |} renvoyer $n \times$ Factorielle($n-1$)  
+\end{tabular}
+
+\medskip
+
+
+
+
+\paragraph{Récursif ou itératif ?} Un algorithme est dit \textbf{itératif} s'il n'est pas récursif.  Lorsque l'on a un programme récursif, on peut souvent le réécrire en un programme itératif. Par exemple pour calculer $n!$, on peut aussi utiliser l'algorithme suivant.
+
+\medskip 
+\begin{tabular}{ll}
+\textbf{Algorithme } & FactIt($n$)\\
+& $a=1$ \\
+& $k\leftarrow 1$\\
+& tant que $k\leq n$ :\\
+& \ \ \ {\rm |} $a\leftarrow ak$\\
+& \ \ \ {\rm |} $k\leftarrow k+1$\\
+& Renvoyer $a$.
+\end{tabular}
+
+
+ L'un des avantages des algorithmes récursifs est qu'ils sont parfois plus faciles à  programmer, par exemple lorsque l'on utilise des récurrences. En revanche, ils utilisent souvent plus de mémoire que les algorithmes itératifs, ce qui peut amener à  dépasser les capacités de l'ordinateur. Par exemple pour calculer $12!$ en récursif, l'ordinateur va  devoir stocker $11!$, $10!$, ... jusqu'à  $1$. Alors qu'en itératif, il n'a besoin que de stocker $a$ et $k$. Par exemple sous Python, le programme  échoue à  calculer $(10\ 000)!$ en récursif, alors qu'il calcule sans problème $(100\ 000)!$ en  itératif.
+
+
+\chapter{Arithmétique dans $\mathbb{Z}$}
+
+\section{Quelques références}
+
+\begin{itemize}
+\item Combes, \textit{Algèbre et géométrie}, \cite{combes1998algebre},
+
+\item Cormen, Leiserson, Rivest Stein, \textit{Introduction à  l'algorithmique}, \cite{cormen2009introduction}
+
+\item Demazure, \textit{Cours D’Algèbre}, \cite{demazure2008cours},
+
+\item  Menezes, Katz, Van Oorschot, Vanstone, \textit{Handbook of applied cryptographiy}, \cite{menezes1996handbook},
+
+\item Saux Picart, \textit{Cours de calcul formel : Algorithmes fondamentaux}, \cite{picart1999cours}.
+\end{itemize}
+
+
+
+
+
+
+
+
+ 
+
+\section{Rappels sur l'anneau $\mathbb{Z}$}
+
+
+\begin{rap}
+Soit $(A,+,.)$ un anneau commutatif. 
+\begin{itemize}
+\item[•] $A$ est dit intègre si on a : \[\forall x,y\in A,\ xy=0 \Leftrightarrow x=0\text{ ou }y=0.\]
+\item[•] Soit $I \subset A$. $I$ est appelé un idéal de $A$ si:
+\begin{itemize}
+\item[$*$]$(I,+)$ est un sous-groupe de $A$.
+\item[$*$] $\forall (a,x) \in A \times I$, $ax \in I$.
+\end{itemize} 
+\vrt{\item[•] Un idéal $I$ de $A$ est dit premier si on a :  pour tous $x,y \in A$ tels que $xy \in I$, alors $x \in I$ ou $y \in I$.}
+\end{itemize}
+\end{rap}
+
+\begin{Def}\label{defAnneau_euclidien}
+Soit $A$ un anneau intègre. On dit que $A$ est \textbf{euclidien} si $A$ est muni d'une application $v: A \rightarrow \mathbb{N}\cup \{ -\infty \}$ telle que pour tous $(a,b)\in A\times (A\setminus \{ 0 \})$, il existe $(q,r)\in A^2$ vérifiant $a=bq+r$ avec $v(r)<v(b)$. 
+\end{Def}
+
+\begin{rem}
+La raison d'être de $-\infty$ est de donner une valeur à  $v(0)$.
+\end{rem}
+
+\begin{thm}[Division euclidienne dans $\mathbb{Z}$]
+L'anneau $\mathbb{Z}$ est euclidien, avec $v=| \, . \, |$. De plus, il y a existence et unicité du couple $(q,r)$ tel que $r \in \mathbb{N}$.
+\end{thm}
+
+\begin{rem}
+Le théorème précédent implique que: $\forall (a,b) \in \mathbb{Z}\times \mathbb{Z}^*$, $\exists ! (q,r):$ $a=bq+r$ et $0 \leq r < |b|$.\par 
+Le nombre $q$ est appelé le quotient de la division euclidienne de $a$ par $b$, et $r$ le reste, noté $a$ mod $b$.
+\end{rem}
+
+\begin{proof}
+Le fait que $\mathbb{Z}$ est intègre est déjà  connu. Quitte à  remplacer $b$ par $-b$ et  $q$ par $-q$, on peut supposer que $b>0$. 
+
+\begin{itemize}
+
+\item[$\bullet$] \textbf{existence de $(q,r)$} Soit $X=\{a-bq\mid q\in \Z\}\cap \N$. Alors $X$ est non-vide (car par exemple si $q=-ba^2$, $a-bq=a^2b^2-a\in X$). Soit $r$ le minimum de $X$. Alors $r\geq 0$ et $r<|b|$ (car sinon, $r-|b|\in X$ et $r-|b|<r$).  Par définition, il existe $q\in \Z$ tel que $a=bq+r$.
+
+\item[$\bullet$] \textbf{unicité de $(q,r)$}: Supposons qu'on a $a=bq+r=bq'+r'$ tel que $0 \leq r < |b|$, $0 \leq r' < |b|$. \par 
+On a alors $b(q-q')=r'-r$; or $-|b|<r'-r<|b|$, d'où $-|b|<b(q-q')<|b|$. \par 
+On obtient $0 \leq |b| |q-q'|<|b|$, i.e. $0 \leq |q-q'|<1$. \par 
+On obtient donc $q=q'$, et donc $r=r'$.
+
+\end{itemize}
+
+\end{proof}
+
+
+
+\begin{rems}\
+\begin{itemize}
+
+
+\item[•] si $b>0$, alors $q=\lfloor {a}/{b} \rfloor$ et $r=a-bq$.
+\item[•] si $b<0$, alors $q=\lfloor {a}/{b} \rfloor +1 $ et $r=a-bq$.
+\end{itemize}
+\end{rems}
+
+
+La plupart des résultats qui suivent restent vrai dans n'importe quel anneau euclidien, par exemple $K[X]$, où $K$ est un corps (en prenant $v$ le degré du polynôme).
+
+
+
+\begin{thm}\label{thmZ_principal}\
+\begin{itemize}
+\item[$1)$](démonstration à connaître) Les idéaux de $\mathbb{Z}$ sont les parties de la forme $n \mathbb{Z}$ où $n \in \mathbb{N}$.
+\item[$2)$] pour tous $m,n\in \Z$, $n \mathbb{Z} \subset m \mathbb{Z} \Leftrightarrow  m \, \mid \, n$.
+\item[$3)$] pour tous $m,n\in \N$, $n \mathbb{Z} = m \mathbb{Z} \Leftrightarrow  m = n$.
+\end{itemize}
+\end{thm}
+
+\begin{proof}\ 
+\begin{itemize}
+\item[$1)$] \begin{itemize}
+\item[•] \underline{$n\mathbb{Z}$ est un idéal de $\mathbb{Z}$}: exercice.\par
+\vrt{$(n \mathbb{Z},+)$ est un sous-groupe de $(\mathbb{Z},+)$ car $0 \in n\mathbb{Z}$ et pour $a,b \in n\mathbb{Z}$, il existe $a',b'\in \mathbb{Z}$ tels que $a=na'$, $b=nb'$; d'où $a-b=n(b-b')\in n\mathbb{Z}$ De plus, pour $x \in \mathbb{Z}$, $ax=na'x \in n \mathbb{Z}$, ce qui prouve que $n \mathbb{Z}$ est un idéal de $\mathbb{Z}$. 
+ }
+ \item[•] \underline{les idéaux de $\mathbb{Z}$ sont les $n \mathbb{Z}$}.\par 
+ Soit $I \neq \emptyset$ un idéal non nul de $\mathbb{Z}$ et $x\in I\setminus\{0\}$. Si $x<0$, alors $-x\in I\cap \N^*$ donc $I\cap \N^*$ est non vide. Soit $n=\min (I\cap \N^*)$. \par 
+ Par définition, comme $n \in I$, alors $n \mathbb{Z}\subset I$.\par 
+ Soient $a \in I$ et $r=a \mod n$. Alors $a=nq+r$ et $0 \leq r <n$. Donc $r=\underset{\in I}{\underbrace{a}}-\underset{\in n\mathbb{Z}\subset I}{\underbrace{nq}}\in I$, d'où $r \in I\cap \N$. \par 
+Comme $r<n$, on en déduit que $r=0$ et donc que $a=nq$. D'où $I = n \mathbb{Z}$.
+\end{itemize}
+\item[$2)$]$ "\Rightarrow"$ $n \mathbb{Z}\subset m \mathbb{Z}$, donc $n \in m \mathbb{Z}$, i.e. $\exists k \in \mathbb{Z}$: $n=mk$, d'où $m \mid n$.\par 
+$"\Leftarrow"$ Soit $a \in n \mathbb{Z}$. Alors $\exists k \in \mathbb{Z}$: $a=nk$. De plus, $m \mid n$ par hypothèse donc $\exists k' \in \mathbb{Z}$: $n=mk'$. D'où $a=m(k k') \in m \mathbb{Z}$ et donc $a \in m \mathbb{Z}$.
+\item[$3)$] Découle du $2)$.
+\end{itemize}
+\end{proof}
+
+\begin{rems}\
+\begin{itemize}
+\item[•] $a \in n \mathbb{Z} \Longleftrightarrow n \mid a $.
+\item[•] Le $1)$ implique que $\mathbb{Z}$ est un anneau principal (i.e. que tout idéal est engendré par un seul élément). 
+
+\item[•] La relation $|$ est transitive, i.e si $a,b,c\in \Z$ sont tels quel $a\mid b$ et $b\mid c$, alors $a\mid c$.
+\end{itemize}
+\end{rems}
+
+
+
+\section{PGCD}
+
+\subsection{Définition et caractérisation}
+
+\begin{Def/prop}\label{def_prop_PGCD}
+Soient $a,b \in \mathbb{Z}$.  Il existe un unique entier positif $d$ tel que : \begin{enumerate}
+\item $d$ divise $a$ et $b$,
+
+\item tout diviseur commun à  $a$ et $b$ divise $d$.
+\end{enumerate} On appelle  $d$ le plus grand commun diviseur (noté $a\wedge b$) de $a$ et $b$. De plus, $d$ est caractérisé par l'égalité  \[\Z a +\Z b=\Z d.\] En particulier, il existe $(u,v)\in  \Z\times \Z$ tel que $d=au+bv$ (il s'agit de l'identité de Bézout).
+\end{Def/prop}
+
+\begin{proof}(à  connaître)
+\begin{itemize}
+\item[$\bullet$]\textbf{Existence :} L'ensemble $a \mathbb{Z}+b \mathbb{Z}$ est un idéal de $\mathbb{Z}$ (exercice).\par 
+Comme $\Z$ est principal (théorème~\ref{thmZ_principal}), on en déduit l'existence de $d\in \Z$ tel que $d\Z=a\Z+b\Z$. Par définition, il existe $u,v\in \Z$ tels que $d=au+bv$. Quitte à  remplacer $d$ par $-d$, on peut supposer que $d\in \N$. Comme $\Z a\subset \Z a+\Z b=d\Z$, $d$ divise $a$ et par symétrie, $d$ divise $b$. L'entier $d$ est donc un diviseur commun à  $a$ et à  $b$. Soit maintenant $c$ un diviseur commun à  $a$ et à  $b$. On a $\Z a\subset \Z c$ et $\Z b\subset \Z c$ et donc $\Z a +\Z b=\Z d\subset \Z c$, et donc $c$ divise $d$.
+
+\item[$\bullet$]\textbf{Unicité :} Soit $d'\in \N$ vérifiant (1) et (2). Alors $d'$ divise $d$ et $d$ divise $d'$, donc $d=d'$.
+\end{itemize}
+
+\end{proof}
+
+\begin{rem}\begin{enumerate}
+\item Tout élément de $\Z$ divise $0$. En effet, pour tout $a\in \Z$, $0.a=0$. 
+
+\item (pour aller plus loin) L'existence du PGCD (ainsi que la plupart des résultats de ce chapitre) sont vrais dans n'importe quel anneau euclidien (par exemple $\R[X]$ ou $\Z[i]$). Par contre, un tel anneau $A$ n'est en général pas muni d'un ordre. En fait dans la définition précédente, « grand » peut se définir « au sens de la division » : si $a,b\in A$, on dit que $a$ est plus grand que $b$ pour $\mid$, si $b$ divise $a$. Alors la proposition précédente se généralise comme suit (exercice) : 
+
+Pour tous $a,b\in A$, l'ensemble des diviseurs communs à  $a$ et $b$ admet un plus grand élément $d$. On a $Aa+Ab=A d$. Tout « plus grand diviseur commun à  $a$ et $b $ » est de la forme $x d$, où $x$ est un élément inversible de $A$.
+\end{enumerate}
+
+\end{rem}
+
+
+
+
+\subsection{Entiers premiers entre eux}
+
+\begin{Def}
+Soient $a,b \in \mathbb{Z}$. On dit que $a$ et $b$ sont \textbf{premiers entre eux} si $a\wedge b=1$.
+\end{Def}
+
+\begin{thm}[Théorème de Bézout] Soient $a,b \in \mathbb{Z}$. Alors
+$$  a\wedge b =1 \Longleftrightarrow \exists u,v \in \mathbb{Z}: au+bv=1.    $$
+\end{thm}
+
+\begin{proof}
+C'est une conséquence de la définition/proposition~\ref{def_prop_PGCD}.
+\end{proof}
+
+
+
+\begin{Lem}\label{lem_Gauss}(lemme de Gauss) Soient $a,b,c \in \mathbb{Z}^*$. Alors
+\begin{itemize}
+\item[$1)$] Si $a\mid bc$ et $a \wedge b=1$, alors $a \mid c$.
+\item[$2)$] Si $a \wedge b=1$, alors :\[a \mid c \text{ et }b \mid c  \Rightarrow ab \mid c.\] 
+\end{itemize}
+\end{Lem}
+
+\begin{proof}
+Exercice.
+\end{proof}
+
+
+
+\section{Algorithme d'Euclide}
+
+\subsection{Forme simple}
+
+
+
+
+
+
+\begin{Lem}\label{lemAlgo_Euclide}
+Soient $a,b \in \mathbb{Z}$. Alors
+\begin{enumerate}
+
+\item  $a\wedge 0=|a|$.
+\item $a\wedge b=|a|\wedge|b|$.
+\item pour tout $q\in \Z$, $a \wedge b=b\wedge (a-bq)$. En particulier, $a\wedge b=b\wedge( a\mathrm{\ mod\ }b)$.
+\end{enumerate}
+\end{Lem}
+
+\begin{proof}
+Les équations proviennent respectivement des égalités $a\Z+0\Z=|a|\Z$,  $a \mathbb{Z}=|a| \mathbb{Z}$,  et $a\mathbb{Z}+b\mathbb{Z}=(a-bq)\mathbb{Z}+b\mathbb{Z}=r\mathbb{Z}+b\mathbb{Z}$.
+\end{proof}
+
+\begin{thm}\label{thmAlgorithme_d_euclide}
+L'algorithme suivant permet de calculer le PGCD de 2 entiers $a>0$ et $b \geq 0$.\\
+
+\begin{tabular}{ll}
+\textbf{Algorithme 3.} & Euclide($a,b$)\\
+ & si $b=0$     \\
+ & \ \ \ {\rm |} renvoyer $a$  \\
+ & sinon   \\ 
+ & \ \ \ {\rm |  } renvoyer Euclide($b$,$a$ mod $b$).
+\end{tabular}
+\end{thm}
+
+\begin{proof}
+Montrons que l'algorithme termine. On pose $a_0=a$ et $b_0=b$. Soit $i\in \N$ tel qu'on a défini $a_i$ et $b_i$. Si $b_i=0$, on pose $k=i$ et on s'arrête là . Sinon, on pose $a_{i+1}=b_i$ et $b_{i+1}=a_i\mathrm{\ mod\ }b_i$. On a alors, $b_{i+1}< b_i$. On en déduit que tant que $b_i$ est défini, on a $0\leq b_i<b_{i-1}<\ldots < b_0=b$. On a donc $i\leq b$ et donc l'algorithme termine (et le nombre $k+1$ d'étapes est inférieur ou égal à  $b+1$). 
+
+De plus, si $i\in \llbracket 1,k\rrbracket$, on a $a_i\wedge b_i=a_{i+1}\wedge b_{i+1}$ par le lemme~\ref{lemAlgo_Euclide}. On en déduit que $a\wedge b= a_0\wedge b_0=a_k\wedge b_k =a_k\wedge 0=a_k$.
+\end{proof}
+
+\vrt{Exemple du fonctionnement de l'algorithme avec Euclide(27,15).}
+
+\vrt{On montrera en TD que le nombre d'appels récursifs effectués par Euclide($a,b$) est $O(\ln b)$.}
+
+
+
+\subsection{Forme étendue de l'algorithme d'Euclide}
+
+\vrt{Nous savons que si $d=PGCD(a,b)$, alors $\exists u,v \in \mathbb{Z}:$ $d=au+bv\  \rge{(\ast)}$.  
+
+\begin{qst}
+Peut-on trouver $u$ et $v$ ?
+\end{qst}
+
+
+\begin{rep}
+Oui, grâce à  une forme étendue de l'algorithme d'Euclide
+\end{rep}
+}
+
+
+Soient $a,b\in \N$ et $d=a\wedge b$. Quitte à  échanger $a$ et $b$, on peut supposer que $b\leq a$. On veut trouver $u,v\in \Z$ tels que $au+bv=d$. Soient $r=a \mathrm{\ mod\ } b$ et $q\in \Z$ tels que $a=bq+r$. Supposons que l'on connaisse $u',v'\in \Z$ tels que $bu'+rv'=d$. On a alors \[d= bu'+rv'= bu'+(a-bq)v' = av'+ b(u'-qv') .\] On en déduit donc $u,v$ tels que $au+bv=d$. Comme dans le cas de l'algorithme d'Euclide, on en déduit que l'algorithme suivant, qui prend en  entrée deux entiers $a>0$ et $b\geq 0$ et renvoie un triplet d'entiers relatifs $(d,u,v)$ vérifiant $d=a\wedge b$ et $au+bv=d$ est valide.
+
+
+
+
+\begin{tabular}{ll}
+\textbf{Algorithme} & Euclide-étendu($a,b$)\\
+ & si $b=0$\\
+ & \ \ \ {\rm|} renvoyer $(a,1,0)$\\
+ & sinon \\
+ & \ \ \ {\rm |} $(d',u',v')\leftarrow \text{Euclide-\'etendu}(b,a \text{ mod }b )$ \\
+ & \ \ \ {\rm |} $(d,u,v) \leftarrow (d',v',u'-\lfloor \tfrac{a}{b} \rfloor v')$ \\
+ &\ \ \ {\rm|}  renvoyer $(d,u,v)$ 
+\end{tabular}
+
+\vrt{L'exemple suivant sert à  comprendre la procédure d'Euclide-étendu.}
+
+\begin{ex} Étudions Euclide-étendu(105,78).
+
+\begin{center}
+\begin{tabular}{c|c|c|c|c|l}
+$a$ & $b$ & $\lfloor \tfrac{a}{b}\rfloor$ & $d$ & $u$ & $v$ \\
+\hline
+$105 $& $78$ & $1$ & \rge{$3$} &  \rge{$3$} &  \rge{$-1-1\times 3=-4$} \\
+$78$ & $27$ & $2$ &  \rge{$3$} &  \rge{$-1$} &  \rge{$1-2\times(-1)=3$} \\
+$27$ & $24$ & $1$ &  \rge{$3$} &  \rge{$1$} &  \rge{$0-1 \times 1= -1$} \\
+$24$ & $3$ & $8$ &  \rge{$3$} &  \rge{$0$} &  \rge{$1-8 \times 0= 1$} \\
+$3$ & $0$ &  &  \rge{$3$} &  \rge{$1$} &  \rge{$0$}
+\end{tabular}
+\end{center}
+Nous pouvons trouver $u$ et $v$ également de la façon suivante:\
+
+
+\begin{tabular}{lll}
+$105 = 78\times 1 +27$   &   donc  &    $3 = 27-24$       \\
+$78=27\times 2 +24$ &  &     \ \    $= 27-(78-27\times 2)=27\times 3-78   $    \\
+$27=24 \times 1 +3$  &  &     \ \    $ = (105-78)\times 3 -78= 105 \times 3 -78 \times 4$     \\
+$ 24=3 \times 8 +0$   &  &            
+\end{tabular}
+\end{ex}
+
+
+
+
+\vrt{Les lignes 2 et 3 de l'algorithme déterminent l'arrêt du processus: si $b=0$, alors $a=a\wedge b=a \times 1 + b \times 0 $, et $(a,1,0)$ est alors renvoyé.\par 
+Si $b \neq 0$, Euclide-étendu calcule d'abord $(d',u',v')$ tel que $d'=b\wedge (a \text{ mod }b)$ et ainsi, $d'=bu'+ (a \text{ mod }b) v'$. On a alors $d=a\wedge b =b \wedge (a \text{ mod }b)=d'$, et $d=d'=bu'+(a \text{ mod }b)v'=bu'+(a-\lfloor \tfrac{a}{b} \rfloor b )v' =av'+b (u'-\lfloor \tfrac{a}{b}\rfloor  v' ) $. Donc le choix $u=v'$ et $v=u'-\lfloor \tfrac{a}{b}\rfloor v' $ donne une solution à  l'équation $d=au+bv$. L'algorithme est donc valable.
+}
+
+\subsection{Équations diophantiennes linéaires}
+
+
+Nous avons ici une application directe de l'algorithme d'Euclide-étendu.
+
+\begin{Prop}
+Soient $a,b \in \mathbb{Z}\setminus\{0\}$ et $c \in \mathbb{Z}$. Considérons l'équation
+\begin{equation}\label{E}
+ax+by=c.
+\end{equation}
+Alors \eqref{E} admet des solutions si et seulement si $d:=a\wedge b$ divise $c$.\par 
+Dans ce cas, si $(u,v) \in \mathbb{Z}^2$ vérifie $au+bv=d$, alors $(x_0,y_0)=(uc/d,vc/d)$ est une solution de \eqref{E} et les solutions de \eqref{E} sont données par 
+\begin{equation*}
+  \begin{cases} \displaystyle
+x=x_0+\frac{kb}{d} \\
+\displaystyle y=y_0 - \frac{ka}{d} 
+\end{cases}  \quad(k \in \mathbb{Z}).
+\end{equation*}
+\end{Prop}
+
+\begin{proof}
+L'équation~(\ref{E}) admet une solution si et seulement si $c\in \Z a+\Z b=\Z d$,  si et seulement si $d$ divise $c$. \par 
+
+On suppose maintenant que $d$ divise $c$. Soient $u,v\in \Z$ tels que $au+bv=d$. Alors $au c/d+bv c/d=dc/d=c$, donc $(x_0,y_0)$ est bien solution de \eqref{E}.
+Avec les notations de la proposition, on a $ax_0+b y_0= (au+bv)\tfrac{c}{d}=c$, donc $(x_0,y_0)$ est solution de \eqref{E}.\par 
+Si $(x,y)$ est solution de \eqref{E}, alors $a(x-x_0)+b(y-y_0)=0$. Si on pose $a'=\frac{a}{d}$ et $b'=\frac{b}{d}$, alors $a'(x-x_0)+b'(y-y_0)=0$. Donc $b' \mid a'(x-x_0)$. Comme $a'u+b'v=1$, on a  $a'\wedge b'=1$ donc d'après le lemme de Gauss, $b' \mid (x-x_0)$. D'où l'existence de $k \in \mathbb{Z}$ tel que  $x-x_0=kb'$.\par 
+On a $ka'b'+b'(y-y_0)=0$, i.e. $y=y_0-ka'$. \par 
+Conclusion: si $(x,y)$ est solution de \eqref{E}, alors: \[\exists k \in \mathbb{Z}\mid (x,y)=(x_0+kb',y_0-ka').\] 
+
+ 
+Réciproquement, un tel couple est bien solution de \eqref{E}.
+\end{proof}
+
+L'algorithme suivant donne, en prenant en entrée 3 entiers $(a,b,c)\in (\mathbb{N}^*)^2 \times \mathbb{N}$, une solution particulière de l'équation $ax+by=c$.
+
+\begin{tabular}{ll}
+\textbf{Algorithme 5.} & Diophantienne($a,b,c$)\\
+& si $c$ mod Euclide($a,b$) $\neq 0 $ \\
+& \ \ \ {\rm |} renvoyer « Pas de solution »  \\
+& sinon \\
+& \ \ \ {\rm | }  $(d,u,v)  \leftarrow $Euclide-étendu($a,b$) \\
+& \ \ \ {\rm |} renvoyer $(uc/d,vc/d)$. 
+\end{tabular}
+
+
+
+\section{Nombres premiers et décomposition en produit de facteurs premiers}
+
+\begin{Def}
+Soit $p\in \Z\setminus \{1,-1\}$. On dit que $p$ est premier s'il a exactement quatre diviseurs. 
+\end{Def}
+
+Comme tout nombre entier $x$ admet $x,-x, 1$ et $-1$ comme diviseurs, un nombre $p$ est premier si et seulement si $p\notin \{1,-1\}$ et si ses seuls diviseurs sont $1,-1,p,-p$.
+
+Un nombre $p$ est premier si et seulement si $-p$ est premier. On s'intéressera donc principalement aux nombres premiers positifs. On note $\mathbb{P}$ l'ensemble des nombres premiers positifs.
+ 
+\begin{Lem}\label{lem_Euclide}
+Soient $a\in \Z$ et $p\in \mathbb{P}$. \begin{enumerate}
+\item Supposons que $p$ ne divise pas $a$. Alors $a\wedge p=1$.
+
+\item (lemme d'Euclide) Soit $b\in \Z$ tel que $p\mid ab$. Alors soit $p$ divise $a$, soit $p$ divise $b$.
+\end{enumerate} 
+
+\end{Lem}
+
+\begin{proof}
+(1) Tout diviseur commun à  $a$ et à  $p$ divise $p$ donc appartient à  $\{1,-1,p,-p\}$.  
+
+(2) est une conséquence de (1) et du lemme de Gauss (lemme~\ref{lem_Gauss}).
+\end{proof}
+
+\begin{Lem}\label{lemExistence_diviseur_premier}
+Soit $n\in \Z$ tel que $|n|\geq 2$. Soit $p$ son plus petit diviseur supérieur ou égal à  $2$. Alors $p$ est premier. En particulier, $n$ admet un diviseur premier.
+\end{Lem}
+
+\begin{proof}
+Soit $q$ un diviseur de $p$ différent de $1$ ou $-1$. Alors $|q|$ divise $p$ donc $|q|$ divise $n$ donc $|q|\geq p$ donc $|q|=p$, ce qui prouve le lemme.
+\end{proof}
+
+\begin{theoreme}(Euclide)
+Il existe une infinité de nombre premiers.
+\end{theoreme}
+
+\begin{proof}
+Soit $E$ un ensemble fini non vide de nombre premiers positifs et $a=(\prod_{p\in E} p)+1$. Soient $q$ un diviseur premier de $a$ (on sait qu'il en existe par le lemme~\ref{lemExistence_diviseur_premier}) et $p\in E$. On écrit $a=qa'$.  Alors $qa'-p\prod_{p'\in E\setminus \{p\}} p'=1$, donc $p$ et $q$ sont premiers entre eux. Ainsi, $q\notin E$ et donc $E\neq \mathbb{P}$.
+\end{proof}
+
+
+
+\begin{theoreme}\label{thmHadamard_lavallee_poussin}(Hadamard, La Vallée Poussin, 1896, admis)
+Pour $n\in \N$, on note $\pi(n)$ le nombre de nombres premiers compris entre $1$ et $n$. Alors $\pi(n)\underset{n\rightarrow +\infty}{\sim} n/\mathrm{ln}(n)$. 
+
+\end{theoreme}
+
+\begin{thm}\label{thmDécomposition_produit_facteurs_premiers}
+Soit $n\in \Z$ tel que $|n|\geq 2$. Alors il existe $\epsilon\in \{-1,1\}$, $k\in \N$, $p_1<\ldots <p_k\in \mathbb{P}$ des nombres premiers  et $\alpha_1,\ldots,\alpha_k\in\N_{\geq 1}$ tels que $n=\epsilon p_1^{\alpha_1}\ldots p_k^{\alpha_k}$. De plus, cette décomposition est unique et $\{p_1,\ldots,p_k\}$ est l'ensemble des diviseurs premiers de $n$.
+\end{thm}
+
+\begin{proof}
+Pour l'existence, on procède par récurrence sur $|n|$, en utilisant le fait que $n$ admet un diviseur premier $p$ et que $|\frac{n}{p}|<n$.
+
+Démontrons l'unicité. Pour cela, on procède également par récurrence : on suppose qu'on connaît l'unicité de la décomposition pour tout $n'\in \Z$ tel que $|n'|<|n|$. On suppose que $n=\epsilon p_1^{\alpha_1}\ldots p_k^{\alpha_k}=\epsilon' q_1^{\beta_1}\ldots q_\ell^{\beta_\ell}$, avec $\epsilon,\epsilon'\in \{-1,1\}$, $k,\ell\in \N$, $p_1<p_2<\ldots< p_k$, $q_1<q_2<\ldots<q_\ell$, $\alpha_1,\ldots,\alpha_k,\beta_1,\ldots,\beta_\ell\in \N^*$.   Quitte à  échanger les $p$ et les $q$, on peut supposer que $q_1\leq p_1$. Comme $\epsilon$ et $\epsilon'$ sont du signe de $n$, $\epsilon=\epsilon'$. Le nombre $q_1$ est premier et divise $p_1^{\alpha_1}\ldots p_k^{\alpha_k}$. Par le lemme d'Euclide (lemme~\ref{lem_Euclide}), $q_1$ divise $p_1^{\alpha_1}$ ou $q_1$ divise $p_2^{\alpha_2}\ldots p_k^{\alpha_k}$. En réitérant le même raisonnement, on en déduit l'existence de $i\in \llbracket 1,k\rrbracket$ tel que $q_1$ divise $p_i$. Comme $p_i$ est premier, $q_1=p_i$. On a alors $p_1\leq p_i=q_1\leq p_1$, donc $p_1=q_1$. On a alors $p_1^{\alpha_1-1}p_2^{\alpha_2}\ldots p_k^{\alpha_k}=q_1^{\beta_1-1}q_2^{\beta_2}\ldots q_\ell^{\beta_\ell}$. Par l'unicité de la décomposition pour $n/\epsilon p$, on en déduit que $\alpha_1-1=\beta_1-1$, $k=\ell$ et  $\beta_j=\alpha_j$ pour $j\in \llbracket 2,k\rrbracket$, ce qui démontre l'unicité de la décomposition pour $n$ et achève la preuve du théorème.
+\end{proof}
+
+\begin{Cor}
+Soit $n\in \N_{\geq 2}$ et $n=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$ sa décomposition en produit de facteurs premiers (avec les même notations qu'au théorème~\ref{thmDécomposition_produit_facteurs_premiers}). Alors l'ensemble des diviseurs de $n$ est \[\{\epsilon p_1^{\alpha_1'}\ldots p_k^{\alpha_k'}\mid\epsilon\in \{-1,1\}, \alpha_i'\in \llbracket 0,\alpha_k\rrbracket, \forall i\in \llbracket 1,k\rrbracket\}.\]
+\end{Cor}
+
+\begin{proof}
+Si $d=\epsilon p_1^{\alpha_1}\ldots p_k^{\alpha_k'}$, avec $\alpha_i'\in \llbracket 0,\alpha_i\rrbracket$, pour $i\in \llbracket 1,k\rrbracket$, alors $d.\epsilon p_1^{\alpha_1-\alpha_1'}\ldots p_k^{\alpha_k-\alpha_k'}=n$, donc $d$ divise bien $n$. Réciproquement, soit $d$ un diviseur de $n$. Soit $q$ un diviseur premier de $n$. Alors par le Théorème~\ref{thmDécomposition_produit_facteurs_premiers} (ou le  lemme d'Euclide (lemme~\ref{lem_Euclide})), $q\in \{p_1,\ldots,p_k\}$. On en déduit que $d$ s'écrit $\epsilon p_1^{\beta_1}\ldots p_k^{\beta_k}$, où $\epsilon\in \{-1,1\}$, $\beta_1,\ldots,\beta_k\in \N$. Soit $i\in  \llbracket 1,k\rrbracket$. Alors $p_i^{\beta_i}$ divise $n$. Supposons $\beta_i> \alpha_i$. Alors $p_i^{\beta_i-\alpha_i}$ divise $\prod_{j\neq i}p_j^{\alpha_j}$. C'est absurde par le lemme d'Euclide. Donc $\beta_i\leq \alpha_i$, d'où le résultat.
+\end{proof}
+
+\begin{Cor}\label{corExpression_PGCD}
+Soient $a,b\in \N_{\geq 2}$. On écrit $a=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$ et $b=p_1^{\beta_1}\ldots p_{k}^{\beta_k}$, avec $p_1<\ldots <p_k\in \mathbb{P}$ et $\alpha_1,\ldots,\alpha_k,\beta_1,\ldots,\beta_k\in \N$. Alors $a\wedge b=p_1^{\gamma_1}\ldots p_k^{\gamma_k}$, avec $\gamma_i=\min \{\alpha_i,\beta_i\}$, pour tout $i\in \llbracket 1,k\rrbracket$.
+\end{Cor}
+
+\begin{rem}
+\begin{itemize}
+\item[•] La preuve du théorème~\ref{thmDécomposition_produit_facteurs_premiers} fournit un algorithme de décomposition d'un nombre en produit de facteurs premiers. En revanche, il est assez «~long~» (on verra plus tard ce que cela signifie). La difficulté dans cet algorithme est la recherche d'un facteur premier divisant $n$. Lorsque $n$ est impair, la méthode la plus simple pour en trouver est de tester pour chaque nombre $d$ entre $3$ et $\sqrt{n}$ si $d$ divise $n$, en avançant de $2$ en $2$, et en s'arrêtant lorsque l'on a  trouvé un diviseur de $n$.  On ne connaît d'algorithme «~rapide~» permettant la recherche d'un diviseur premier de $n$. Cette difficulté est utilisée en cryptographie. 
+
+\item[•] (pour aller plus loin) Le théorème~\ref{thmDécomposition_produit_facteurs_premiers} reste vrai dans n'importe quel anneau anneau $A$ principal (sauf qu'en général on n'a plus d'ordre sur $A$ et qu'il n'y a pas forcément de manière canonique pour ordonner $p_1,\ldots, p_k$. Il y a donc unicité « à  l'ordre des facteurs prés »). Les anneaux vérifiant cette propriété sont appelés anneaux factoriels et jouent un rôle important en arithmétique. Pour montrer que $\Z$ est factoriel, on a utilisé de manière cruciale la valeur absolue, qui permet de montrer le lemme~\ref{lemExistence_diviseur_premier} et de raisonner par récurrence. Pour montrer que tout anneau principal est factoriel, on peut montrer en préliminaire que dans un tel anneau, toute suite croissante d'idéaux $(I_k)_{k\in \N}$ est stationnaire (exercice). Voir \cite[Chapitre 11]{combes1998algebre}, par exemple.
+
+\item[•] (pour aller plus loin) Soit $A$ un anneau intègre. Soit $a\in A$. On dit que $a$ est irréductible si $a$ n'est ni nul, ni inversible, ni produit de deux éléments non-inversibles. Dans $\Z$, on peut montrer (exercice) qu'un élément est inversible si et seulement si il est premier. Soit maintenant $A=\Z[i\sqrt{3}]=\{a+bi\sqrt{3}\mid (a,b)\in \Z^2\}$. On a alors $4=2\times 2=(1+i\sqrt{3})(1-i\sqrt{3})$. En considérant $N:\Z[i\sqrt{3}]\rightarrow \N$ définie par $N(z)=|z|^2$ (qui satisfait $N(zz')=N(z)N(z')$ pour $z,z'\in A$), pour $z\in A$, on peut montrer que $1+ i\sqrt{3}$, $1-i\sqrt{3}$ et $2$ sont irréductibles dans $A$ (exercice), mais que $1+i\sqrt{3}$ ne divise pas $2$. Ainsi, la décomposition de $4$ en produit d'irréductibles n'est pas unique, et $A$ n'est pas factoriel.
+\end{itemize}
+
+
+\end{rem}
+
+
+
+
+\chapter{Anneau $\mathbb{Z}/n \mathbb{Z}$}
+
+
+\section{Généralités}
+
+Soit $n \in \mathbb{N}^*$. On munit $\Z$ de la relation d'équivalence $x\sim y$ si et seulement si $y-x\in n\Z$, pour $x,y\in \Z$.  On note $\mathbb{Z}/n \mathbb{Z}$ l'ensemble quotient de $\Z$ par cette relation d'équivalence. Si $x\in \Z$, on note $\overline{x}$ sa classe (d'équivalence). On a alors $\overline{x}=x+n\Z$. De plus $\Z/n\Z=\{\overline{x}\mid x\in \Z\}=\{\overline{x}\mid x\in \llbracket 0,n-1\rrbracket\}$ et cet ensemble a $n$ éléments.
+
+
+\begin{Def/prop}(exercice, cf TD)
+Soient  $\overline{x},\overline{y}\in \Z/n\Z$. On pose $\overline{x}+\overline{y}=\overline{x+y}$ et $\overline{x}.\overline{y}=\overline{xy}$. Ces opérations sont bien définies : si $x',y'\in \Z$ sont tels que $\overline{x}=\overline{x'}$ et $\overline{y}=\overline{y'}$, alors $\overline{x+y}=\overline{x'+y'}$ et $\overline{x}.\overline{y}=\overline{x'}.\overline{y'}$. 
+
+Alors $(\Z/n\Z,+,.)$ est un anneau commutatif unitaire.
+\end{Def/prop}
+
+\begin{Prop}\label{propInversibles_Z_nZ}
+Soient $n\in \N^*$ et $x\in \Z$. Alors $\overline{x}$ est inversible dans $(\Z/n\Z,\times)$ si et seulement si $x\wedge n=1$. Si $x\wedge n=1$ et $u,v\in \Z$ sont tels que $xu+vn=1$, alors $\overline{x}^{-1}=\overline{u}$.
+\end{Prop}
+
+\begin{proof}
+On a: $\overline{x}\in (\Z/n\Z)^\times$ si et seulement si il existe $\overline{u}\in \Z/n\Z$ tel que $\overline{u}.\overline{x}=\overline{1}$ si et seulement si il existe $u,v\in \Z$ tels que $ux+vn=1$ si et seulement si $x\wedge n =1$. 
+\end{proof}
+
+
+
+
+\subsection{Sous-groupes de $(\Z/n\Z,+)$}
+
+Dans cette partie, on étudie les sous-groupes de $(\Z/n\Z,+)$. 
+
+\begin{lemme}\label{l_sous_groupes_monogenes}
+Soit $G$ un sous-groupe de $(\Z/n\Z,+)$. Alors $G$ est monogène, c'est à  dire qu'il existe $\overline{d}\in G$ tel que que $G=\langle \overline{d}\rangle =\Z \overline{d}$.
+\end{lemme}
+
+\begin{proof} (à connaître)
+Soit $I=\{a\in \Z\mid \overline{a}\in G\}$. Alors $0\in I$ et si $a,b\in I$, $\overline{a-b}=\overline{a}-\overline{b}\in G$, donc $a-b\in I$. Donc $(I,+)$ est un sous-groupe de $\Z$. De plus, si $k\in \Z$ et $a\in I$, $k\overline{a}=\overline{a}+\ldots +\overline{a}\in G$ (avec $k$ termes dans l'addition), donc $ka\in I$. Donc $I$ est un idéal de $\Z$, donc il existe $d\in \Z$ tel que $I=d\Z$ (car $\Z$ est principal, d'après le théorème~\ref{thmZ_principal}). On a alors $\Z\overline{d}\subset G$ par définition de $I$ et si $\overline{a}\in G$, $a\in \Z d$, donc $\overline{a}\in \Z\overline{d}$, et $G\subset \Z\overline{d}$. On a donc $G=\Z\overline{d}$. 
+\end{proof}
+
+
+
+
+\begin{lemme}\label{l_generateur_sous_groupe}
+Soit $\overline{a}\in \Z/n\Z$. Alors $\langle\overline{a}\rangle =\langle \overline{a\wedge n}\rangle$. 
+ \end{lemme}
+
+\begin{proof}
+Comme $\overline{a}=\frac{a}{a \wedge n} \overline{a\wedge n}$, on a $\langle \overline{a\wedge n}\rangle\supset \langle \overline{a}\rangle$. D'après le théorème de Bézout, il existe $u,v\in \Z$ tels que $a u+ nv =a\wedge n$. On a alors $\overline{au}=u\overline{a}=\overline{a\wedge n}$, donc $\langle \overline{a}\rangle \supset \langle \overline{a\wedge n}\rangle$, donc $\langle\overline{a}\rangle =\langle \overline{a\wedge n}\rangle$. 
+\end{proof}
+
+
+\begin{remarque}\label{corInversibles_de_ZnZ}
+Soit $a\in \Z$. Alors $\overline{a}$ engendre $\Z/n\Z$ (i.e $\langle \overline{a}\rangle =\Z/n\Z$) si et seulement si $a\wedge n=1$. On retrouve le fait que  $\overline{a}$ est inversible dans $\Z/n\Z$ si et seulement si $a\wedge n=1$. 
+\end{remarque}
+
+
+\begin{exemple}
+\begin{enumerate}
+\item Dans $\Z/15\Z$, $\langle \overline{6}\rangle =\{\overline{6},\overline{12},\overline{3},\overline{9},\overline{0}\}=\langle\overline{3}\rangle=\{\overline{0},\overline{3},\overline{6},\overline{9},\overline{12}\}$. 
+\item Dans $\mathbb{Z}/30\mathbb{Z}$, $\langle \overline{12} \rangle = \{ \overline{0},\overline{12},\overline{24},\overline{6},\overline{18} \}$ et $\langle \overline{7} \rangle = \mathbb{Z}/30 \mathbb{Z}$.
+\end{enumerate}
+
+\end{exemple}
+
+
+\begin{Prop}
+\begin{enumerate}
+\item Les sous-groupes de $(\Z/n\Z,+)$ sont les $\langle \overline{d}\rangle$, où $d$ est un diviseur de $n$.
+
+\item Si $d$ est un diviseur de $n$, alors $\langle \overline{d}\rangle =\{ k \overline{d}\mid k\in \llbracket 0,\frac{n}{d}-1\rrbracket\}$, et cet ensemble est de cardinal $\frac{n}{d}$. 
+\end{enumerate}
+\end{Prop}
+
+
+\begin{proof}
+1) est une conséquence des lemmes~\ref{l_generateur_sous_groupe} et \ref{l_sous_groupes_monogenes}. 
+
+2) Soit $d$ un diviseur de $n$. Alors $\langle \overline{d}\rangle=\{k\overline{d}\mid k\in \Z\}\supset \{k\overline{d}\mid k\in \llbracket 0,\frac{n}{d}-1\rrbracket\}$. Soit $\overline{a}\in \langle d \rangle$. Écrivons $\overline{a}=\overline{kd}$, où $k\in \Z$. On effectue la division euclidienne de $k$ par $\frac{n}{d}$: on a $k= q \frac{n}{d}+r$, où $q\in \Z$ et $r\in \llbracket 0,\frac{n}{d}-1\rrbracket$. Alors $\overline{kd}=\overline{qn+rd}=\overline{rd}$. On en déduit que $\langle \overline{d}\rangle =\{ k \overline{d}\mid k\in \llbracket 0,\frac{n}{d}-1\rrbracket\}$. De plus, si $k,k'\in \llbracket 0,\frac{n}{d}\llbracket$,  $kd,k'd \in \llbracket 0, \frac{n}{d}\llbracket$, donc $\overline{kd}=\overline{k'd}$ si et seulement si $k=k'$. 
+\end{proof}
+
+\begin{remarque}
+On a $\langle \overline{d}\rangle=\{ k\overline{d}\mid k\in \Z\}=\{k\overline{d}\mid k\in \llbracket -n,n\rrbracket\}=\ldots$ Il n'est donc pas clair a priori que le cardinal de l'ensemble de la proposition précédente est $\frac{n}{d}$. 
+\end{remarque}
+
+\begin{lemme}\label{l_diviseurs_zero}
+Soit $a\in \Z\setminus\{0\}$. Alors le sous-groupe $\{\overline{x}\in \Z/n\Z\mid \overline{ax}=\overline{0}\}$ est $\langle \overline{n/(a\wedge n)}\rangle$. On a aussi $\{\overline{x}\in \Z/n\Z\mid \overline{ax}=\overline{0}\}=\{\overline{x}\in \Z/n\Z\mid \overline{(a\wedge n)x}=\overline{0}\}$. 
+\end{lemme}
+
+\begin{proof}
+Soit $x\in \Z$. Alors $\overline{ax}=\overline{0}$ si et seulement si $n\mid ax$ si et seulement si $\frac{n}{a\wedge n}\mid \frac{a}{a\wedge n} x$. Comme $\frac{a}{a\wedge n}\wedge \frac{n}{a\wedge n}=1$, on peut appliquer le lemme de Gauss (lemme~\ref{lem_Gauss}): cette dernière condition est donc équivalente à  $\frac{n}{a\wedge n}\mid x$, d'où le résultat. 
+\end{proof}
+
+
+
+\subsection{Équations linéaires modulaires}
+
+Dans cette partie, on fixe $n\in \N^*$. Soient $a,b \in \mathbb{N}^*$. Le but ici est de résoudre l'équation :
+\begin{equation}\label{E1}
+ax \equiv b [n],
+\end{equation} d'inconnue $x\in \Z$. Soit $x\in \Z$. Alors $x$ est solution de \eqref{E1} si et seulement si $\overline{x}$ est solution de l'équation : \begin{equation}\label{E1_Z_nZ}
+\overline{a}.\overline{x}=\overline{b}.
+\end{equation} On va donc surtout étudier l'équation~\eqref{E1_Z_nZ}.
+
+
+
+\begin{rem}\begin{enumerate}
+\item \eqref{E1_Z_nZ} admet des solutions si et seulement si $\overline{b}  \in \langle \overline{a} \rangle$ où $\langle \overline{a} \rangle $ désigne le sous-groupe de $\mathbb{Z}/n\mathbb{Z}$ engendré par $\overline{a}$,
+
+\item Supposons que $\overline{a}$ est inversible. Alors $\overline{a}.\overline{a}^{-1}=\overline{1}$ et $\overline{a}.\overline{x}=\overline{b}$ si et seulement si $\overline{x}=\overline{b}.\overline{a}^{-1}$, si $\overline{x}\in \Z/n\Z$. Ainsi \eqref{E1_Z_nZ} admet une unique solution. On va s'intéresser au cas général, c'est à  dire le cas où $\overline{a}$ n'est pas nécessairement inversible.
+\end{enumerate}
+
+\end{rem}
+
+
+
+
+
+
+ 
+
+\begin{Prop}
+Soient $a,b,n \in \mathbb{N}^*$. On pose $d=a\wedge n$. \par 
+L'équation \eqref{E1_Z_nZ} a des solutions si et seulement si $d \mid b$. Dans ce cas, si on choisit $x'$ et $y'$ tels que $d=ax'+ny'$, alors \eqref{E1_Z_nZ} admet exactement $d$ solutions distinctes qui sont données par 
+$$ \overline{x_i}=\overline{x_0} +k\overline{n/d}, \quad (0 \leq k \leq d-1) \quad \text{où  } x_0=x'\frac{b}{d}.      $$
+\end{Prop}
+
+\begin{proof}\
+\begin{itemize}
+\item[•]\vrt{\eqref{E1} admet des solutions si et seulement si $d \mid b$.}
+\begin{eqnarray*}
+\exists x \in \mathbb{Z}:\ ax \equiv b [n] & \Longleftrightarrow & \exists x,y \in \mathbb{Z}: \ ax+ny=b \\
+  & \Longleftrightarrow & b \in a \mathbb{Z}+n \mathbb{Z}=d \mathbb{Z} \Longleftrightarrow d \mid b.
+\end{eqnarray*}
+\item[•] \vrt{$\overline{x_0}$ solution de \eqref{E1}.}\par 
+Si $d=ax'+ny'$, alors  :  \[a x_0=a\frac{b}{d} x'=\frac{b}{d}(ax')=\frac{b}{d}(d-ny')=b-n\frac{b}{d}y'\equiv b[n],\] donc $\overline{x_0}$ est solution de \eqref{E1_Z_nZ}.
+
+\item[•]\vrt{conclusion} Soit $\overline{x}\in \Z/n\Z$. Alors $\overline{x}$ est solution de \eqref{E1_Z_nZ} si et seulement si $\overline{a}.\overline{x}=\overline{b}=\overline{a}.\overline{x_0}$ si et seulement si il existe $k\in \llbracket 0,d-1\rrbracket$ tel que $\overline{x}-\overline{x_0}=k\overline{n/d}$,  d'après  le lemme~\ref{l_diviseurs_zero}.
+\end{itemize}
+\end{proof}
+
+\begin{ex}
+L'équation $15 x \equiv 6 [21]$ admet des solutions car $15\wedge 21=3 \mid 6$. \par 
+Après calcul, on a $3= 15 \times 3 - 21 \times 2$, donc les solutions de cette équation dans $\mathbb{Z}/21 \mathbb{Z}$ sont $x_0=\overline{3 \times \tfrac63}=\overline{6}$, $x_1=\overline{13}$ et $x_2=\overline{20}$. 
+\end{ex}
+
+
+
+\section{Le théorème des restes chinois}
+
+\begin{thm}[Restes chinois]\label{thmChinois}
+Soit $n\in \N$. On suppose que $n$ s'écrit $n=n_1 \ldots n_k$ où les $n_i$ sont deux à  deux premiers entre eux. Soit \begin{equation*}
+\begin{array}{cccc}
+\tilde{\phi} : &  \mathbb{Z}&   \longrightarrow & \mathbb{Z}/n_1 \mathbb{Z} \times \cdots   \times \mathbb{Z}/n_k \mathbb{Z}  \\
+            & a &  \longmapsto  & (a \mathrm{ \ mod\ } n_1,  \ldots , a \mathrm{\ mod\ } n_k) .
+\end{array}
+\end{equation*} Alors $\tilde{\phi}$ induit un isomorphisme d'anneaux :
+
+\begin{equation*}
+\begin{array}{cccc}
+\phi : &  \mathbb{Z}/n \mathbb{Z}  &   \longrightarrow & \mathbb{Z}/n_1 \mathbb{Z} \times \cdots   \times \mathbb{Z}/n_k \mathbb{Z}  \\
+            & a\mathrm{\ mod\ }n &  \longmapsto  &  \tilde{\phi}(a)=(a \mathrm{\ mod\ } n_1,  \ldots , a \mathrm{\ mod\ } n_k) 
+\end{array}
+\end{equation*}
+
+
+\end{thm}
+
+\begin{proof}\
+\begin{itemize}
+\item[•] \underline{$\phi$ est bien défini :}\par 
+\begin{comment}
+Soit $a'$ tel que $\alpha \equiv a [n]$. Écrivons $a'=a+\ell n$, pour un certain $\ell\in  \Z$. Soit $i\in \llbracket 1,k\rrbracket$. Alors $a'=a+(\ell\frac{n}{n_i})n_i$, donc $a'\equiv a [n_i]$, ce qui prouve que $\phi$ est bien défini. Comme $\tilde{\phi}$ est un morphisme d'anneaux, $\phi$ est un morphisme d'anneaux (exercice : le détailler).
+\end{comment}
+
+
+
+\item[•] \underline{$\phi$ injectif.} \par 
+Soit $a\in \Z$ tel que $\phi(a\mathrm{\ mod\ } n)=0$. Alors $n_i$ divise $a$ pour tous $i\in \llbracket 1,k\rrbracket$, donc par le lemme de Gauss (lemme~\ref{lem_Gauss}), $n=n_1\ldots n_k$ divise $a$. D'où $a\mathrm{\ mod\ }n=0$, ce qui prouve que $\phi$ est injectif.
+
+
+
+
+
+\item[•] \underline{$\phi$ surjectif.} \par 
+
+On a $|\Z/n\Z|=n=|\Z/n_1\Z\times \ldots \times \Z/n_k\Z|$ et $\phi$ est injectif donc $\phi$ est nécessairement surjectif, ce qui prouve que c'est un isomorphisme. On donne ici une méthode plus constructive pour déterminer $\phi^{-1}$.
+
+Pour $i\in \llbracket 1,k\rrbracket$, on pose $\hat{n}_i=n/n_i=\prod_{j\neq i} n_j$. Alors $n_i\wedge \hat{n}_i=1$, donc il existe $u_i,v_i\in \Z$ tels que $u_i\hat{n}_i+v_in_i=1$. Posons $c_i=u_i\hat{n}_i\mathrm{\ mod \ }n$. Alors $\phi(c_i)$ est le vecteur dont les coordonnées sont nulles sauf la $i$-ème qui vaut $1\mathrm{\ mod\ }n_i$.  Soit $x=(x_1 \mathrm{\ mod\ }n_1,\ldots,x_k \mathrm{\ mod\ }n_k)\in \Z/n_1\Z\times \ldots\times \Z/n_k \Z$. Alors $\phi(\sum_{i=1}^k x_i c_i)=x$, ce qui prouve que $\phi$ est surjectif. 
+ \end{itemize}
+\end{proof}
+
+\begin{remarque}
+Dans le théorème précédent il est fondamental que les $n_i$ soient deux à  deux premiers entre eux. Par exemple $\Z/4\Z$ n'est pas isomorphe à  $\Z/2\Z\times \Z/2\Z$. En effet, $1\mathrm{\ mod\ }4$ est d'ordre $4$ dans $\Z/4\Z$ alors que tous les éléments de $\Z/2\Z$ sont d'ordres $1$ ou $2$. 
+\end{remarque}
+
+
+\begin{ex}
+Soit $\phi:\Z/12\Z\rightarrow \Z/3\Z\times \Z/4\Z$ l'isomorphisme chinois. On a $\phi(\overline{0})=(\overline{0},\overline{0})$, $\phi(\overline{1})=(\overline{1},\overline{1})$, $\phi(\overline{2})=(\overline{2},\overline{2})$, $\phi(\overline{3})=(\overline{3},\overline{3})=(\overline{0},\overline{3})$, $\phi(\overline{4})=(\overline{4},\overline{4})=(\overline{1},\overline{0})$, $\phi(\overline{5})=(\overline{2},\overline{1})$, $\phi(\overline{6})=(\overline{0},\overline{2})$, $\phi(\overline{7})=(\overline{1},\overline{3})$, $\phi(\overline{8})=(\overline{2},\overline{0})$, $\phi(\overline{9})=(\overline{0},\overline{1})$, $\phi(\overline{10})=(\overline{2},\overline{1})$, $\phi(\overline{11})=(\overline{3},\overline{2})$. 
+\end{ex}
+
+\begin{Cor}
+Soit $n=n_1 \ldots n_k$ où les $n_i$ sont deux à  deux premiers entre eux. Alors pour tout $a_1, \ldots, a_k \in \mathbb{Z}$, le système d'équations 
+\begin{equation}\rge{\label{S}}
+\left \{ \begin{array}{ccc}
+x & \equiv & a_1 [n_1] \\
+  &      \vdots    &   \\
+x & \equiv & a_k [n_k]   
+\end{array}   \right.
+\end{equation}
+possède une unique solution modulo $n$.
+\end{Cor}
+
+\begin{proof}
+Soit $x\in \Z$. Alors $x$ est solution de  \eqref{S} si et seulement si $\phi(x\mathrm{\ mod\ }n)=(a_1,\ldots, a_k)$ . Alors en reprenant les notations du théorème~\ref{thmChinois}, $\phi(x)=(a_1\mathrm{\ mod \ }n_1, \ldots, a_k\mathrm{\ mod\ }n_k)$. Comme $\phi$ est bijective, alors $x$ existe bien et il est unique modulo $n$ en tant qu'antécédent de $(a_1\mathrm{\ mod \ }n_1, \ldots, a_k\mathrm{\ mod\ }n_k)$ par $\phi$. 
+\end{proof}
+
+\begin{Cor}
+Soient $n, n_1, \ldots, n_k$ comme dans le théorème précédent. Alors pour $x,a\in \Z$, on a :
+$$ \big( x \equiv a [n_i],\  \forall i\in \llbracket 1,k\rrbracket    \big) \Longleftrightarrow x \equiv a [n]  .     $$
+\end{Cor}
+
+
+
+\subsection*{Systéme d'équations modulaires}
+
+\begin{ex}\label{e_resolution_systeme}
+On cherche à résoudre l'équation $(E) :\left\{\begin{aligned} &x\equiv 2[7]\\ &x\equiv 12[23]\end{aligned}\right.$, d'inconnue $x\in \Z$.   On a $70-69=7\times 10-3\times 23=1$, donc $7\wedge 23=1$ et il existe une unique solution modulo $161=7\times 23$. On a $\phi(-69[161])=(1[7],0[23])$ et $\phi(70[161])=(0[7],1[23])$, donc $c_1=-69[161]$ et $c_2=70[161]$. Avec les notations de la preuve du théorème~\ref{thmChinois}, on a donc $\phi(2c_1+12c_2)=(2[7],12[23])=\phi(702[161])$. De plus, $702[161]=58+4\times 161[161]$, donc l'ensemble des solutions de $(E)$ est donc $58+161\Z$.
+\end{ex}
+
+ 
+
+
+Pour le cas général, c'est-à -dire pour la résolution d'un système \eqref{S}, on peut  utiliser un algorithme récursif. On résout d'abord pour les deux premières équations: on obtient un nombre $\alpha$. On obtient
+\begin{equation*}
+\left \{ \begin{array}{ccc}
+x & \equiv & \alpha [n_1 n_2] \\
+x & \equiv & a_3 [n_3] \\
+  &      \vdots    &   \\
+x & \equiv & a_k [n_k]   
+\end{array}   \right.
+\end{equation*}
+et on continue récursivement pour obtenir un nombre dans $[0, n_1 \ldots n_k]$.\par 
+
+
+\section{Algorithme de Garner}
+
+Un inconvénient de l'algorithme d'inversion de l'isomorphisme du théorème des restes chinois (théorème~\ref{thmChinois}) est le fait que pour $y\in \Z/n_1\Z\times \ldots \Z/n_k\Z$ (avec les notations du théorème~\ref{thmChinois}) on obtient comme antécédent un élément $\overline{x}\in \Z/n_1\ldots n_k\Z$, avec $x\in \Z$ pouvant être beaucoup plus grand que $n_1\ldots n_k$ (voir par exemple l'exemple~\ref{e_resolution_systeme}). Il faut ensuite faire une division euclidienne par $n_1 \ldots n_k$ pour obtenir  un antécédent dans $\llbracket 0,n_1\ldots n_k-1\rrbracket$.
+
+Dans cette partie, on décrit l'algorithme de Garner, qui permet d'obtenir directement un antécédent dans $\llbracket 0,n_1\ldots n_k-1\rrbracket$.
+
+
+
+\subsection{Base mixte}
+
+\vrt{Nous allons voir ici un autre système de représentants d'entiers, qui se révélera plus adapté à  la résolution des systèmes d'équations modulaires.
+}
+
+\begin{thm}
+Soient $n_1,\ldots, n_k$ des entiers strictement positifs (non nécessairement distincts). On pose $n_0=1$. Alors la fonction 
+\begin{equation*}
+\begin{array}{cccl}
+  \psi:  &  \llbracket 0,n_1 \llbracket \times \ldots \times \llbracket 0,n_k \llbracket & \longrightarrow  &  \displaystyle  \Big \llbracket 0, \prod_{i=1}^k n_i \Big   \llbracket\\
+         & (a_1, \ldots , a_k) & \longmapsto & \displaystyle \sum_{ i =1}^{ k }a_i \prod_{j=0}^{ i-1}n_j =a_1+a_2n_1+a_3 n_1 n_2+\ldots
+\end{array}
+\end{equation*}
+est bien définie  et est bijective.
+\end{thm}
+
+\begin{proof}\
+\begin{itemize}
+\item[•] \underline{$\psi$ est bien définie.}\par 
+On raisonne par récurrence sur $k$.
+\begin{itemize}
+\item[$\star$] $a_1 \in \llbracket 0,n_1 \llbracket $
+\item[$\star$]soit  $k'\in \llbracket 1,k-1\rrbracket$ tel que  pour tous $(a_1,\ldots,a_{k'})\in \prod_{i=1}^{k'} \llbracket 0,n_i\llbracket $, on ait   $\sum_{1 \leq i \leq k }a_i \prod_{0 \leq j \leq i-1}n_j \in \llbracket 0, \prod_{1 \leq i \leq  k'}n_j \llbracket  $. Soit $a_{k'+1}\in \llbracket 0,n_{k'+1}\llbracket$. Alors 
+\begin{eqnarray*}   
+ \sum_{ i=1}^{ k'+1 }a_i \prod_{j=0}^{ i-1}n_j=  \sum_{ i=1}^{ k' }a_i \prod_{j=0}^{ i-1}n_j +a_{k'+1}\prod_{j=0}^{k'} n_j < \prod_{ j=1}^{ k'}n_j + a_{k'+1}    \prod_{ j=1}^{k'}n_j &=& (a_{k'+1}+1)  \prod_{ j=1}^{ k'}n_j \\
+           & \leq  & \prod_{ j=1}^{ k'+1} n_j .
+\end{eqnarray*} 
+
+On a donc bien $ \sum_{ i=1}^{ k'+1 }a_i \prod_{j=0}^{ i-1}n_j\in \llbracket 0,\prod_{j=0}^{k'+1} n_j\llbracket$ et par récurrence on en déduit que $\psi$ est bien définie. 
+ 
+\end{itemize}
+\item[•]\underline{$\psi$ est surjective.} \par 
+Soit $a \in \llbracket 0, \prod_{1 \leq i \leq k }n_i\llbracket$. On pose $q_0 =a$. Alors plusieurs divisions euclidiennes nous donnent :
+\begin{equation*}
+\left \{ \begin{array}{lcr}
+q_0=a&=& q_1 n_1 +a_1 \\
+q_1 &=& q_2 n_2 +a_2\\
+& \vdots &      \\
+q_{k-1} &=& q_k n_k +a_k,
+\end{array} \right.
+\end{equation*}
+ 
+ avec $q_i\in \N$ et $a_i\in \llbracket 0,n_i\llbracket$ pour tout $i\in \llbracket 1,k\rrbracket$. 
+
+Alors :
+ \begin{eqnarray*}
+a &=& a_1 +  n_1 (  a_2 + n_2 (\ldots +n_{k-1}(a_k+q_k n_k) \ldots ))\\ 
+  &=& \sum_{i=1}^k a_i \prod_{j=0}^{i-1} n_j + q_k \prod_{i=1}^k n_i.
+\end{eqnarray*}
+En particulier, comme $a \in \llbracket 0, \prod_{1 \leq i \leq k}n_i \llbracket$, on a  $q_k=0$. Ainsi, $\psi(a_1, \ldots, a_k)=a$.
+\item[$\star$] \underline{Conclusion}\par 
+Comme le cardinal de l'ensemble de départ de $\psi$ est égal à  celui de son ensemble d'arrivée, alors $\psi$ est bijective.
+\end{itemize}
+\end{proof}
+ 
+\begin{Def}
+L'écriture d'un entier $a$ vérifiant $0 \leq a < \prod_{1 \leq i \leq k}n_i$ sous la forme $a= a_1+ a_2 n_1+ a_3 n_1 n_2+ \ldots+  a_k n_1 \ldots n_{k-1}  $ s'appelle l'\textbf{écriture en base mixte} de $a$. 
+\end{Def}
+
+\begin{rems}\
+\begin{itemize}
+\item[•] Lorsque tous les $n_i$ sont égaux à  un certain $b\in \N_{\geq 2}$, on obtient le développement en base $b$ usuel.
+
+\item[•]
+Dans le cas où les $n_i$ sont deux à  deux premiers entre eux, on dispose de deux systèmes de numération des éléments $\llbracket 0, \prod_{1 \leq i \leq k}n_i \llbracket $: celle donnée par le théorème chinois et celle donnée par l'écriture en base mixte.
+\item[•] Ces deux représentations sont distinctes et ont des propriétés distinctes. En effet, par exemple, lorsque $k=3$, $n_1=2$, $n_2=5$, $n_3=7$, et qu'on choisit $a=51 (< 70)$, on a alors $\phi(a)=(1,1,2)$  tandis que $\psi^{-1}(a)=(1,0,5)$.
+\end{itemize}
+\end{rems}
+
+
+
+\subsection{L'algorithme}
+
+Commençons par donner le principe de l'algorithme de Garner. Pour cela, on part des données du système \eqref{S}. Soit $x\in \llbracket 0,n_1\ldots n_k\llbracket$ une solution de \eqref{S}. On va écrire $x$ dans la base mixte : on sait qu'il existe des entiers $0 \leq \nu_i < n_i $ pour tout $1 \leq i \leq k$ tels que $x$ s'écrive sous la forme
+$$   x= \sum_{ i=1}^{k-1} \nu_i \prod_{ j=1}^{ i-1}n_j , $$
+et on va déterminer les  $\nu_i$ les uns après les autres. \par 
+On a d'abord $\nu_1 \equiv a_1 [n_1]$.\par 
+Supposons à  présent qu'on connaisse les $\nu_i$ pour $1 \leq i \leq j-1$. Comme $x \equiv a_j [n_j]$, on a alors
+$$   a_j \equiv   \sum_{i=1}^{j} \nu_i \prod_{ \ell=0}^{i-1}n_{\ell}\   [n_j]  .   $$
+Or $\prod_{1 \leq i \leq  j-1 } n_i $ est premier avec $n_j$ et est donc inversible modulo $n_j$. On obtient alors
+$$     \nu_j\mathrm{\ mod\ }n_j=\Big( (\prod_{i=1}^{j-1}n_i) \mathrm{\ mod\ }n_j \Big)^{-1}  \Big( a_j-    \sum_{i=1}^{ j-1} \nu_i \prod_{\ell=0}^{i-1}n_{\ell} \Big)  \text{ mod } n_j.   $$
+
+Cette démarche nous permet d'écrire à  présent l'algorithme ci-dessous qui, prend en entrée deux listes $N=[n_1, \ldots , n_k]$, où les $n_i$ sont deux à  deux premiers entre eux et $A=[a_1,\ldots, a_k]$, et qui renvoie la liste  $[\nu_1, \ldots, \nu_k ]$ et le plus petit entier naturel $x$ qui soit solution du système \eqref{S}.\\
+
+\begin{tabular}{ll}
+\textbf{Algorithme 8.} & Garner($A,N$)\\
+           & $M \leftarrow  [A[0]]$ \\
+           & $(x,p)\leftarrow (0,1) $ \\
+           & $ k \leftarrow long(N) $    \\
+           & pour $i$ de 1 à  $k-1$ \\
+           & \ \ \ {\rm | } $ x \leftarrow x+M[i-1]*p $  \\
+           & \ \ \ {\rm | } $p \leftarrow p*N[i-1] $ \\
+           & \ \ \ {\rm | } $ m \leftarrow $ Inverse($p,N[i])*(A[i]-x) $ mod $N[i]$\\ 
+           & \ \ \ {\rm | } $M \leftarrow  [int(M),m ] $  \\
+           & $x \leftarrow x + M[k-1]*p$ \\    
+           &  renvoyer $(M,x)$ 
+\end{tabular}
+
+%def Garner(N,A):
+ %   M=[A[0]]
+%    (x,p)=(0,1)
+   % k=len(N)
+%    for i in [1..k-1]:
+   %     x=x+M[i-1]*p
+      %  p=p*N[i-1]
+        %m=Inverse(p,N[i])*(A[i]-x)%N[i]
+%        M=M+[m]
+   % x=x+M[k-1]*p    
+  %  return (M,x) 
+\begin{ex}
+\begin{enumerate}
+\item On veut résoudre le système $\left\{\begin{aligned} x &\equiv 0[3]\\x &\equiv 3[5]\\ x &\equiv 1[7]\end{aligned}\right.$
+ d'inconnue $x\in \Z$. Comme $3,5$ et $7$ sont deux à  deux premiers entre eux, il existe une unique solution $x$ modulo $3.5.7=105$. On cherche donc une solution $x\in \llbracket 0,104\rrbracket$. D'après le théorème de la base mixte, on peut écrire $x=\nu_1+7\nu_2+7.5\nu_3=\nu_1+7\nu_2+35\nu_3$, où $\nu_1\in \llbracket 0,6\rrbracket$, $\nu_2\in \llbracket 0,4\rrbracket$ et $\nu_3\in \llbracket 0,2\rrbracket$. Déterminons $\nu_1,\nu_2$ et $\nu_3$. 
+
+On a $x=\nu_1+7\nu_2+35\nu_3\equiv \nu_1\equiv 1[7]$, donc $\nu_1=1$. On a $x=1+7\nu_2+35\nu_3\equiv 1+7\nu_2\equiv 3[5]$, donc $2\nu_2\equiv 2[5]$, donc $\nu_2\equiv 1[5]$. On a donc $\nu_2=1$, donc  $x=1+7+35\nu_3 \equiv 0[3]$, donc $-\nu_3 \equiv -8\equiv 1 [3]$, donc $\nu_3=2$. On en déduit que $x=1+7+2.35=78$. L'ensemble des solutions du système est donc $78+105\Z$. 
+
+
+\item Reprenons ici notre système \eqref{e_resolution_systeme}. \par 
+Avec l'algorithme de Garner, on cherche $x$ sous la forme $x=\nu_1 +23 \nu_2 $ où $0 \leq \nu_1 < 22$ et $0 \leq \nu_2 < 6$. On a $\nu_1=12$ et $x=12+23\nu_2\equiv 2[7]$ donc $2\nu_2\equiv 4[7]$ donc $\nu_2\equiv 2[7]$, donc $x=12+2\times 23=58$.
+\end{enumerate}
+
+\end{ex}
+
+
+
+
+\chapter{Introduction à  la complexité}
+\section{Notions de complexité}
+\subsection{Coût d'un algorithme}
+ 
+Cette introduction est fortement inspirée de \cite{picart1999cours}. 
+ 
+Pour un concepteur d'algorithme, une tâche capitale est de pouvoir a priori évaluer le
+temps que prendra son algorithme pour fournir le résultat escompté sur une machine
+donnée. Il faut en effet prendre conscience du fait que de nombreux algorithmes et 
+formules (une formule n'étant qu'un algorithme particulier) n'ont qu'une valeur théorique
+et ne débouchent sur aucun calcul pratique car leur exécution demanderait beaucoup trop
+de temps. Par exemple, pour calculer le déterminant d'une matrice $25 \times 25$ à  coefficients rationnels  $A = (a_{i,j})_{1\leq i,j\leq 25}$, on peut envisager d'utiliser la formule suivante : \[\det(A)=\sum_{\sigma \in \mathfrak{S}_n} \epsilon(\sigma) a_{\sigma(1),1}\ldots a_{\sigma(25),25},\] où $\mathfrak{S}_{25}$ désigne le groupe des permutations de l'ensemble $\llbracket 1, 25\rrbracket$. L'application de cette formule nécessite d'effectuer $|\mathfrak{S}_{25}|=25 !\simeq 1.55.10^{25}$ produits. Si l'on dispose d'un ordinateur capable d'effectuer $10$ milliards de ces produits par seconde, il faudrait $49$ millions d'années pour effectuer ce calcul. C'est donc inenvisageable en pratique, même en tenant compte des progrès techniques à  venir (à  court terme) des processeurs. En fait l'application directe de la définition pour le calcul du déterminant d'une matrice de taille $n$ nécessite de faire $n!$ multiplications et additions, alors qu'une méthode relativement simple basée sur le pivot de Gauss permet de l'effectuer en $O(n^3)$ multiplications et additions.   
+Il est donc important d'évaluer le temps que nécessitera un algorithme pour fournir
+le résultat avant même de le programmer. De plus, on aimerait pouvoir comparer autant que faire se peut,
+les algorithmes entre eux, et ceci de manière aussi intrinsèque que possible, c'est-à -dire,
+sans que notre mesure dépende de l'ordinateur ou du langage de programmation que l'on
+utilisera. 
+
+
+
+
+Nous supposons   que nous sommes en possession d'un ordinateur dont le micro-processeur est capable de calculer  directement la somme, la différence et le produit de toute paire de nombres entiers naturels inférieurs à  un certain entier $b$. Nous supposons aussi
+qu'il peut réaliser les divisions d'un nombre à  deux chiffres par un nombre à  un chiffre
+en base $b$, fournissant en une seule commande le quotient et le reste. Nous appelons
+\textit{opérations élémentaires}  ces quatre opérations,  réalisables
+par le micro-processeur en une seule commande. En pratique, $b$ dépend du processeur de l'ordinateur sur lequel on travaille. Actuellement, pour la plupart des ordinateurs grand public, $b =2^{64}$. Pour nous, la valeur de $b$ n'est pas très importante car on cherchera à  évaluer les algorithmes à  une constante multiplicative prés qui dépend du processeur utilisé. 
+
+
+On choisit une base $b\in\N_{\geq 2}$ dans laquelle on représente les entiers naturels. Tout $N\in \N^*$ s'écrit $N=\sum_{i=0}^k a_i b_i$, avec $a_i\in \llbracket 0,b-1\rrbracket$ et $a_k\neq 0$. On a  $b^k\leq N<b^{k+1}$ et donc $k=\lfloor \log_b(N)\rfloor$. Pour représenter $N$ en base $b$, on a besoin de $\lfloor \log_b(N)\rfloor+1$ chiffres. 
+
+\begin{definition}
+La taille d'un entier $N\neq 0$ est $\log_2(|N|)$ (c'est l'ordre de grandeur du  nombre de  bits qu'il faut pour le représenter).
+\end{definition}
+
+
+On peut distinguer le \textit{coût en temps} et \textit{le coût en mémoire}. On s'intéressera surtout au coût en temps.
+
+\begin{definition}
+Le \textit{coût en temps} ou \textit{complexité binaire} d'un algorithme est le nombre d'opérations élémentaires effectuées au cours de cet algorithme. Il dépend de la taille des données.
+\end{definition}
+
+
+
+On considère un algorithme qui prend en entrée un entier $N\in \N^*$. On note $c(N)$ son coût en temps. On dit que l'algorithme est :\begin{itemize}
+\item[•] \textit{linéaire} si $c(N)=_{N\rightarrow +\infty} O\big(\log_2(N)\big)$,
+
+\item[•] \textit{quadratique} si $c(N)=_{N\rightarrow +\infty}O\big(\log_2(N)^2)$,
+
+\item[•] \textit{polynomial} si $c(N)=_{N\rightarrow +\infty}O\big(\log_2(N)^\alpha\big)$ pour un certain $\alpha\in \N$,
+
+\item[•] \textit{exponentiel} si $c(N)=_{N\rightarrow +\infty}O\big(2^{\log_2(N)^\alpha}\big)$ pour un certain $\alpha\in \N$.
+
+
+\end{itemize} 
+
+On prendra garde au fait qu'un algorithme tel que $c(N)\sim N$ est exponentiel et non linéaire. Pour qu'un algorithme soit considéré comme réalisable en pratique, il faut que son coût soit polynomial (avec $\alpha$ pas trop grand).
+
+
+\subsection{Coût des opérations arithmétiques de base}
+
+\begin{proposition}\label{propCout_addition}
+Le coût en calcul de l'addition de deux entiers naturels $m,n$ par l'algorithme usuel (en posant l'addition, dans une base $b\in \N_{\geq 2}$) ou de la soustraction (en la posant également) est $O\big(\max\big(\log_2 m,\log_2 n)\big)$ opération élémentaires.
+\end{proposition}
+
+\begin{proof}
+Soit $k=\lfloor \max\big(\log_b m,\log_b n)\rfloor$. On suppose que $m$ et $n$ sont représentés dans la base $b$ par les listes $M=[a_k,\ldots,a_0]$ et $N=[a_k',\ldots,a_0']$, c'est à  dire que $m=\sum_{i=0}^k a_i b^i$, $n=\sum_{i=0}^k a_i' b^i$ avec $a_i,a_i'\in \llbracket 0,b-1\rrbracket$ pour tous $i\in \llbracket 0,k\rrbracket$ (on complète $M$ ou $N$ avec des $0$, afin d'obtenir deux listes de longueur $k+1$). 
+On utilise l'algorithme suivant :
+
+
+\begin{tabular}{ll}
+\textbf{Algorithme } & addition($M,N$)\\
+& $k\leftarrow \mathrm{long}(M)-1$ \\
+& $i\leftarrow 0$\\
+& $R\leftarrow 0$\\
+& $S=[\ ]$\\
+& Pour $i$ allant $0$ à  $k$: \\
+& \ \ \ {\rm |} $s\leftarrow M[k-i]+N[k-i]+R$  \\
+& \ \ \ {\rm |} si $s\geq b$ :\\
+& \ \ \ \ \ \ {\rm |}$R\leftarrow 1$\\
+& \ \ \ \ \ \ {\rm |}$s\leftarrow s-b$\\
+& \ \ \ {\rm |} sinon :\\
+& \ \ \ \ \ \ {\rm |}$R\leftarrow 0$\\
+& \ \ \ {\rm |} $S\leftarrow [s]+S$ \\
+
+& \ \ \ {\rm |} $k\leftarrow k+1$  \\
+& si $R=1$ : \\
+& \ \ \ {\rm |} $S\leftarrow[1]+S$\\
+& renvoyer $S$.
+\end{tabular}
+
+Cet algorithme calcule la somme de $m$ et $n$ (exercice le vérifier). Il y a $k+2$ étapes et chacune de ces étapes s'effectue en au plus $3$ opérations élémentaires. Le cas de la soustraction se démontre similairement.
+
+\end{proof}
+
+\begin{proposition}\label{propCout_multiplication}(exercice)
+Soient $m,n\in \N^*$. \begin{enumerate}
+\item Le coût en calcul du produit  $mn$ en posant la multiplication est $O\big(\log_2(m)\log_2(n)\big)$. 
+
+\item Si $m\leq n$, le coût en calcul de la division euclidienne (par l'algorithme vu en primaire) de $m$ par $n$ est $O\big(\log_2(|m/n|)\log_2(|n|)\big)$.
+
+\end{enumerate} 
+
+
+\end{proposition}
+
+
+
+\begin{remarque}
+Il existe des algorithmes plus efficaces pour calculer le produit de deux «~grands~» entiers (à  partir de $1000$ chiffres). Par exemple l'algorithme de Schöhnage-Strassen permet de calculer le produit de deux entiers de taille $n$ en $O(n\log_2(n)\log_2(\log_2(n))\big)$.
+\end{remarque}
+
+
+
+Soit $n\in \N^*$. On représente les éléments de $\Z/n\Z$ par des entiers de $\llbracket 0,n-1\rrbracket$. On note $\pi:\Z\twoheadrightarrow \Z/n\Z\simeq \llbracket 0,n-1\rrbracket$ la projection canonique (si $k\in \Z$, $\pi(k)$ est le reste de la division euclidienne de $k$ par $n$). Par la proposition~\ref{propCout_multiplication} que si $x\in \Z$, le coût du calcul de son image dans $\Z/n\Z$ est $O\big(\log_2(x/n)\log_2(n)\big)$.  Si $x,y\in \Z/n\Z$, le coût du calcul de $x+y$ est $O\big(\log_2(n)\big)$. En effet, on écrit $x=\overline{a}$ et $y=\overline{b}$, avec $a,b\in \llbracket 0,n-1\rrbracket$. Alors $x+y=\pi(a+b)\in \{a+b,a+b-n\}$ et on conclut avec la proposition~\ref{propCout_addition}. Le coût du calcul de $xy$ est $O(\log_2(n)^2)$. En effet, on calcule $ab\in \llbracket 0,(n-1)^2\rrbracket$, puis on effectue la division euclidienne de $ab$ par $n$ et on conclut avec la proposition~\ref{propCout_multiplication}.
+
+
+\section{Exponentiation rapide}
+
+Soit $A$ un anneau, $x\in A$ et $n\in \N$. Pour calculer $x^n$, on peut utiliser l'algorithme «~naïf~» suivant : 
+
+\begin{tabular}{ll}
+\textbf{Algorithme } & Puissance($x,n$)\\
+& $b\leftarrow 1$ \\
+& pour $k$ allant de $0$ à $n-1$ :\\
+& \ \ \ {\rm |} $b\leftarrow b.x$  \\
+& renvoyer $b$.
+\end{tabular}
+ 
+ 
+ Cet algorithme effectue $n$ multiplications, on peut en fait faire beaucoup mieux. 
+ 
+ 
+ 
+ 
+ Écrivons $n$ en base $2$ : $n=\sum_{i=0}^\ell a_i 2^i$, avec $a_i\in \{0,1\}$ pour tous $i\in \llbracket 0,\ell\rrbracket$ et $a_\ell =1$. Alors : \[x^n=x^{\sum_{i=0}^\ell a_i 2^i}=\prod_{i=0}^\ell (x^{2^i})^{a_i}=\prod_{i\in \llbracket 0,\ell\rrbracket \mid  a_i\neq 0} x^{2^i} .\] Soit $i\in \N$. Alors $x^{2^{i+1}}=(x^{2^i})^2$. 
+ 
+ On suppose que l'on dispose d'un algorithme \texttt{binaire}($n$), qui prend en entrée un entier naturel $n$, et qui renvoie la liste $L=[a_k,\ldots,a_0]$ d'éléments de $\{0,1\}$ telle que $a_k\neq 0$, $a_i\in\{0,1\}$ pour tous $i\in \llbracket 0,k\rrbracket$ et $n=\sum_{i=0}^k n_i 2^i$. L'algorithme suivant calcule prend en entrée un élément $x$ d'un monoïde et un entier naturel $n$ et renvoie $x^n$. 
+ 
+ \medskip
+ 
+\begin{tabular}{ll}
+\textbf{Algorithme 1.}&  expo-rapide($x$,$n$)\\
+& $L\leftarrow $\texttt{binaire}($n$) \\
+& $k\leftarrow \mathrm{long}(L)-1$\\
+& $P\leftarrow x$\\
+& $a\leftarrow 1$\\
+& pour  $i$ allant de $1$ à  $k$\\
+& \ \ \ {\rm |} si $L[k-i]=1$:\\
+& \ \ \  \ \ \ {\rm |} $a\leftarrow a P$ \\
+& \ \ \ {\rm |} $P\leftarrow P^2$\\
+& renvoyer $a$.\\
+\end{tabular}
+ 
+En effet, pour $i\in \llbracket 0,k\rrbracket$, notons $a_i$, $P_i$, etc. les valeurs de $a$, $P$, etc. avant le passage $i$ dans la boucle. On a $P_0=x=x^{(2^0)}$ et $a_0=1$. Par récurrence, on a $P_i=x^{(2^i)}$, si $i\in \llbracket 0,k\rrbracket$ et $a_i=\prod_{j<i\mid n_{j}=1} P_j=\prod_{j<i\mid n_j=1} x^{2^j}=x^{\sum_{j<i\mid n_j=1} 2^j}=x^{\sum_{j<i} n_j 2^j}$. Si on note $a_{k+1}$ la valeur de $a$ après le passage $k$ dans la boucle, on a donc $a_{k+1}=x^{\sum_{j\leq i} n_j 2^j}=x^n$.  
+
+Pour calculer $x$, on a effectué $k+1$ élévations au carré (pour calculer les valeurs des $P_i$), et $k+1$ calculs de produits (pour calculer les valeurs des $a_i$). On a donc utilisé $O(\log_2(n))$ produits (les élévations au carré sont des produits), ce qui est beaucoup mieux que $O(n)$. 
+ 
+ 
+En comparaison avec l'algorithme «~naïf~», il y a donc beaucoup moins de multiplications à  effectuer dans $M$ ($O(\mathrm{log}_2(n))$ contre $O(n)$). Si $A=\Z$, le coût de calcul (temps de calcul) d'une multiplication $x.y$ augmente lorsque $x$ et $y$ augmentent. Il n'est donc pas évident a priori que le calcul de $x^n$ soit plus rapide avec l'algorithme d'exponentiation rapide qu'avec l'algorithme naïf (car $x^m$ croît avec $m$, si $x\geq 2$). Par contre, si $A=\Z/N\Z$, pour $N\in \N^*$   le coût du calcul de $ab$, pour $a,b\in \Z/N\Z$ est $O\big(\log_2(N)^2\big)$. Le coût du calcul de $x^n$ pour $n\in \N$ par l'algorithme d'exponentiation rapide est donc $O\big(\log_2(N)^2\log_2(n)\big)$ alors que celui par l'algorithme  naïf est $O\big(\log_2(N)^2n\big)$.
+
+ 
+ 
+ 
+ \begin{remarque}
+On peut aussi programmer l'exponentiation rapide de façon itérative en utilisant :  pour $x\in M$ (où $M$ est un monoïde) et $n \in \mathbb{N}$, 
+\begin{equation*}
+x^n= \left \{\begin{array}{ll}
+(x^{n/2})^2 & \text{si $n$ pair}; \\
+x(x^{(n-1)/2})^2 & \text{si $n$ impair.} 
+\end{array}\right.
+\end{equation*}
+
+\begin{tabular}{ll}
+\textbf{Algorithme 1.}&  expo-rapide($x$,$n$)\\
+& si $n=0$ \\
+& \ \ \ {\rm |} renvoyer 1 \\
+& sinon \\
+& \ \ \ {\rm |} si $n$ mod $2=0$ \\
+&  \ \ \ {\rm |} \ \ \ {\rm |} $r \leftarrow$ expo-rapide$(x,\tfrac{n}{2})$ \\
+&  \ \ \ {\rm |} \ \ \ {\rm |} renvoyer $r^2$  \\
+&  \ \ \ {\rm |}  sinon \\
+&   \ \ \ {\rm |}    \ \ \ {\rm |}  $r \leftarrow$ expo-rapide$(x,\tfrac{n-1}{2})$ \\
+& \ \ \ {\rm |}   \ \ \ {\rm |}   renvoyer $x \times r^2$.
+\end{tabular}
+
+
+On peut alors montrer  que pour calculer $x^n$, cet algorithme utilise $O(\log_2(n))$ produits dans $M$ (exercice).
+ \end{remarque}
+ 
+
+\chapter{Tests de primalité}
+
+
+\section{Premiers algorithmes}
+
+
+
+
+
+
+
+
+\begin{Prop}
+Soit $n$ un entier composé positif. Alors il a un diviseur premier $\leq \sqrt{n}$.\par 
+Par contraposée, on a donc: si pour tout $p\in \mathbb{P}$ tel que $p\leq \sqrt{n}$ premier, $p$ ne divise pas $n$, alors $n$ est premier.
+\end{Prop}
+
+\begin{proof}
+Soient $n \in \mathbb{N}$ ($n \geq 2$) composé et $p$ son plus petit diviseur $\geq 2$ (qui est premier par le lemme~\ref{lemExistence_diviseur_premier}). \par 
+Alors $p$ divise $n$ donc il existe $k\in \Z$ tel que $n=kp$. Par définition, $k \geq p$, donc $pk=n \geq p^2$, d'où $p \leq \sqrt{n}$.  
+\end{proof}
+
+
+
+\subsection*{Premiers tests de primalité}
+
+\subsubsection*{Premier test}
+
+Commençons par un test en supposant qu'on connaisse la liste de tous les nombres premiers jusqu'à  $\sqrt{n}$,  notée $L=[p_0,p_1, \ldots , p_{k-1}] $. \vrt{(Par exemple, grâce à  un algorithme qui, prenant en entrée $n$, renvoie tous les nombres premiers $\leq \sqrt{n}$.) L'algorithme ci-dessous renvoie si $n$ est premier ou non et le plus petit diviseur premier si $n$ est composé.}
+
+
+\begin{tabular}{ll}
+\textbf{Algorithme 9.} & Primalité($n$)\\
+			& $i \leftarrow 0$ \\
+			& tant que $ n \text{ mod } L[i] \neq 0 $ et $i \leq k$  \\
+			&$i \leftarrow i+1$\\ 
+			&si $i \leq k$\\
+			& \ \ \ {\rm | }  renvoyer «~composé~», $L[i]$  \\    
+			& renvoyer premier 
+\end{tabular}\\
+
+L'avantage est qu'on obtient le plus petit diviseur premier de $n$.\par 
+
+Nombre de divisions à  effectuer : $O (\sqrt{n}/ \ln n)$, d'après le théorème de Hadamard-La Vallée-Poussin (théorème~\ref{thmHadamard_lavallee_poussin}).
+
+\subsubsection*{Second test}
+
+On va maintenant donner un algorithme sans connaître les nombres premiers $\leq \sqrt{n}$. \vrt{Cet algorithme teste 2 et tous les entiers impairs  $\leq \sqrt{n} $ comme diviseur potentiel de $n$. On a les mêmes entrée et sortie que l'algorithme précédent.}  \\
+
+\begin{tabular}{ll}
+\textbf{Algorithme 10.} & Primalité2($n$)\\
+           & si $n=2$ \\
+           & \ \ \ {\rm | } renvoyer premier  \\
+           & sinon \\
+           & \ \ \ {\rm | } si $n \text{ mod }2  =0 $ \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} renvoyer composé et 2 \\
+           & \ \ \ {\rm |} sinon  \\
+           & \ \ \ {\rm |} \ \ \ {\rm |}   $i \leftarrow 3$ \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} tant que $ n \text{ mod }  i =0$ et $i \leq \sqrt{n}$  \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} \ \ \ {\rm |}  $ i \leftarrow i+2$\\
+           & \ \ \ {\rm |} \ \ \ {\rm |} si $i \leq \sqrt{n} $ \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} \ \ \ {\rm |} renvoyer composé et $i$ \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} sinon  \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} \ \ \ {\rm |}   renvoyer premier  
+\end{tabular}\\
+
+L'avantage est qu'on obtient à  nouveau le plus petit diviseur premier de $n$. \par 
+Nombre de divisions à  effectuer : $O(\sqrt{n})$.
+
+\subsubsection*{Crible d’Ératosthène}
+
+Soit $n\in \N^*$. On écrit dans un tableau les $n-1$ nombres de $2$ à  $n$. On conserve $2$ puis on barre tous ses multiples stricts. Le premier nombre du tableau
+non barré est $3$. On le conserve et on barre tous ses multiples stricts. Le premier
+nombre du tableau non barré est $5$. On le conserve et on barre tous ses multiples
+stricts, et ainsi de suite. On fait ainsi apparaître les premiers nombres premiers
+$p_1=2$, $p_2=3$, $p_3=5$, ...  Lorsque l'on a  a barré tous les multiples stricts de $p_i$ pour
+$i\leq k$, le plus petit nombre supérieur à  $p_k$ qui n'est pas encore barré est $p_{k+1}$.
+Dés que l'on arrive à  un nombre premier $p \geq n$, tous les nombres non barrés dans la tableau sont premiers et on a donc tous les nombres premiers inférieurs ou égaux à  $n$.
+Cet algorithme donne une méthode simple pour déterminer tous les nombres
+premiers inférieurs à  un entier positif donné : il ne nécessite aucun calcul, seulement le déplacement d'un curseur.  Il utilise par contre une mémoire importante.
+
+
+
+\begin{ex}
+Pour $n=30$: \\
+\begin{tabular}{cccccccccc}
+  & \textcircled{2} & \textcircled{3} & \sout{4} & \textcircled{5} & \sout{6} & 7& \sout{8} & \sout{9} & \sout{10}  \\
+   11 & \sout{12} & 13 & \sout{14} & \sout{15} & \sout{16} & 17 &\sout{18} & 19 & \sout{20}\\
+   \sout{21} & \sout{22} & 23 & \sout{24} & \sout{25} & \sout{26} & \sout{27} & \sout{28} & 29 & \sout{30}
+\end{tabular}\\
+
+\end{ex}
+
+
+Nous allons maintenant introduire des nouveaux tests de primalité, beaucoup plus rapides, mais probabilistes. Ils se baseront sur des propriétés de $(\Z/n\Z)^\times$, pour $n\in \N^*$. 
+
+
+\section{Le groupe $(\mathbb{Z}/n\mathbb{Z})^{\times}$}
+
+\subsection{Structure}
+
+
+
+\begin{nota}
+On note $(\mathbb{Z}/n\mathbb{Z})^{\times}$  l'ensemble des éléments inversibles de $(\mathbb{Z}/n\mathbb{Z},.)$.
+\end{nota}
+
+ On rappelle que l'ensemble des éléments inversibles de $(\Z/n\Z,+)$ est $\Z/n\Z$. Par la proposition~\ref{propInversibles_Z_nZ}, $(\Z/n\Z)^{\times}=\{\overline{a}\in \Z/n\Z\mid a\wedge n=1\}$.
+
+\begin{thm}\label{thmIntegriteZ_nZ}
+Soit $n \in \mathbb{N}^*$. Alors les conditions suivantes sont équivalentes: \begin{enumerate}
+\item $n$ est premier,
+
+\item $\mathbb{Z} / n \mathbb{Z}$ est intègre,
+
+\item $\mathbb{Z}/n\mathbb{Z}$ est un corps.
+\end{enumerate}
+\end{thm}
+
+
+\begin{proof}(à  connaître)\
+\begin{itemize}
+\item[« (1) $ \Rightarrow$ (2) »] Soient $\overline{x},\overline{y} \in \mathbb{Z}/n\mathbb{Z}$ tels que $\overline{x}.\overline{y}=0$. Alors $n \mid xy$, et $n$ premier, donc $n \mid x$ ou $n \mid y$, i.e. $\overline{x}=0$ ou $\overline{y}=0$, par le lemme d'Euclide (lemme~\ref{lem_Euclide}).
+\item[« (2) $\Rightarrow$ (1) »] Écrivons  $n=n_1 n_2$ où $n_1,n_2 >1$. On a $\overline{n}=\overline{n_1}.\overline{n_2}=0$, et $\overline{n_1},\overline{n_2}\neq 0$, donc $\mathbb{Z}/n\mathbb{Z}$ n'est pas intègre.
+\item[« (1) $\Rightarrow$ (3) »] Soit $\overline{x} \in \mathbb{Z}/n \mathbb{Z}\setminus\{0\}$. Alors $n$ ne divise pas $x$ et comme $n$ est premier, $n\wedge x=1$, donc $\overline{x}$ est inversible, par la proposition~\ref{propInversibles_Z_nZ}.
+\item[« (3) $\Rightarrow$ (2) »]    Soient $x,y \in \mathbb{Z}/n \mathbb{Z}$ tels que $xy=0$. Si $y \neq 0$, alors $y$ est inversible, donc $x=xyy^{-1}=0. y^{-1}=0$, donc $\mathbb{Z}/n\mathbb{Z}$ est intègre.
+\end{itemize}
+\end{proof}
+
+
+
+
+
+\begin{remarques}
+\begin{itemize}
+\item[•] Plus généralement, tout corps est un anneau intègre (par la preuve donnée dans le résultat précédent).
+
+\item[•] (pour aller plus loin) Plus généralement, tout anneau intègre fini est un corps. En effet, soit $A$ un tel anneau. Soit $x\in A\setminus \{ 0\}$. Soit $m_x:A\rightarrow A$ définie par $m_x(y)=xy$, pour $y\in A$. Alors comme $A$ est intègre, $m_x$ est injective, donc elle est surjective, donc il existe $y\in A$ tel que $xy=1$, c'est à  dire que $x$ est inversible. On n'a en fait pas besoin de supposer $A$ commutatif (exercice : démontrer que tout anneau fini sans diviseur de zéro est un corps non nécessairement commutatif). De plus, le théorème de Wedderburn (1905) affirme que tout corps fini est commutatif. On en déduit que tout anneau fini sans diviseur de $0$ est un corps commutatif.
+\end{itemize}
+\end{remarques}
+
+
+\begin{Cor}\label{corRacines_carrées_moins_un}
+Soit $p\in \mathbb{P}$. Alors l'ensemble des solutions de l'équation $\overline{x}^2 =\overline{1}$ d'inconnue $\overline{x}\in \Z/p\Z$ est $\{-\overline{1},\overline{1}\}$. Cet ensemble a $2$ éléments, sauf si $p=2$.
+\end{Cor}
+
+\begin{proof}
+Soit $x\in \Z$. Alors $\overline{x}^2 =\overline{1}$ si et seulement si $\overline{x}^2-\overline{1}= (\overline{x}+\overline{1})(\overline{x}-\overline{1})=\overline{0}$ si et seulement si $\overline{x}\in \{\overline{1},\overline{-1}\}$.
+\end{proof}
+
+\begin{rem}
+Dans $\mathbb{Z}/35 \mathbb{Z}$, $\overline{6}$ est solution de l'équation $\overline{x}^2\equiv 1[35]$ donc le corollaire est faux dans le cas général.
+\end{rem}
+
+
+
+\begin{thm}\label{thmIndicatrice_d'Euler}
+ \begin{enumerate}
+\item Soit $n\in \N^*$. Alors  $(\mathbb{Z}/n \mathbb{Z})^{\times}$ est un groupe abélien. Son cardinal, noté $\varphi(n)$, est appelé indicatrice d'Euler. On a $\varphi(n)=|\{j\in \llbracket 0,n-1\rrbracket\mid j\wedge n=1\}|$. \par 
+
+\item Si $n=n_1n_2$, avec $n_1,n_2$ premiers entre eux, alors $\varphi(n)=\varphi(n_1)\varphi(n_2)$.
+
+\item Pour tout  $p\in \mathbb{P}$ et $k\in \N^*$, on a $\varphi(p)=p-1$ et $\varphi(p^k)=p^{k-1}(p-1)$. Plus généralement, pour tout $n \in \mathbb{N}^*$, on a $\varphi(n)= n \prod_{p\in \mathbb{P}, p\mid n}(1-1/p)$.
+\end{enumerate}
+
+\end{thm}
+
+\begin{proof}\
+\begin{itemize}
+\item[(1)]  exercice.
+
+
+\item[(2)](à connaître) Par le théorème des restes chinois, il existe un isomorphisme de  $\phi:\Z/n\Z\overset{\sim}{\rightarrow}\Z/n_1\Z\times \Z/n_2 \Z$. Alors $\phi$ envoie tout élément inversible sur un élément inversible (car si $xy=1$, $\phi(xy)=\phi(1)=1$) et de même pour $\phi^{-1}$, donc $\phi\big((\Z/n\Z)^\times\big)=(\Z/n_1\Z\times \Z/n_2\Z)^\times$. Soit $(\overline{x},\overline{y})\in \Z/n_1\Z\times \Z/n_2\Z$. Alors $(x,y)$ est inversible si et seulement si il existe $(x',y')\in  \Z/n_1\Z\times \Z/n_2\Z$ tel que $(xx',yy')=(1\mathrm{\ mod\ }n_1,1\mathrm{\ mod\ }n_2)$, si et seulement si $x$ et $y$ sont inversibles (et alors $(x,y)^{-1}=(x^{-1},y^{-1})$). On a donc   $(\Z/n_1\Z\times \Z/n_2 \Z)^{\times}=(\Z/n_1\Z)^\times \times (\Z/n_2\Z)^\times$ et en prenant les cardinaux, on en déduit que $\varphi(n_1n_2)=\varphi(n_1)\varphi(n_2)$. 
+
+
+
+\item[(3)](à connaître) On a $\varphi(p^k)=|\{j\in \llbracket 0,p^k-1\rrbracket\mid j\wedge p^k=1\}|$. Soit $j\in \llbracket 0,p^k-1\rrbracket$. Alors $j\wedge p^k=1$ si et seulement si $j\wedge p=1$ si et seulement si $p$ ne divise pas $j$. Ainsi \[\{j\in \llbracket 0,p^k-1\rrbracket\mid j\wedge p^k=1\}= \llbracket 0,p^k-1\rrbracket\setminus \{0,p,2p,\ldots, p^k-p\}=\llbracket 0,p^k-1\rrbracket \setminus p\llbracket 0,p^{k-1}-1\rrbracket,\] et donc $\varphi(p^k)=p^{k-1}(p-1)=p^k(1-\frac{1}{p})$. On conclut en utilisant (2).
+\end{itemize}
+\end{proof}
+
+
+
+\subsection{Test de non-primalité de Fermat}
+
+
+\begin{thm}[Théorème d'Euler]
+Soient $n \in \mathbb{N}^*$ et $a\in \Z$. Si $a$ est un entier premier avec $n$, alors $a^{\varphi(n)}\equiv 1 [n]$.
+\end{thm}
+
+\begin{proof}
+On a $\overline{a}\in (\Z/n\Z)^\times$. L'ordre de $\overline{a}$ divise $|(\Z/n\Z)^\times|=\varphi(n)$, donc $\overline{a}^{\varphi(n)}=\overline{1}$.
+\end{proof}
+
+\begin{corollaire}[Petit théorème de Fermat] Soit $p$ un nombre premier. Alors si $a$ est un entier non divisible par $p$, on a $a^{p-1}\equiv 1 [p]$.
+\end{corollaire}
+
+Ce théorème fournit un autre test de non-primalité: si on peut trouver un entier $a$ tel que $a\wedge n=1$ et $a^{n-1}\not \equiv 1 [n]$, alors $n$ n'est pas premier. 
+
+\begin{proposition}(voir TD)
+Soit $n\in \N_{\geq 2}$. Supposons qu'il existe $\overline{a}\in (\Z/n\Z)^\times$ tel que $\overline{a}^{n-1}\neq 1$. Alors $|\{\overline{a}\in \Z/n\Z\mid\overline{a}^{n-1}\neq  \overline{1}\}|\geq \frac{n}{2}$. 
+\end{proposition}
+
+On peut donc envisager le test de primalité suivant. On choisit $k\in \N$.
+
+Si $a,b\in \N$, on note Hasard($a,b$) une fonction renvoyant un entier choisi aléatoirement entre $a$ et $b$.
+
+\begin{tabular}{ll}
+\textbf{Algorithme 12.} & Test-Fermat($n,k$)\\
+           & pour $i$ de $1$ à  $k$:\\
+           &\ \ \ {\rm |} $a\leftarrow \mathrm{Hasard}(1,n-1)$ \\
+           & \ \ \ {\rm |} si $(a\ \mathrm{mod}\ n)^{n-1}\neq 1\mathrm{\ mod\ }n$ : \\
+           &\ \ \  \ \ \ {\rm |}  renvoyer   « $n$ est composé »\\   
+           & renvoyer « $n$ est peut-être premier »\\
+\end{tabular}\\
+
+
+
+Par la proposition précédente, s'il existe $\overline{a}\in (\Z/n\Z)^\times$ tel que $\overline{a}^{n-1}\neq 1$, alors la probabilité que  Test-Fermat($n,k$) renvoie    « $n$ est peut-être premier »,   est inférieure ou égale à  $\frac{1}{2^k}$. Par exemple si $k=30$, cette probabilité est inférieure à  $1$ sur $1$ milliard. Le problème de ce test est qu'il existe des nombres dits de Carmichael, pour lesquels $\overline{a}^{n-1}=\overline{1}$, pour tout $\overline{a}\in (\Z/n\Z)^\times$.
+
+
+\begin{Def}
+Soient $a,n \in \mathbb{N}^*$.  On dit que $n$ est un nombre \textbf{pseudo-premier de Fermat  de base $a$} si $n$ est composé et si 
+$$    a^{n-1} \equiv 1 [n]. \quad \rge{(*)}   $$
+
+On dit que $n$ est un \textbf{nombre de Carmichael} (ou un nombre pseudo-premier de Fermat) si $n$ est composé et pour tous $a\in \Z$ tels que $a\wedge n=1$, on a $a^{n-1}\equiv 1[n]$.
+\end{Def}
+
+Il existe une infinité de nombre de Carmichael (c'est un théorème de Alford, Grandville et Pomerance de 1994). Le plus petit nombre de Carmichael est $561=3\times 11\times 17$. L'ensemble des nombres de Carmichael est assez mal compris. Empiriquement il y en a beaucoup moins que de nombre premiers. Il y a par exemple 22 nombres de Carmichael entre $1$ et $10\ 000$ alors qu'il y a $1\ 229$ nombres premiers entre $1$ et $10\ 000$.  Un nombre de $50$ bits (respectivement $100$) choisi aléatoirement a moins d'une chance   sur $10^6$ (respectivement $10^{13}$) de faire échouer le test. Par rapport aux tests présentés précédemment, il est beaucoup plus rapide. Si on fixe $k$ (par exemple $k=30$), alors en utilisant l'exponentiation rapide, on a un coût en $O(k\log(n)^3)$ opérations élémentaires, alors que les tests que l'on a vus précédemment ont un coût supérieur à  $\sqrt{n}/\mathrm{ln}(n)$ opérations élémentaires. En revanche, lorsque le test renvoie que $n$ est composé, il ne fournit pas de diviseur de $n$. En pratique ce test n'est pas très utile, car il existe des tests à  peine plus sophistiqués (les tests de Miller-Rabin et de Solovay-Strassen par exemple) pour lesquels il n'existe pas de nombre «~pseudo-premiers~». 
+
+
+
+
+\section{Test de Miller-Rabin}
+
+
+L'algorithme se base sur la propriété suivante :
+
+\begin{Prop}\label{p_Miller_rabin}
+ Soit $p \geq 3$ premier. Soient $s \in \mathbb{N}^*$ et $d$ impair tels que $p-1=2^s d$. Alors pour tout $a\in \llbracket 1,p-1\rrbracket$, on a : \begin{itemize}
+ \item[•] soit $a^d \equiv 1 [p]$,
+ 
+ \item[•] soit il existe $r\in \llbracket 0,s-1\rrbracket$ tel que  $a^{2^r d}\equiv -1 [p]$.
+ \end{itemize} 
+\end{Prop}
+
+\begin{proof}(à connaître)
+On se place dans $\Z/p\Z$. Supposons que $\overline{a}^d\neq \overline{1}$. Par le théorème de Fermat, $\overline{a}^{p-1}=\overline{a}^{2^sd}=\overline{1}$. Soit $r=\min\{r'\in\llbracket 1,s\rrbracket\mid \overline{a}^{2^{r'}d}=\overline{1}\}-1$. Alors $\overline{a}^{2^{r}d}\neq 1$ et $(\overline{a}^{2^{r}d})^2=(\overline{a})^{2^{r+1}d}=\overline{1}$, par définition de $r$. Par le corollaire~\ref{corRacines_carrées_moins_un}, on en déduit que $\overline{a}^{2^{r}d}=\overline{-1}$.
+\end{proof}
+
+\subsection*{Test témoin}
+
+\begin{definition}
+Soit $n\in \N^*$ impair. Écrivons $n-1=2^s d$, avec $s\in\N^*$ et $d$ impair. Un \textbf{témoin de Miller} pour $n$ est un nombre $a\in\llbracket 1,n-1\rrbracket$ tel que $a^d\not\equiv 1[n]$ et pour tout $r\in \llbracket 0,s-1\rrbracket$, $a^{2^rd}\not \equiv -1[n]$.
+
+\end{definition}\vrt{Le test suivant renvoie vrai si $a$ est un témoin de la nature composée de $n$, à  savoir $a^{n-1} \not \equiv 1 [n]$.}\\
+
+
+
+\begin{tabular}{ll}
+\textbf{Algorithme 13.} & Témoin($a,n$)\\
+           & si Euclide($a,n$) $\neq 1$ \\
+           & \ \ \ {\rm |}  renvoyer vrai \\
+           & sinon \\
+           & \ \ \ {\rm |} $s \leftarrow 0$ \\
+           & \ \ \ {\rm |} $d \leftarrow n-1$ \\
+           &  \ \ \ {\rm |} tant que $d$ mod $2=0$   \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} $s \leftarrow s+1 $\\
+           & \ \ \ {\rm |} \ \ \ {\rm |} $d \leftarrow d/2$ \\
+           & \ \ \ {\rm |} $x\leftarrow a^d\mathrm{\ mod\ }n$\\           
+           &  \ \ \ {\rm |} si $x=1\mathrm{\ mod\ }$ ou $x=-1\mathrm{\ mod\ }n$ \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} renvoyer faux \\
+           & \ \ \ {\rm |} tant que $s \neq 1$ \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} $ x\leftarrow x \times x$ mod $n$ \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} si $x=n-1$ \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} \ \ \ {\rm |} renvoyer faux\\
+           & \ \ \ {\rm |} \ \ \ {\rm |} $s \leftarrow s-1$ \\         
+           & renvoyer vrai  
+\end{tabular}\\
+
+\begin{rem}
+Si Témoin$(a,n)$ renvoie vrai, cela signifie que $n$ est composé. Sinon, on ne sait pas, et dans ce cas, $n$ est soit premier soit pseudo-premier de base $a$.
+\end{rem}
+
+\begin{thm}(Rabin, admis)
+Soit $n\in \N_{\geq 9}$. Si $n$ est composé, alors au moins les trois quarts des $a\in \llbracket 2,n-2\rrbracket$ sont des témoins de Miller.
+\end{thm}
+
+
+On en déduit le test probabiliste suivant qui prend en entrée un entier $n\geq 9$ et un entier $k$ (tel que $1/4^k$ soit « petit »). 
+
+\begin{tabular}{ll}
+\textbf{Algorithme 14.} & Miller-Rabin($n,k$)\\
+           & pour $j$ de 1 à  $k$ \\
+           & \ \ \ {\rm |} $a \leftarrow$ Hasard($1,n-1$) \\      
+           & \ \ \ {\rm |} si Témoin($a,n$) \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} renvoyer composé \\
+           & renvoyer premier ?
+\end{tabular}\\
+
+\begin{rem}
+Le test peut fonctionner pour un nombre de Carmichael. Par exemple, pour $n=561$, on peut remarquer que Témoin$(7,561)$ renvoie vrai car $n-1=35 \times 2^4$ et : $7^{35}\equiv 241 [561]$, $7^{70}\equiv 298 [561]$, $7^{140}\equiv 166 [561]$ et $7^{280}\equiv 67 [561]$. Donc si 7 est choisi pour tester la primalité de 561, le test de Miller-Rabin fonctionne.
+\end{rem}
+
+
+Il est certain que si le test de Miller-Rabin renvoie composé, alors $n$ est vraiment composé, mais s'il renvoie « premier ? », cela signifie qu'on n'a pas trouvé de témoin de la nature composé de $n$, mais cela ne veut pas dire pour autant que $n$ est forcément premier. Cependant, si $n$ est composé, la probabilité que le test renvoie « premier ? » est inférieure à  $\frac{1}{4^k}$.
+
+
+
+\section{Test de Solovay-Strassen}
+
+\subsection{Symbole de Legendre}
+
+\begin{Def}[Symbole de Legendre]
+Soient $p$ un nombre premier impair et $a \in \mathbb{Z}$. On définit alors $(\tfrac{a}{p})$ par
+\begin{equation*}
+\Big( \frac{a}{p} \Big)= \left \{  \begin{array}{cl}
+0 & \text{si }p\mid a \\
+1 & \text{si }p \nmid a \text{ et  si }\exists x \in \mathbb{Z}: x^2 \equiv a [p]\\
+-1 & \text{sinon}
+\end{array}\right.
+\end{equation*}
+\end{Def}
+
+\begin{rem}
+$(\tfrac{a}{p})$ ne dépend que de la classe de $a$ modulo $p$.
+\end{rem}
+
+\begin{thm}\label{thmStructure_Z_pZ_times}(admis)
+Soit $p\in \mathbb{P}$. Alors $(\Z/p\Z)^\times$ est cyclique. Autrement dit, $(\Z/p\Z)^\times \simeq \Z/(p-1)\Z$.
+\end{thm}
+
+\begin{Prop}\label{propCritére_Euler} (critère d'Euler)
+Soient $p$ un nombre premier impair et $a \in \mathbb{Z}$. Alors
+\begin{equation*}
+\Big( \frac{a}{p} \Big) \equiv a^{\tfrac{p-1}{2}}[p].
+\end{equation*}
+\end{Prop}
+
+\begin{proof}\
+\begin{itemize}
+\item[•]$p \mid a$ : c'est clair.
+\item[•] Si $p \nmid a$, alors $a$ mod $p \in (\mathbb{Z}/p\mathbb{Z})^{\times}$. Soit $g$ un générateur de $(\Z/p\Z)^\times$ (ce qui existe par le théorème~\ref{thmStructure_Z_pZ_times}). Alors $(\mathbb{Z}/p\mathbb{Z})^{\times}= \{ g^i \mid i\in\llbracket 0,p-2 \rrbracket\}$. Alors  $(g^{\tfrac{p-1}{2}})^2=g^{p-1}=\overline{1}$ et $g^{\tfrac{p-1}{2}}\neq \overline{1}$ donc $g^{\tfrac{p-1}{2}}=\overline{-1}$ (par le corollaire~\ref{corRacines_carrées_moins_un}). Donc si $a=g^k$, alors $a^{\tfrac{p-1}{2}}=(\overline{-1})^{k}$. De plus, $g^k$ est un carré dans $(\mathbb{Z}/p\mathbb{Z})^{\times}$ si et seulement si $k$ est pair. D'où le résultat.
+\end{itemize}
+\end{proof}
+
+\begin{rem}
+Voici une autre démonstration de cette proposition, plus élémentaire. Si $x\in (\Z/p\Z)^\times$ est un carré, écrivons $x=y^2$, où $y\in \Z/p\Z$. Alors par le théorème de Fermat, $x^{(p-1)/2}=y^{p-1}=\overline{1}$. Ainsi, tout carré non nul est racine du polynôme $X^{(p-1)/2}-1\in \Z/p\Z[X]$. De plus, il y a exactement $(p-1)/2$ carrés dans $(\Z/p\Z)^\times$ (exercice, le démontrer). Comme $\Z/p\Z$ est intègre, $X^{(p-1)/2}-1$ admet au plus $(p-1)/2$ racines donc il admet exactement $(p-1)/2$ racines, qui sont les carrés de $(\Z/p\Z)^\times$.
+\end{rem}
+
+\begin{Cor}
+Soient $p$ un nombre premier impair et $(a,b) \in \mathbb{Z}^2$. Alors 
+$$  \Big( \frac{ab}{p} \Big)=  \Big( \frac{a}{p} \Big)\Big(  \frac{b}{p}\Big)  .  $$
+\end{Cor}
+
+\subsection{Loi de réciprocité quadratique}
+
+\begin{thm}[Loi de réciprocité quadratique (admis)] Soient $p$ et $q$ deux nombres premiers impairs distincts. Alors
+$$    \Big(  \frac{p}{q}\Big)=(-1)^{\tfrac{p-1}{2}\cdot \tfrac{q-1}{2}}\Big(  \frac{q}{p}\Big).   $$
+
+\textbf{Première loi complémentaire :} $\Big(\frac{-1}{p}\Big)=(-1)^{(p-1)/2}$.
+
+\textbf{Deuxième loi complémentaire (admis):} $\Big(\frac{2}{p}\Big)=(-1)^{(p^2-1)/8}$. 
+\end{thm}
+
+
+
+
+
+La loi de réciprocité quadratique permet de calculer rapidement des symboles de Legendre. Par exemple, pour calculer $\Big( \frac{35}{61}\Big)$, on a $\Big( \frac{35}{61}\Big)=\Big(\frac{5}{61}\Big)\Big(\frac{7}{61}\Big)$. On a \[\Big(\frac{5}{61}\Big)=(-1)^{(5-1)/2.(61-1)/2}\Big(\frac{61}{5}\Big)=\Big(\frac{61}{5}\Big)=\Big(\frac{1}{5}\Big)=1.\]
+
+On a \[\Big(\frac{7}{61}\Big)=(-1)^{(7-1)/2.(61-1)/2}\Big(\frac{61}{7}\Big)=\Big(\frac{5}{7}\Big)=\Big(\frac{-2}{7}\Big)=\Big(\frac{-1}{7}\Big)\Big(\frac{2}{7}\Big)=(-1)^{(7-1)/2}.(-1)^{(7^2-1)/8}=-1.\] On a donc $\Big( \frac{35}{61}\Big)=-1$, donc $35$ n'est pas un carré modulo $61$.
+
+\begin{remarque}\label{rqCalcul_moins1_puissance...}
+\begin{itemize}
+La notation $(-1)^{\frac{p-1}{2}\frac{q-1}{2}}$ permet d'être concis. Néanmoins, pour calculer $(-1)^{\frac{p-1}{2}\frac{q-1}{2}}$, il n'est   pas optimal de calculer $\frac{p-1}{2}\frac{q-1}{2}$. En fait  $(-1)^{\frac{p-1}{2}\frac{q-1}{2}}=-1$ si et seulement si $\frac{p-1}{2}\frac{q-1}{2}$ est impair, si et seulement si $(p-1)/2$ et $(q-1)/2$ sont impairs. Comme $p$ et $q$ sont impairs, $(p-1)/2$ est pair si et seulement si $p\equiv 1[4]$ et $(p-1)/2$ est impair si et seulement si $p\equiv 3[4]$. 
+
+\item Même remarque pour $(-1)^{(p^2-1)/8}$. Il vaut souvent mieux calculer $p$ modulo $8$ plutôt que de calculer $(p^2-1)/8$. En effet, si $p\equiv \pm 1[8]$, on peut écrire $p=8k \pm 1$, où $k\in \Z$. Alors $p^2=(8k\pm 1)^2=64k^2 \pm 16k+1$ donc $(p^2-1)/8=8k^2\pm 2k$ est pair. De même, si $p\equiv \pm 3[8]$, $(p^2-1)/8$ est impair. 
+\end{itemize}
+\end{remarque}
+\begin{comment}
+\subsubsection{Preuve de la loi de réciprocité quadratique (pour aller plus loin)}
+La suite de cette partie est dédiée à  la preuve de la loi de réciprocité quadratique (sauf la deuxième loi complémentaire), en nous inspirant de 
+
+https://webusers.imj-prg.fr/$\sim$leonardo.zapponi/leo\_divers/Agreg/Developpements/Reciprocite.pdf.
+
+
+\begin{lemme}\label{lemThm_Wilson}(Théorème de Wilson)
+Soit $p\in \N_{\geq 2}$. Alors $p$ est premier si et seulement si $(p-1)!\equiv (-1)[p]$.
+\end{lemme}
+
+\begin{proof}
+Supposons que $p$ n'est pas premier. Soit $d$ un diviseur de $p$ tel que $1<d<p$. Alors $d\mid(p-1)!$, donc $d\not | (p-1)!+1$ (car $(p-1)!\wedge ((p-1)!+1)=1$) donc $p\not | (p-1)!+1$, c'est à  dire $(p-1)!\not\equiv -1[p]$.
+
+Réciproquement, supposons que $p$ est premier. Alors dans $\Z/p\Z$, $\overline{(p-1)!}=\prod_{i=1}^{p-1} \overline{i}$: $\overline{(p-1)!}$ est le produit des inversibles de $(\Z/p\Z)^\times$. Soit $x\in (\Z/p\Z)^\times$. Si $x^{-1}\neq x$, alors $x.x^{-1}=\overline{1}$, donc $x$ et $x^{-1}$ (regroupés ensembles) ne contribuent pas à  $\prod_{y\in (\Z/p\Z)^\times} y$. Ainsi, $\prod_{y\in \Z/p\Z^\times } y=\overline{(p-1)!}=\prod_{x\in (\Z/p\Z)^\times \mid x=x^{-1}}x$. Or si $x\in  (\Z/p\Z)^\times$ est tel que $x=x^{-1}$, on a $x^2=\overline{1}$, donc $x=\pm \overline{1}$, d'où le résultat.
+\end{proof}
+
+\begin{lemme}\label{lemCongruences}
+Soit $p\in \mathbb{P}_{\geq 3}$. écrivons $p=2n+1$, avec $n\in \N$. Alors  $(n!)^2\equiv (-1)^{n+1}[p]$.
+\end{lemme}
+
+\begin{proof}
+Dans $\Z/p\Z$, on a  \[\overline{(p-1)!}=\prod_{i=1}^n \overline{i(p-i)}=\overline{(-1)^n (n!)^2}=\overline{-1},\] d'après le théorème de Wilson.
+\end{proof}
+
+
+Soient $p,q\in\mathbb{P}_{\geq 3}$. Si $p=q$, alors $\Big(\frac{p}{q}\Big)=\Big(\frac{q}{p}\Big)=0$, la loi de réciprocité quadratique est donc claire dans ce cas. On suppose maintenant $p$ et $q$ distincts.  Soit $G$ le quotient de $(\Z/p\Z)^\times \times (\Z/q\Z)^{\times}$ par le sous-groupe $\{-1,1\}=\{(-1,-1),(1,1)\}$. Nous allons calculer le produit \[t=\prod_{x\in G} x\] de deux manières différentes. Si $(x,y)\in \Z\times \Z$ est tel que  $x\wedge  p=1$ et $y\wedge q =1$,  on note $[x,y]$ son image dans $G$ par la projection canonique ($[x,y]$ est l'image de $(x\mathrm{\ mod\ }p,y\mathrm{\ mod\ }q)$ dans $G$). On a alors $[x,y]=[-x,-y]$, par définition de $G$. 
+
+On pose $n=\frac{p-1}{2}$ et $m=\frac{q-1}{2}$. 
+
+
+\begin{lemme}\label{lemPremiére_décomposition_G}
+ Pour tout $x\in G$, il existe un unique $(a,b)\in \llbracket 1,n\rrbracket \times \llbracket 1,q-1\rrbracket$ tel que $x=[a,b]$.
+\end{lemme}
+
+\begin{proof}
+Soit $[a,b]\in G$, où $a,b\in \Z$ sont premiers avec $p$ et $q$ respectivement. Alors $[a,b]=[a\mathrm{\ mod\ }p,b\mathrm{\ mod\ }q]$, donc on peut supposer que  $a\in \llbracket 1,p-1\rrbracket$ et $b\in \llbracket 1,q-1\rrbracket$.  Si $a\in \llbracket n+1,p-1\rrbracket$, alors $-a\mathrm{\ mod\ }p=p-a\mathrm{\ mod\ }p$ et $p-a\in \llbracket 1,n\rrbracket$, d'où l'existence d'une telle écriture. 
+
+
+Soient $(a,b),(a',b')\in \llbracket 1,n\rrbracket\times \llbracket 1,q-1\rrbracket$  tels que $[a,b]=[a',b']$. Alors $(a\mathrm{\ mod\ }p,b\mathrm{\ mod\ }q)=\pm (a'\mathrm{\ mod\ }p,b'\mathrm{\ mod\ }q)$. Comme $a,a'\in \llbracket 1,n\rrbracket$, $a\mathrm{\ mod\ }p\neq -a'\mathrm{\ mod\ }p$. On a donc $(a\mathrm{\ mod\ }p,b\mathrm{\ mod\ }q)= (a'\mathrm{\ mod\ }p,b'\mathrm{\ mod\ }q)$, donc $a=a'$ et $b=b'$, puisque $a,a\in \llbracket 1,n\rrbracket\subset \llbracket 1,p-1\rrbracket$ et $b,b'\in \llbracket 1,q-1\rrbracket$, d'où l'unicité   annoncée. 
+\end{proof}
+
+
+
+\begin{lemme}\label{lemDeuxième_décomposition_G}
+Soit $S$ l'ensemble des éléments de $\llbracket 0,\frac{pq-1}{2}\rrbracket$ qui sont premiers avec $p$ et $q$.  Alors pour tout $x\in G$, il existe un unique $c\in S$ tel que $x=[c,c]$.  
+\end{lemme}
+
+\begin{proof}
+ Soit $x\in G$. Alors on peut écrire $x$ sous la forme $[a,b]$, où $(a ,b)\in \llbracket 1,p-1\rrbracket\times \llbracket 1,q-1\rrbracket$. D'après le théorème chinois, il existe $c\in \llbracket 1,pq-1\rrbracket$ tel que $c\equiv a[p]$, $c\equiv b[q]$. Alors $[c,c]=[a,b]$. Si $c\in \llbracket \frac{pq-1}{2}+1,pq-1\rrbracket$, alors $[pq-c,pq-c]=[-c,-c]=[c,c]=[a,b]$ et $pq-c\in \llbracket 1,\frac{pq-1}{2}\rrbracket$. De plus, comme $p$ ne divise pas $a$, $p$ ne divise pas $c$ et comme $q$ ne divise pas $b$, $q$ ne divise pas $b$, donc $c\in S$. D'où l'existence d'une telle écriture. 
+ 
+ Soient $c,c'\in \llbracket 1,\frac{pq-1}{2}\rrbracket$ tels que $[c,c]=[c',c']$. Alors  \[(c\mathrm{\ mod\ }p,c\mathrm{\ mod\ }q)=\epsilon (c'\mathrm{\ mod\ }p,c'\mathrm{\ mod\ }q),\] où $\epsilon\in \{-1,1\}$. D'après le théorème chinois, $c-\epsilon c'\in pq \Z$. Comme $1\leq c+c'\leq pq-1$, on a $c+c'\notin pq \Z$, donc $\epsilon\neq -1$, donc $\epsilon=1$. On a donc  $c-c'\in pq \Z$. On en déduit que $c=c'$, d'où l'unicité d'une telle écriture. 
+\end{proof}
+
+
+Nous pouvons maintenant montrer la loi de réciprocité quadratique.
+
+\begin{proof}(de la loi de réciprocité quadratique)
+  Nous allons calculer le produit \[t=\prod_{x\in G} x\] de deux manières différentes. 
+
+
+
+D'après le lemme~\ref{lemPremiére_décomposition_G}, on a \[ 
+t=\prod_{a=1}^n \prod_{b=1}^{q-1} [a,b]=\prod_{a=1}^n [a^{q-1},(q-1)!]=[(n!)^{2m},((q-1)!)^n].\]
+
+D'après les lemmes~\ref{lemThm_Wilson} et \ref{lemCongruences},
+ \begin{equation}
+ t=[(-1)^{(n+1)m},(-1)^{n}]=[(-1)^{nm+m+n},1,] 
+ \end{equation}
+ ce qui nous donne une première expression de $t$.
+ 
+\medskip 
+ 
+ Soit  $A=\prod_{a\in S} a$. D'après le lemme~\ref{lemDeuxième_décomposition_G}, on a \[t=\prod_{a\in S} [a,a]=[A\mathrm{\ mod\ }p,A\mathrm{\ mod\ }q].\]
+ 
+ Posons  $B=\prod_{a=1}^n qa$.
+On a $qn=(p-1)/2 q=pq/2-q/2$. Comme $\{a\in \llbracket qn+1,(pq-1)/2\rrbracket\mid q\mid a\}$ est vide, on  a  \[S\sqcup \{qa\mid a\in \llbracket 1,n\rrbracket\}=\{a\in \llbracket 1,\frac{pq-1}{2}\rrbracket\mid p\wedge a =1\}.\] 
+ 
+On a donc \[AB=\prod_{a\in \llbracket 1,(pq-1)/2\rrbracket\mid a\wedge p=1} a.\] D'après la proposition~\ref{propCritére_Euler}, $B=q^n n!=q^{(p-1)/2} n!\equiv \Big(\frac{q}{p}\Big) n![p]$. 
+
+
+On a $\frac{pq-1}{2}=mp+n$ et \[\begin{aligned}&\{a\in \llbracket 1,\frac{pq-1}{2}\rrbracket\mid p\wedge x =1\} \\ &=\{1,1+p,1+2p\ldots, 1+mp\}
+\sqcup \{2,2+p,2+2p,\ldots,2+mp\}
+& \sqcup \ldots \\
+ &\sqcup \{p-1,p-1+p,p-1+2p,\ldots, p-1+mp\},\end{aligned}\] On a donc $AB\equiv ((p-1)!)^m n!\equiv (-1)^m n! [p]$. Finalement, $AB\equiv (-1)^m \Big(\frac{q}{p}\Big)B[p]$ et comme $\Z/p\Z$ est intègre (et $B\not \equiv 0[p]$), on obtient \[A\equiv (-1)^m\Big(\frac{q}{p}\Big) [p].\] Par symétrie, on obtient \[A\equiv (-1)^n\Big(\frac{p}{q}\Big) [q].\]
+
+
+\end{proof}
+\end{comment}
+
+\subsection{Symbole de Jacobi}
+
+\begin{Def}\label{defSymbole_Jacobi}[Symbole de Jacobi]
+Soit $n$ un entier naturel impair. On écrit $n=\prod_{1 \leq j \leq k}p_j^{\alpha_j}$ où les $p_j$ sont des nombres premiers (impairs). Pour $a \in \mathbb{Z}$, on définit le symbole de Jacobi $\big(  \tfrac{a}{n}\big)$ par
+$$ \Big(  \frac{a}{n}\Big) =\prod_{j=1}^k \Big(  \frac{a}{p_j}\Big)^{\alpha_j} \in \{-1,0,1\} .  $$
+\end{Def}
+
+\begin{rem}
+\begin{enumerate}
+\item Si $n$ est premier, les symboles de Legendre et de Jacobi se confondent.
+
+\item Si $a,n\in \N$, avec $n$ impair sont tels que  $\left(\frac{a}{n}\right)=-1$, alors $a$ n'est pas un carré modulo $n$. En effet, dans ce cas là , il existe un diviseur premier $p$ de $n$ tel que $\left(\frac{a}{p}\right)=-1$. Alors $a$ n'est pas un carré modulo $p$. Ainsi pour tout $b,k\in \Z$, $b^2+kp\neq a$ et donc $b^2+k n=b^2+k p \frac{n}{p}\neq a$. Par contre, on peut avoir $\left(\frac{a}{n}\right)=1$, sans que $a$ soit un carré modulo $n$. Par exemple $\left(\frac{2}{9}\right)=\left(\frac{2}{3}\right)^2=1$, mais $2$ n'est pas un carré modulo $9$. 
+
+\item La définition de $\Big(\frac{a}{n}\big)$ que l'on vient de voir utilise la décomposition de $n$ en produit de facteurs premier. On va voir une méthode pour calculer $\Big(\frac{a}{n}\Big)$ «~rapidement~», sans factoriser $n$, ce qui permettra d'utiliser ce symbole dans un test de primalité.
+\end{enumerate}
+\end{rem}
+
+\begin{Prop}\ Soient $m,m_1,m_2,n,n_1,n_2\in \Z$, avec $n,n_1,n_2$ impairs. Alors :
+\begin{enumerate}
+
+
+\item   $\left(  \frac{m_1 m_2}{n}\right)= \left(  \frac{m_1}{n}\right) \left(  \frac{m_2}{n}\right). $
+\item $  \left(  \frac{m}{n_1 n_2}\right)= \left(  \frac{m}{n_1}\right)\left(  \frac{m}{n_2}\right) .  $
+\item  $     \left(  \frac{m}{n}\right)=0 \Longleftrightarrow m\wedge n \neq 1    .$
+
+\item Soit   $r$  le reste dans la division euclidienne de $m$ par $n$. Alors $\big(\frac{m}{n}\big)=\big(\frac{r}{n}\big)$. 
+
+\item Si $m$ est impair, 
+$   \left(  \frac{m}{n}\right)= (-1)^{\tfrac{m-1}{2}\cdot \tfrac{n-1}{2}} \left(  \frac{n}{m}\right) .   $
+
+\item  $    \left(  \frac{-1}{n}\right)= (-1)^{\tfrac{n-1}{2}} ; \qquad  \left(  \frac{2}{n}\right)= (-1)^{\tfrac{n^2-1}{8}}  $  
+
+
+\end{enumerate}
+
+
+
+\end{Prop}
+
+\begin{proof}
+(1-4) : exercice, (pour 4) on pourra utiliser le fait que $r\in a-p_j\Z$ pour tout $j\in \llbracket 1,k\rrbracket$, avec la notation de définition~\ref{defSymbole_Jacobi}). 
+
+(5) Écrivons $m=\prod_{i=1}^k p_i$ et $n=\prod_{j=1}^\ell q_j$, où $k,\ell\in \N$, $p_1,\ldots,p_k,q_1,\ldots,q_\ell\in \mathbb{P}_{\geq 3}$ (on ne suppose pas les $p_i,q_j$ distincts). Alors,  \[\begin{aligned}\left(\frac{m}{n}\right)&= \prod_{i=1}^k \prod_{j=1}^\ell \left( \frac{p_i}{q_j}\right)\\
+&= \prod_{i=1}^k \prod_{j=1}^\ell (-1)^{(p_i-1)/2.(q_j-1)/2} \left( \frac{q_j}{p_i}\right)\text{, d'après la loi de réciprocité quadratique,}\\
+&=\left(\prod_{i=1}^k \prod_{j=1}^\ell \left( \frac{q_j}{p_i}\right) \right) \left(\prod_{i=1}^k \prod_{j=1}^\ell (-1)^{(p_i-1)/2.(q_j-1)/2} \right)\\
+&= \left(\frac{n}{m}\right) \left(\prod_{i=1}^k \prod_{j=1}^\ell (-1)^{(p_i-1)/2.(q_j-1)/2} \right).\end{aligned}\]
+
+Il reste à  montrer que  \begin{equation}\label{eqEgalité_LRQ}
+\prod_{i=1}^k \prod_{j=1}^\ell (-1)^{(p_i-1)/2.(q_j-1)/2}=(-1)^{(m-1)/2.(n-1)/2}
+\end{equation}
+
+On a $(-1)^{(m-1)/2.(n-1)/2}=-1$ si et seulement si $(m-1)/2.(n-1)/2$ est impair si et seulement si $(m-1)/2$ et $(n-1)/2$ sont impairs donc 
+\begin{equation}\label{eqCondition_congruence}
+(-1)^{(m-1)/2.(n-1)/2}=-1\Leftrightarrow m\equiv n\equiv 3[4].
+\end{equation}
+
+Comme les $p_i$ sont impairs, on a $p_i\equiv 1[4]$ ou $p_i\equiv 3[4]$, pour $i\in \llbracket 1,k\rrbracket$. Posons $X_p=\{i\in \llbracket 1,k\rrbracket\mid p_i\equiv 3[4]\}$.  On a alors    \begin{equation}\label{eqProduit}
+m=\prod_{i=1}^k p_i \equiv \prod_{i\in X_p} p_i\equiv (-1)^{|X_p|}[4].
+\end{equation}
+ De même, si $X_q=\{j\in \llbracket 1,\ell\rrbracket\mid q_i\equiv 3[4]\}$, $n\equiv (-1)^{|X_q|}[4]$. 
+ 
+ En appliquant \eqref{eqCondition_congruence} à  $p_i$ et $q_j$ au lieu de $m$ et $n$, on obtient $\prod_{i=1}^k \prod_{j=1}^\ell (-1)^{(p_i-1)/2.(q_j-1)/2}=(-1)^{|X_p|\times |X_q|}$.
+ 
+ On a donc $\prod_{i=1}^k \prod_{j=1}^\ell (-1)^{(p_i-1)/2.(q_j-1)/2}=-1$ si et seulement si $|X_p|.|X_q|$ est impair, si et seulement si $|X_p|$ et $|X_q|$ sont impairs, d'où l'égalité \eqref{eqEgalité_LRQ}, d'après \eqref{eqCondition_congruence} et \eqref{eqProduit}. On en déduit (5).
+ 
+ (6) Avec les mêmes notations  qu'en (5), on a $\left(\frac{-1}{n}\right)=\prod_{j=1}^{\ell} \left(\frac{-1}{q_j}\right)=\prod_{j=1}^\ell (-1)^{(q_j-1)/2}=(-1)^{|X_q|}=(-1)^{(n-1)/2}$. 
+ 
+ On a $\left(\frac{2}{n}\right)=\prod_{i=1}^\ell\left(\frac{2}{q_i}\right)$. Soient $E=\{i\in \llbracket 1,\ell\mid q_i\equiv \pm 1[8]\}$, $F_1=\{i\in \llbracket 1,\ell\rrbracket\mid q_i\equiv 3[8]\}$ et $F_2=\{i\in \llbracket 1,\ell\rrbracket\mid q_i\equiv -3[8]\}$. D'après la remarque~\ref{rqCalcul_moins1_puissance...}, on a $\prod_{i=1}^{\ell} \left(\frac{2}{q_i}\right)\equiv (-1)^{|F_1|+|F_2|}$. Il faut également déterminer $n\mathrm{\ mod\ } 8$. Dans $\Z/8\Z$, on a \[\overline{n}=\prod_{i=1}^\ell \overline{q_i}=\left(\prod_{i\in E} \overline{q_i}\right)\left(\prod_{i\in F_1} \overline{q_i}\right)\left(\prod_{i\in F_2}  \overline{q_i}\right).\]
+ 
+ On a $\prod_{i\in E} \overline{p_i}=\pm \overline{1}$. On a $\left(\prod_{i\in F_1} \overline{q_i}\right)=\overline{3^{|F_1|}}$ et $\left(\prod_{i\in F_2} \overline{q_i}\right)=\pm \overline{3^{|F_2|}}$. On a donc $\overline{n}=\pm \overline{3}^{|F_1|+|F_2|}$ et comme $\overline{3}^2=\overline{1}$, on obtient $\overline{n}=\pm \overline{3}^{|F_1|+|F_2|\ \mathrm{mod\ }2}$. D'après la remarque~\ref{rqCalcul_moins1_puissance...}, on a donc  $(-1)^{(n^2-1)/8}=(-1)^{|F_1|+|F_2|}$. 
+ 
+ \end{proof}
+
+
+\begin{ex}
+\begin{enumerate}
+\item Déterminons $\left(\frac{33}{45}\right)$. On a $\left(\frac{33}{45}\right)=(-1)^{(45-1)/2.(33-1)/2}\left(\frac{45}{33}\right)=\left(\frac{45}{33}\right)$.
+
+On a $\left(\frac{45}{33}\right)=\left(\frac{12}{33}\right)=\left(\frac{4}{33}\right)\left(\frac{3}{33}\right)$. Comme $3$ divise $33$, on en déduit que $\left(\frac{33}{45}\right)=0$. 
+
+\item Déterminons $\left(\frac{123}{259}\right)$. On a $\left(\frac{123}{259}\right)=(-1)^{(123-1)/2.(259-1)/2}\left(\frac{259}{123}\right)=- \left(\frac{259}{123}\right)=\left(\frac{13}{123}\right)$. On a $\left(\frac{13}{123}\right)=(-1)^{(13-1)/2.(123-1)/2}\left(\frac{123}{13}\right)=\left(\frac{6}{13}\right)$. On a $\left(\frac{6}{13}\right)=\left(\frac{2}{13}\right)\left(\frac{3}{13}\right)$. Comme $13\equiv 3[8]$, $\left(\frac{2}{13}\right)=-1$. On a $\left(\frac{3}{13}\right)=(-1)^{(13-1)/2.(3-1)/2}\left(\frac{13}{3}\right)=\left(\frac{1}{3}\right)=1$. On a donc $\left(\frac{123}{259}\right)=-1$.
+\end{enumerate}
+\end{ex}
+
+L'algorithme suivant permet de calculer le symbole de Jacobi. Il prend en entrée un entier $m$ et un entier impair positif $n$ et renvoie $ \big( \tfrac{m}{n} \big)$.\\
+
+\begin{tabular}{ll}
+\textbf{Algorithme 15.} & Jacobi($m,n$)\\
+           & si $n= 1$ \\
+           & renvoyer 1 \\
+           & sinon \\
+           & \ \ \ {\rm |} $a \leftarrow m$ mod $n$ \\
+           & \ \ \ {\rm |} si $a=0$  \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} renvoyer 0 \\
+           &  \ \ \ {\rm |} sinon  \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} si $a$ mod 2$=0$ \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} \ \ \ {\rm|}si $n$ mod $8$ in $[1,7]$:\\
+           & \ \ \ {\rm |} \ \ \ {\rm |} \ \ \ {\rm|}\ \ \ {\rm|}Renvoyer Jacobi($a/2,n$)\\
+           & \ \ \ {\rm |} \ \ \ {\rm |} \ \ \ {\rm|}sinon :\\         
+           & \ \ \ {\rm |} \ \ \ {\rm |} \ \ \ {\rm|}\ \ \ {\rm|} Renvoyer $-$Jacobi($a/2,n$):\\         
+           & \ \ \ {\rm |} \ \ \ {\rm |} sinon \\
+           & \ \ \ {\rm |} \ \ \ {\rm |}\ \ \ {\rm |} si $a$ mod $4=1$ ou $n$  mod $^4=1$:\\
+           & \ \ \ {\rm |} \ \ \ {\rm |}\ \ \ {\rm |} \ \ \ {\rm |} Renvoyer Jacobi$(n,a)$ \\
+           & \ \ \ {\rm |} \ \ \ {\rm |}\ \ \ {\rm |} sinon:\\
+           & \ \ \ {\rm |} \ \ \ {\rm |}\ \ \ {\rm |} \ \ \ {\rm |} Renvoyer $-$Jacobi$(n,a)$ \\            
+\end{tabular}\\
+
+
+Montrons par récurrence sur $n$ que l'algorithme 15 termine.
+\begin{itemize}
+\item[•] Si $n=1$, OK.
+\item[•] Supposons que l'algorithme 15 termine pour Jacobi($m',n'$) où $m'\in \mathbb{Z}$ et $n'$ impair $<n$. On peut supposer sans perte de généralité que $m=a$ où $0<a<n$.\\
+Si $a$ est impair, on calcule récursivement Jacobi($n,a$) qui termine bien par hypothèse de récurrence car $a<n$.\\
+Si $a$ est pair, on a $a=2^kb$ où $k \geq 1$ et $b$ impair. L'algorithme se ramené à  Jacobi($b,n$) qui termine car $b$ impair. \\
+Pour vérifier que le résultat renvoyé par Jacobi$(a,n)$ est le bon, on utilise les propriétés précédentes.
+\end{itemize}
+
+
+
+\subsection{Le test}
+
+L'algorithme suivant est un nouveau test de primalité, fondé sur le symbole de Jacobi. On utilise à  nouveau la fonction Hasard$(a,b)$. Il prend en entrée un entier naturel impair $\geq 3$.\\
+
+\begin{thm} 
+Soit  $n$ un entier impair $\geq 3$. Alors :\begin{enumerate}
+\item $n$ est premier si et seulement si pour tous $a\in \Z$ tel que $a\wedge n=1$, $ \big( \tfrac{a}{n} \big)\equiv a^{(n-1)/2} [n]$,
+
+\item si $n$ est composé, $\{a\in \llbracket 2,n-1\rrbracket\mid\ a^{(n-1)/2}\equiv \left(\frac{a}{n}\right) [n]\}$ a au plus $\varphi(n)/2$ éléments.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+La preuve de (1) qui peut-être faite en utilisant les propriétés des nombres de Carmichael est admise.
+
+(2) On se place dans $(\Z/n\Z)^\times$. Alors $G:= \{\overline{a}\in (\Z/n\Z)^\times \mid\overline{a}^{(n-1)/2}=\overline{\left(\frac{a}{n}\right) }\}$ est un sous-groupe de $(\Z/n\Z)^\times$.   Par (1), on sait que $G$ est un sous groupe strict de $(\Z/n\Z)^\times$. Par le théorème de Lagrange, $|G|$ divise $|(\Z/n\Z)^\times|=\varphi(n)$, d'où le résultat.
+\end{proof}
+
+
+\begin{tabular}{ll}
+       \textbf{Algorithme :}    & Solovay-Strassen($n$)\\
+           & $a \leftarrow$ Hasard$(1,n-1)$  \\
+           & $j \leftarrow$ Jacobi$(a,n)$ \\
+           &  si $j=0$  \\
+           & \ \ \ {\rm |} renvoyer composé \\
+           &  sinon  \\
+           & \ \ \ {\rm |}  $b \leftarrow a^{\tfrac{n-1}{2}}\mathrm{\ mod\ }n$ \\
+           & \ \ \ {\rm |} si $b=n-1$ \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} $b \leftarrow -1$ \\
+           & \ \ \ {\rm |} si $b\neq j$\\
+           &   \ \ \ {\rm |} \ \ \ {\rm |} renvoyer composé \\           
+           & \ \ \ {\rm |} sinon \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} renvoyer premier ?
+\end{tabular}\\
+
+
+\begin{rem}
+Si $n$ est composé, la probabilité de tomber sur un $a$ montrant que $n$ est composé est  $\geq 1/2$. \\
+Supposons que $n$ est composé. Si on fait le test $k$ fois, où les $k$ entiers sont choisis indépendamment entre 1 et $n-1$, la probabilité de prouver que $n$ est composé est $\geq 1-1/2^k$.
+\end{rem}
+ 
+ 
+
+\chapter{Un peu de cryptographie}
+
+\section{Chiffrement de César et variations}
+
+
+{\textbf{Historique}}.\ \ Le mot cryptographie vient du grec \textit{kryptos} (caché) et de \textit{graphein} (écriture): il s'agit de l'art de transformer un message pour tenter de le rendre illisible par toute autre personne que son destinataire.
+
+\begin{ex}
+Le code de Jules César: il s'agit d'écrire un message en remplaçant chaque lettre par celle située trois rangs après elle dans l'ordre alphabétique.
+\end{ex}
+
+\begin{itemize}
+\item[•] L'algorithme de cryptage est appelé \textbf{chiffre de substitution}.
+\item[•] Le destinataire a la \textbf{clé} du chiffrement, i.e. l'information lui permettant d'effectuer le \textbf{déchiffrement}.
+\end{itemize}
+
+ 
+
+\begin{exo}
+Déchiffrer YHQLYLGLYLFL, chiffré par le biais du code de César.
+\end{exo}
+
+Un code plus efficace serait de fabriquer un chiffre de substitution à  partir d'un mot ou d'une suite de mots.
+
+\begin{ex}
+Le texte choisi dans cet exemple est LE ROI AGAMEMNON.\\
+On retire les lettres répétitives et on colle les mots: on obtient LEROIAGMN, qui forment alors les lettres du début de notre alphabet chiffré; les autres lettres suivent normalement. Nous obtenons alors:
+  
+\begin{tabular}{p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}p{0.1cm}}
+ A & B & C & D & E & F & G & H & I & J & K & L & M & N &O &P & Q & R & S & T & U & V & W & X & Y & Z   \\
+L & E & R & O & I & A & G & M & N & P & Q  & S & T & U & V & W & X & Y & Z & B & C & D & F & H & J & K 
+\end{tabular}\\  
+\end{ex}
+ 
+\begin{exo}
+Déchiffrer SIZTLBMZRIZBLTCZLUB.
+\end{exo}  
+  
+\begin{rem}
+Si un indiscret tombe sur le message précédent, même s'il n'y a que dix lettres différentes, s'il n'a pas la clé, il devra envisager tous les arrangements possibles: il y en a 26!/17!, c'est-à -dire plus de 19000 milliards.
+\end{rem}  
+
+L'analyse de la fréquence des lettres dans l'alphabet permet de «~casser~» tous ces codes pour les textes suffisamment longs. La fréquence des lettres dans l'alphabet en langue française (elle dépend de l'échantillon utilisé) est la suivante : \begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|r|}
+  \hline
+ E & S & A & I & N & T & R & U & L & O\\
+  \hline
+ 14,69\% & 8,01\% & 7,54\%& 7,18\% & 6,89\% & 6,88\% & 6,49\% & 6,12\% & 5,63\% &5,29\%\\
+\hline
+\end{tabular}.
+\end{center}
+
+On peut alors utiliser la méthode suivante. On cherche la lettre qui apparaît le plus dans le texte chiffré. Cela devrait être un E. Les deux lettres suivantes qui apparaissent le plus devraient être un $S$ et un $A$ etc. On peut faire un chiffrement par blocs, c'est à  dire choisir un nombre $k$, et coder des blocs de $k$ lettres.  C'est le chiffrement de Vigenère. Cependant, il est aussi vulnérable à  une analyse statistique de fréquence.
+
+
+\section{Chiffrement symétrique et asymétrique}
+
+
+
+\subsection*{Détails}
+
+
+Alice veut envoyer un message à  Bob. Didier, un importun, aimerait bien parvenir à  lire ce message.
+
+\begin{but}
+Pour Alice et Bob: envoyer des messages entre eux sans que personne d'autre ne puisse les lire.
+\end{but}
+
+Alice chiffre alors son message et l'envoie à  Bob de manière à  ce que seul Bob sache le déchiffrer. Il faut donc que:
+\begin{itemize}
+\item[•] Bob sache lire le message d'Alice;
+\item[•] Didier ne sache pas le lire.
+\end{itemize}
+
+\begin{notas}\
+\begin{itemize}
+\item[•] M=$\{$messages$\}$
+\item[•] $F_A$: fonction de chiffrement d'Alice.
+\item[•] $F_B$: fonction de déchiffrement de Bob.
+\item[•] m: message d'origine (non chiffré).
+\item[•] $c=F_A(m)$: message codé.
+\end{itemize}
+\end{notas}
+
+On a donc $m=F_B(c)$, donc $F_B$ est la fonction inverse de $F_A$, i.e. $F_B \circ F_A =Id$.
+$$      c \longrightarrow m      $$
+
+Une première possibilité est qu'Alice et Bob partagent un secret qui leur permet de chiffrer et de déchiffrer les messages: on parle dans ce cas de \textbf{chiffrement symétrique}.\\
+
+Le problème de ce chiffrement est qu'Alice et Bob doivent être en mesure d'échanger ce secret en toute sécurité.\\
+
+\textbf{Exemple : le masque jetable ou chiffrement de Vernam}
+
+On choisit une clé (une suite de caractères, par exemple des entiers de $0$ à  $25$) $c=(c_0,\ldots, c_k)$ de manière «~aléatoire~» au moins aussi longue que le message $m=(m_0,\ldots,m_k)$ à  chiffrer. Le message envoyé est alors $m'=(m_0+c_0\%26,\ldots,m_k+c_k\% 26)$. Pour le destinataire du message, il suffit alors de calculer $(m'-c)\%26$. En théorie, ce chiffrement est incassable. En pratique, il est peu utilisé, car il nécessite de pouvoir échanger une clé secrète longue avant de pouvoir communiquer. 
+
+
+\bigskip
+
+
+Une deuxième méthode est de faire un \textbf{chiffrement asymétrique}.
+
+\begin{prin}\
+\begin{itemize}
+\item[•] Bob possède une clé secrète. Il ne la confie à  personne, pas même à  Alice.
+\item[•] Il fabrique, à  partir de cette clé secrète, une clé qu'il rend publique, de manière à  ce qu'Alice puisse la consulter.
+\end{itemize}
+\end{prin}
+
+Cette clé publique doit être construite de manière à  ce que:
+\begin{itemize}
+\item[•] Alice sache chiffrer des messages à  l'aide de la clé publique.
+\item[•] Bob sache déchiffrer des messages à  l'aide de sa clé secrète.
+\item[•] Didier ne sache pas déchiffrer les messages sans la clé ni deviner la clé secrète à  partir de la clé publique et du message chiffré $c$. 
+\end{itemize}
+
+\section{Système RSA}
+
+Ce système a été mis en place par Rivest, Schamir et Adleman; il s'agit d'un système asymétrique ou encore d'un système à  clé publique.
+
+
+\subsection{Construction des clés publique et privée}
+
+
+
+\begin{prin}\
+\begin{itemize}
+\item[•] Bob choisit deux nombres premiers distincts $p$ et $q$ de taille comparable.
+\item[•] Bob calcule $n=pq$ et $\varphi=(p-1)(q-1)$.
+\item[•] Bob choisit un entier $e$ qui vérifie $1<e< \varphi$ et $e \wedge \varphi=1$.
+\item[•] Bob cherche l'unique entier $2 \leq d \leq \varphi -1$ tel que $de \equiv 1 [\varphi]$.
+\item[•] On obtient les clés publique et privée souhaitées:
+\begin{itemize}
+\item[$\star$] clé publique: $(n,e)$;
+\item[$\star$] clé secrète: $(d,\varphi)$.
+\end{itemize}  
+\end{itemize}
+\end{prin}
+
+Plusieurs questions se posent alors:
+\begin{itemize}
+\item[$1)$] Comment calculer $d$ ?
+\item[$2)$] Peut-on calculer $d$ à  partir de $(n,e)$ ?
+\end{itemize}
+
+\begin{reps}
+\begin{itemize}
+\item[$1)$]  On applique Euclide-étendu$(e,\varphi)$ qui renvoie $(1,x,y)$; alors $d=x$.
+\item[$2)$] Pour calculer $d$, il suffit de connaître $\varphi(n)=(p-1)(q-1)$, et donc de connaître la décomposition de $n$ en produit de facteurs premiers.
+\end{itemize}
+\end{reps}
+
+\subsection{Chiffrement}
+
+\begin{prin}\
+\begin{itemize}
+\item[•] Alice récupére la clé publique de Bob.
+\item[•] Alice écrit le message sous la forme d'un entier $0 \leq m \leq n-1$.
+\item[•] Alice calcule $C=m^e$ mod $n$.
+\item[•] Alice envoie $C$ à  Bob.
+\end{itemize}
+\end{prin}
+
+\begin{rems}\
+\begin{itemize}
+\item[•] Le calcul de $C$ s'effectue à  l'aide de l'algorithme d'exponentiation modulaire.
+\item[•] Pour retrouver $m$ à  l'aide de $C$ et de la clé publique $(n,e)$ , il faut soit retrouver $d$ (ce qui a été vu à  la partie précédente), soit calculer une racine $e$-ième de $C$ mod $n$, i.e. trouver $m_1$ tel que $m_1^e \equiv C [n]$, ce qui est, de façon calculatoire, très difficile si on ne connaît pas la décomposition en produit de facteurs premiers de $n$. Si on connaît cette décomposition, on calcule $d$ pour obtenir la racine. 
+\end{itemize}
+\end{rems}
+
+
+\subsection{Déchiffrement}
+
+\begin{prin}
+Bob utilise la clé privée $(d,\varphi)$ pour retrouver $m=C^d \text{ mod } n$. Ceci se base sur le résultat suivant : 
+
+\end{prin}
+
+
+\begin{lemme}
+Soit $m\in \Z/n\Z$. Alors $m^{ed}=m$. 
+\end{lemme}
+
+\begin{proof}
+Soit $\phi:\Z/n\Z\rightarrow \Z/p\Z\times \Z/q\Z$ l'isomorphisme chinois. Écrivons $\phi(\overline{m})=(m_p,m_q)$. Soit $i\in\{p,q\}$. Si $m_i=\overline{0}$, alors $m_i^{ed}=0=m_i$. Si $m_i\neq \overline{0}$, alors $m_i^{i-1}=\overline{1}$, par le théorème de Fermat. Comme $i-1$ divise $\varphi$, qui divise $ed-1$, on en déduit que $m_i^{ed-1}=\overline{1}$ et donc $m_i^{ed}=m_i$. On a $m_i^{ed}=m_i$, dans les deux cas. On en déduit que $m^{ed}=(m_p^{ed},m_q^{ed})=(m_p,m_q)$, d'où le résultat.
+\end{proof}
+
+
+\begin{remarque}
+Il est aussi difficile calculatoirement d'obtenir $p$ et $q$ que d'obtenir $\varphi$ à partir de $pq$. En effet, supposons que l'on connaisse $pq$ et $\varphi=(p-1)(q-1)$. Alors $\varphi=pq-p-q+1$, donc on connaît $p+q+1$ et $pq$. Alors $p$ et $q$ sont les solutions de l'équation $(x-p)(x-q)=x^2-(p+q)x+pq$, d'inconnue $x\in \R$. 
+\end{remarque}
+
+\section{Sur la sécurité de RSA}
+
+
+
+Cette partie utilise des résultats du texte public 2018 C2 sur la page agreg.org.
+
+Montrons que trouver la clé secrète $d$ uniquement à  l'aide de la clé publique $(n,e)$ est calculatoirement équivalent à  factoriser $n$.
+
+\begin{itemize}
+\item[•] Si on sait factoriser $n=pq$, on peut alors calculer $\varphi=(p-1)(q-1)$; puis $d$ tel que $1<d<\varphi$ et $ed \equiv 1 [\varphi]$.
+\item[•] Si on connaît $n,e$ et $d$, alors comme $ed \equiv 1 [\varphi]$, il existe $k \in \mathbb{Z}$ tel que $1=ed + k \varphi$, donc si on choisit $a \in (\mathbb{Z}/n\mathbb{Z})^{\times}  $, on a $a^{ed-1}\equiv 1 [n]$. Décomposons à  présent $ed-1$ sous la forme $ed-1=2^s t$ où $s \in \mathbb{Z}$ et $t$ impair.\\
+
+
+
+\end{itemize}
+
+
+\begin{lemme}\label{lemProba}
+Soit $a\in (\Z/n\Z)^\times$. Alors la probabilité que $a^t\neq 1$ et qu'il existe $j\in \llbracket 1,s\rrbracket$ tel que $a^{2^{j-1}s}\neq \pm\overline{1}$ et $a^{2^js}=\overline{1}$ est supérieure ou égale à  $\frac{3}{8}$.
+\end{lemme}
+
+
+\begin{proof}
+Soit $X=\{a\in (\Z/n\Z)^\times\mid a^t=\overline{1}\}$. Soient $\phi:\Z/n\Z\rightarrow \Z/p\Z\times \Z/q\Z$ l'isomorphisme chinois et $X'=\phi(X)=\{(x_1,x_2)\in \Z/p\Z\times \Z/q\Z\mid(x_1^t,x_2^t)=(\overline{1},\overline{1})\}$. Soit $a=(a_1,a_2)\in X'$. Alors $O(a):=\{a,(a_1,-a_2),(-a_1,a_2),-a\}$ vérifie $O(a)\cap X=\{a\}$. En effet soit $\epsilon_1,\epsilon_2\in \{-1,1\}$.  Alors $(\epsilon_1 a_1,\epsilon_2  a_2)^t=(\epsilon_1 a_1^t,\epsilon_2 a_2^t)=(\overline{\epsilon_1},\overline{\epsilon_2})$, par hypothèse sur $a$. Le seul choix permettant d'obtenir $(\epsilon_1 a_1,\epsilon_2 a_2)\in X'$ est donc $\epsilon_1=\epsilon_2=1$. 
+
+De plus, comme $X'\subset (\Z/p\Z\times \Z/q\Z)^\times=(\Z/p\Z)^\times \times (\Z/q\Z)^\times \simeq \Z/(p-1)\Z\times \Z/(q-1)\Z$, $\{a,-a,\pm(a_1,-a_2)\}=4$. Soit maintenant $b=(b_1,b_2)\in X$. Supposons que $O(a)\cap O(b)\neq \emptyset$. Alors il existe $\epsilon_1,\epsilon_2,\epsilon_1',\epsilon_2'\in \{-1,1\}$ tel que $(\epsilon_1a_1,\epsilon_2 a_2)=(\epsilon'_1 b_1,\epsilon'_2 b_2)$.  On a donc $a=(\epsilon_1\epsilon_1' b_1,\epsilon_2\epsilon_2' b_2)$. Comme $a^t=b^t=(\overline{1},\overline{1})$ et que $t$ est impair, on en déduit que $\epsilon_1\epsilon_1'=1$ et $\epsilon_2\epsilon_2'=1$ et donc $\epsilon_1=\epsilon_1'$ et $\epsilon_2=\epsilon_2'$. Donc $a=b$. On a donc $\bigsqcup_{a\in X'}O(a)\subset \phi\big((\Z/n\Z)^\times\big)$. En prenant les cardinaux, on obtient que $4|X'|=4|X|\leq |\phi\big((\Z/n\Z)^\times\big)|=|(\Z/n\Z)^\times|$. Soit maintenant $Y=(\Z/n\Z)^\times \setminus X$.  Soit $Z=\{a\in Y\mid\exists j\in \llbracket 1,s\rrbracket\mid a^{2^{j-1}}\neq \pm\overline{1}\text{ et }a^{2^j}=\overline{1}\}$. On verra en TD que $|Z|\geq \frac{|Y|}{2}$. On a donc $|Z|\geq \frac{|Y|}{2}=\frac{\varphi(n)-|X|}{2}\geq \frac{\varphi(n)-1/4\varphi(n)}{2}=\frac{3\varphi(n)}{8}$. 
+\end{proof}
+ 
+
+
+Soient $x$ et $j$ deux entiers tels que $a=\overline{x}$ et $j$ soient comme dans le lemme~\ref{lemProba}. Alors $(x^{2^{j-1}t}-1)\wedge n$ est un facteur non trivial de $n$. En effet, $\overline{x^{2^j t}-1} =\overline{(x^{2^{j-1}t}-1)}\overline{(x^{2^{j-1}t}+1)} =\overline{0}$ et $\overline{(x^{2^{j-1}t}-1)},\overline{(x^{2^{j-1}t}+1)}\neq \overline{0}$ dans $\Z/n\Z$. On en déduit que $\overline{x^{2^j t}-1}$ et $\overline{x^{2^j t}+1}$ ne sont pas inversibles dans $\Z/n\Z$ et donc que $(x^{2^{j-1}t}+1)$ et $(x^{2^{j-1}t}-1)$ ne sont pas premiers avec $n$.\\
+Il suffit alors de choisir aléatoirement des entiers $x$ jusqu'à  ce qu'on obtienne un facteur non trivial de $n$ pour factoriser $n$.
+
+
+ \newpage 
+ 
+ \section*{Preuves à connaître}
+ 
+ Les démonstrations des résultats suivants sont exigibles aux examens : \begin{itemize}
+ \item Théorème~\ref{thmZ_principal}
+ 
+  \item Lemme~\ref{l_sous_groupes_monogenes}
+ 
+ \item Définition/Proposition~\ref{def_prop_PGCD}
+ 
+ 
+  \item Théorème~\ref{thmIntegriteZ_nZ}
+ 
+
+ 
+ \item Théorème~\ref{thmIndicatrice_d'Euler} (2) et (3)
+ 
+ 
+\item  Proposition~\ref{p_Miller_rabin}.
+ \end{itemize}
+ 
+
+
+\bibliography{/home/auguste_pro/Documents/Enseignement/bibliographie.bib}
+
+\bibliographystyle{plain}
+
+\end{document}

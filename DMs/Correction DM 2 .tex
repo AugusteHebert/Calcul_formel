@@ -1,0 +1,161 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{comment}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2023/2024 \\  L3 Mathématiques
+}
+\chead{\textbf{Calcul formel}\\} 
+ \rhead{ \ \\ Université de Lorraine }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+
+
+
+\newcommand{\md}[3]{#1\ \equiv \ #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod {#3} }
+\newcommand{\mda}[3]{#1 \equiv #2   [{#3}] }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod {#3} }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\moa}[2]{#1 \! \!  \pmod {#2} }
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+Correction du DM n$^{\boldsymbol{\circ}}$3
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+
+
+
+\
+
+
+\begin{itemize}
+\item[$1.a)$]  Soit $\phi:\Z/n\Z\rightarrow \Z/p_1^{\alpha_1}\Z\times \ldots \times \Z/p_k^{\alpha_k}\Z$ l'isomorphisme chinois (défini par $\phi(x[n])=(x[p_1^{\alpha_1},\ldots, x[p_k^{\alpha_k}])$, pour $x\in \Z)$. Soit $x\in \Z$. Alors comme $\phi$ est injective,  $x\equiv 1[n]$ si et seulement si $\phi(x)\equiv \phi(1[n])$ si et seulement si, ($x\equiv 1[p_i^{\alpha_i}]$, pour tout $i\in \llbracket 1,k\rrbracket$).  \\
+\item[$1b.)$] Soit $a$ premier avec $n$. Pour $i\in \lb 1;k \rb$, $a$ est alors premier avec $p_i$, et par le petit théorème de Fermat, $ \mda{a^{p_i-1}}{1}{p_i} $. De plus, $(p_i-1) \mid (n-1)$, donc $\mda{a^{n-1}}{1}{p_i}$ pour tout $i \in \lb 1;k \rb$. Comme les $p_i$ sont deux à deux premiers entre eux, par le théorème des restes chinois,
+nous avons $\mda{a^{n-1}}{1}{n}$. Donc $n$ est un nombre de Carmichaël. \\
+Nous avons $561= 3\times 11 \times 17$; nous pouvons observer que $2 \mid 560$, $10 \mid 560$ et $16 \mid 560$, et qu'ainsi $561$ est un nombre de Carmichaël. De même, $10585= 5 \times 29 \times 73$ et $4 \mid 10584$, $28 \mid 10584$ et $72 \mid 10584$.\\
+\item[$2.$] 
+\begin{itemize}
+\item[$a)$] Le cardinal de $(\mathbb{Z}/n\mathbb{Z})^{\times}$ vaut $\varphi(2^{\alpha})=2^{\alpha-1}$.\\
+Prenons à présent $a$ impair. PGCD$(a,2)=1$ donc par le théorème d'Euler, $\mda{a^{\varphi(n)}}{1}{n}$, d'où $\mda{a^{2^{\alpha-1}}}{1}{n}$. Ainsi, $\mda{a^{2^{\alpha}}}{1}{n}$. Nous avons donc 
+$$ \mda{a^{2^{\alpha}-1}}{1}{n} \Longleftrightarrow \mda{a^{2^{\alpha}}}{a}{n} \Longleftrightarrow \mda{a}{1}{n}.  $$
+$n \geqslant 4$ donc $3$ ne vérifie pas l'équation $\mda{a^{n-1}}{1}{n}$, et ainsi, une puissance de $2$ n'est pas un nombre de Carmichaël.
+\\
+\item[$b)$] 
+\begin{itemize}
+\item[$(i)$] (On admet ici que $(\mathbb{Z}/p_1^{\alpha_1})^{\times})$ est cyclique.)
+
+Le théorème des restes chinois nous donne l'existence de l'application $$\psi:(\mathbb{Z}/n\mathbb{Z})^{\times} \rightarrow (\mathbb{Z}/p_1^{\alpha_1}\mathbb{Z})^{\times} \times \ldots \times  (\mathbb{Z}/p_k^{\alpha_k}\mathbb{Z})^{\times} $$
+qui est un isomorphisme d'anneaux. On pose $t=\psi^{-1}(\omega,1, \ldots, 1)$. Alors $t$ vérifie bien $\mda{t}{\omega}{p_1^{\alpha_1}}$ et $\mda{t}{1}{p_i^{\alpha_i}}$ si $i \in \lb  2;k \rb$. 
+\\
+Comme PGCD($\omega,p_1^{\alpha_1}$)=1, alors PGCD($t$,$p_i^{\alpha_i}$)=1 pour tout $i \in \lb 1;k \rb$, et par le théorème des restes chinois, PGCD($t$,$n$)=1. Comme $n$ est un nombre de Carmichaël, alors $t^{n-1}\equiv 1 [n]$. \\
+\item[$(ii)$] Par le théorème des restes chinois et la question précédente, nous avons $\mda{t^{n-1}}{1}{n}$, et ainsi, $\mda{\omega^{n-1}}{1}{n}$. Or $\omega$ est un générateur de $(\mathbb{Z}/p_1^{\alpha_1}\mathbb{Z})^{\times}$, donc $\varphi(p_1^{\alpha_1} \mid (n-1) $, et ainsi, $ p_1^{\alpha_1-1}(p_1-1)\mid (n-1) $.\\
+Si $\alpha_1-1\geqslant 1$, alors $p_1 \mid (n-1)$. Or $p_1 \mid n$, donc $p_1 \mid 1$, ce qui est absurde. 
+Donc $\alpha_1 = 1$, d'où $(p_1 - 1)$ divise $(n - 1)$. \\
+\item[$(iii)$] On vient de voir que $(p_1-1) \mid (n-1)$. Or $p_1-1$ est pair, donc $n-1$ est pair; on en déduit que $n$ est impair. Ainsi, $n= p_1 \prod_{i=2}^k p_i^{\alpha_i}$ avec $p_i$ impair. En faisant de la même manière que pour $p_1$, on obtient $\alpha_i=1$ si $i \in \lb 2;k \rb$, et dans ce cas, $(p_i-1)\mid (n-1)$.\\
+En définitive, si $n$ est un nombre de Carmichaël, alors $n$ peut s'écrire sous la forme $n = p_1 \times p_2 \times \ldots \times p_k$ où $p_1, p_2, \ldots, p_k$ sont des nombres premiers deux à deux distincts tels que $(p_i - 1)$ divise $(n - 1)$ pour tout $i \in \lb 1;k \rb $. \\
+\end{itemize}
+\end{itemize}
+\item[$3.$] Par définition, un nombre de Carmichaël admet au moins deux facteurs premiers.\\
+On suppose que $n=p_1p_2$ avec $p_1 \neq p_2$ est un nombre de Carmichaël. Alors
+$$ n-1= p_1p_2-1 = p_1p_2-p_1+p_1-1=p_1(p_2-1)+p_1-1.  $$
+Nous avons donc $n-1=p_1(p_2-1)+p_1-1$. Par définition, $(p_1-1) \mid (n-1)$, donc $(p_1-1) \mid (p_1(p_2-1))$, d'où $(p_1-1)\mid (p_2-1)$. De même, nous avons $(p_2-1)\mid (p_1-1)$, et ainsi, $p_1=p_2$, ce qui est impossible. \\
+Donc un nombre de Carmichaël admet au moins $3$ facteurs premiers.  
+ \\
+\item[$4.$] L'algorithme d'Euclide étendu nous donne 
+$$\begin{array}{c|c|c|c|c|c}
+a & b &  \lfloor a/b \rfloor & d & p & k\\
+\hline
+85 & 16 & 5 & 1 & -3 & 1+3\times 5=16 \\
+\hline
+16 & 5 & 3 & 1 & 1 & -3 \times 1=-3 \\
+\hline
+5 & 1 & 5 & 1 & 0 & 1 
+\end{array} $$
+
+On obtient donc que $p_0=-3$ et $k_0=16$ est une solution particulière. Si $(k,p)\in \Z^2$ est solution de l'équation, on a $85p-16k=1=85 p_0-16k_0$, donc $85(p-p_0)-16(k-k_0)=0$, donc $85(p-p_0)=16(k-k_0)$.  On en déduit que $85$ divise $16(k-k_0)$ et comme $16\wedge 85=1$, on a $85$ divise $k-k_0$ (par le lemme de Gauss). On peut donc écrire $k-k_0=85m$, où $m\in \Z$. On a alors $85(p-p_0)=16.85m$, donc $p-p_0=16m$ donc $p=p_0+16m$. Réciproquement, si $m\in \Z$, alors $85(p_0+16m)-16(k_0+85m)=85p_0+85.16m-85.16m-16k_0=1$.
+ 
+Les solutions de l'équation $85p - 16k = 1$ sont donc données par 
+$$\left \{ \begin{array}{l}
+p=-3+16 m \\
+k=16+85 m
+\end{array} \right.  \qquad (m  \in \mathbb{Z})  . $$\\
+Cherchons à présent $n$ nombre de Carmichaël sous la forme $n=5 \times 17 \times p$ avec $p$ un nombre impair (on ne sait pas que $p$ est premier pour le moment). Si un tel $n$ existe, alors $4 \mid (n-1)$, $16 \mid (n-1)$, ce qui équivaut simplement à $16 \mid (n-1)$, ce qui signifie qu'il existe $k\in \mathbb{N}$ tel que $n-1=16k$, i.e. $85p-16k=1$. L'étude de cette équation nous permet d'affirmer que $p \in \{ -3+16 m ; m\in \mathbb{Z}  \}$. Si on choisit le plus petit entier positif de l'ensemble précédent, i.e. $p=13$, on peut remarquer que $13$ est premier, $12 \mid (n-1)$ car $4 \mid (n-1)$ et $3 \mid (n-1)$ (car $85p-1=(28.3+1)p-1\equiv p-1[3]\equiv[0[3]$ car $p=13$).
+Donc $5 \times 17 \times 13=1105$ est un nombre de Carmichaël et c'est le plus qui soit divisible par $5$ et $17$.\\
+
+\begin{comment}
+\item[$5.$] Soit $n= (6k+1)(12k+1)(18k+1)$. Vérifions que $6k \mid (n-1)$, $12k \mid (n-1)$ et $18k \mid (n-1)$, ce qui équivaut à vérifier que $36 k \mid (n-1)$.\\
+Nous avons 
+\begin{eqnarray*}
+{n}& \equiv & {(72k^2+18k+1)(18k+1)}{[36k]}\\
+   & \equiv & (18k+1)^2 [ 36k]\\
+   & \equiv & (18k)^2+36k+1 [36k]\\
+   & \equiv & 1 [36k],
+\end{eqnarray*}
+et ainsi, $36k\mid (n-1)$, ce qui prouve que $n$ est un nombre de Carmichaël.
+\end{itemize}
+\end{comment}
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

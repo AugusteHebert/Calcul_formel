@@ -1,0 +1,130 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\usepackage{comment}
+\usepackage{xr-hyper}
+
+\title{}
+
+\date{}
+
+
+
+\makeatletter%pour faire référence aux exercices de enonce.tex
+\newcommand*{\addFileDependency}[1]{% argument=file name and extension
+  \typeout{(#1)}
+  \@addtofilelist{#1}
+  \IfFileExists{#1}{}{\typeout{No file #1.}}
+}
+\makeatother
+
+\newcommand*{\myexternaldocument}[1]{%
+    \externaldocument{#1}%
+    \addFileDependency{#1.tex}%
+    \addFileDependency{#1.aux}%
+}
+\myexternaldocument{DM1}%pour faire référence aux exercices de DM1.tex
+
+
+\begin{document}
+
+
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2022/2023 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{ Université de Lorraine \\  }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+
+
+
+\newcommand{\md}[3]{#1\ \equiv \ #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod {#3} }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod {#3} }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod {#3} }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\moa}[2]{#1 \! \!  \pmod {#2} }
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+Corrigé DM 1
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+1) Dans $\Z/6\Z$, les idempotents sont $\overline{0}$, $\overline{1}, \overline{3},\overline{4}$. Dans $\Z/7\Z$, les idempotents sont $\overline{0},\overline{1}$.
+
+\eqref{inverse_theorem_chinois} \textbf{Première méthode :} On a $25-6\times 4=1$. On pose donc $c_1=25\mathrm{\ mod\ }100$ et $c_2=-24\mathrm{\ mod\ }100$. On a alors $\phi(c_1)=((25\mathrm{\ mod\ }4,25\mathrm{\ mod\ }25))=(1\mathrm{\ mod\ }4, 0\mathrm{\ mod\ }25)$ et $\phi(c_2)=(-24\mathrm{\ mod\ }4,-24\mathrm{\ mod\ }25)=(0\mathrm{\ mod\ }4,1\mathrm{\ mod\ }25)$. On a donc $\phi^{-1}(1\mathrm{\ mod\ }4, 0\mathrm{\ mod\ } 25)=c_1$, $\phi^{-1}((0\mathrm{\ mod\ }4,1\mathrm{\ mod\ }25))=c_2=76\mathrm{\ mod\ }100$.
+
+\textbf{Deuxième méthode : l'algorithme de Garner.} On cherche $x\in \llbracket 0,99\rrbracket$ tel que $x\equiv 0[4]$ et $x\equiv 1 [25]$. D'après le théorème de la base mixte, on peut écrire $x$ sous la forme $x=\nu_1+25\nu_2$, où $\nu_1\in \llbracket 0,24\rrbracket$ et $\nu_2\in \llbracket 0,3\rrbracket$. Comme $x=\nu_1+25\nu_2\equiv 0[25]$, on a $\nu_1\equiv 0[25]$ et donc $\nu_1=0$. On a donc $x=25\nu_2 \equiv 1[4]\equiv 24\nu_2+\nu_2[2]\equiv \nu_2[4]$, donc $\nu_2=1$. On a donc $x=25$, donc $\phi^{-1}(1\mathrm{\ mod\ }4, 0\mathrm{\ mod\ } 25)=25\mathrm{\ mod\ }100$.
+
+On cherche maintenant $x\in \llbracket 0,99\rrbracket$ tel que $x\equiv 1[4]$ et $x\equiv 0[25]$. On cherche $x$ sous la forme $x=\nu_1+25\nu_2$, où $\nu_1\in \llbracket 0,24\rrbracket$ et $\nu_2\in \llbracket 0,3\rrbracket$. On a $x=\nu_1+25\nu_2\equiv 1[25]$, donc $\nu_1\equiv 1[25]$ donc $\nu_1=1$. On a aussi $x=1+25\nu_2\equiv 0[4]\equiv 1+\nu_2\equiv[4]$ donc $\nu_2\equiv 3[4]$ donc $\nu_2=3$. On a donc $x=76$, donc $\phi^{-1}((0\mathrm{\ mod\ }4,1\mathrm{\ mod\ }25))=76\mathrm{\ mod\ }[100]$.
+
+
+\textbf{Remarque : }On pourrait aussi chercher $x$ sous la forme $x=\nu_1+4\nu_2$, avec $\nu_1\in\llbracket 0,3\rrbracket$ et $\nu_2\in \llbracket 0,24\rrbracket$. Cependant il est plus judicieux de faire dans l'ordre que l'on a fait car le calcul de $\nu_1$ est immédiat. Pour le calcul de $\nu_2$, il faut inverser un élément de $(\Z/25\Z)^\times$ ($4\mathrm{\ mod\ }25$) ou un élément de $(\Z/4\Z)^\times$ ($25\mathrm{\ mod\ }4$), et il est plus rapide d'inverser un élément de $(\Z/4\Z)^\times$ qu'un élément de $(\Z/25\Z)^\times$. 
+
+
+\eqref{idempotent_explicite} Soit $x=\phi^{-1}(1\mathrm{\ mod\ }4, 0\mathrm{\ mod\ } 25)$. Alors $\phi(x)^2=(1\mathrm{\ mod\ }4, 0\mathrm{\ mod\ } 25)^2=(1^2\mathrm{\ mod\ }4, 0^2\mathrm{\ mod\ } 25)=(1\mathrm{\ mod\ }4, 0\mathrm{\ mod\ } 25)=\phi(x)$. On a donc $x^2=(\phi^{-1}(\phi(x)))^2=\phi^{-1}(\phi(x)^2)=\phi^{-1}(\phi(x))=x$. Donc $x$ est idempotent. De même, $\phi^{-1}((0\mathrm{\ mod\ }4,1\mathrm{\ mod\ }25))$ est idempotent. 
+
+\textbf{Remarque : }On a en fait montré que l'image d'un idempotent par un isomorphisme est un idempotent.
+
+\eqref{inversibles} On a $(\Z/10\Z)^\times =\{x\mathrm{\ mod\ }10\in \llbracket 0,9\rrbracket | x\wedge 10=1\}=\{1\mathrm{\ mod\ }10,3\mathrm{\ mod\ }10,7\mathrm{\ mod\ }10,9\mathrm{\ mod\ }10\}$ et  \[\begin{aligned}(\Z/16\Z)^\times &=\{x\mathrm{\ mod\ }10\in \llbracket 0,15\rrbracket | x\wedge 15=1\} \\ 
+&=\{1\mathrm{\ mod\ }16,3\mathrm{\ mod\ }16, 5\mathrm{\ mod\ }16,7\mathrm{\ mod\ }16,9\mathrm{\ mod\ }16,11\mathrm{\ mod\ }16,13\mathrm{\ mod\ }16,15\mathrm{\ mod\ }16\}.\end{aligned}\]
+
+\eqref{idempotent_anneau} Soit $x\in A^\times$ tel que $x^2=x$. Alors $x^{-1}.x^2=x^{-1}.x=1=x$, donc le seul idempotent inversible de $A$ est $1$.
+
+\eqref{idempotents10_16} À part $1$, on recherche les idempotents parmi les éléments non inversibles. Après calcul, on obtient que l'ensemble des idempotents de $\Z/10\Z$ est $\{0\mathrm{\ mod\ }10, 1\mathrm{\ mod\ }10, 5\mathrm{\ mod\ }10,,6\mathrm{\ mod\ }10\}$ et l'ensemble des idempotents de $\Z/16\Z$ est $\{0\mathrm{\ mod\ }16,1\mathrm{\ mod\ }16\}$. 
+
+\eqref{pgcd} Si $x\in \Z$, on a $x-(x-1)=1$, donc d'après le théorème de Bézout, $x\wedge (x-1)=1$.
+
+\eqref{caracterisation_idempotent_primaire} Soit  $x\mathrm{\ mod\ }p^\alpha \in \Z/p^\alpha\Z$.  On suppose que $(x\mathrm{\ mod\ }p^\alpha)^2=x\mathrm{\ mod\ }p^\alpha$. Alors $\overline{x}(\overline{x}-1)=\overline{0}$ dans $\Z/p^\alpha\Z$.  Alors $x^2-x\mathrm{\ mod\ }p^\alpha=0\mathrm{\ mod\ }p^\alpha=x(x-1)\mathrm{\ mod\ }p^\alpha$. On en déduit que $p^\alpha$ divise $x\wedge (x-1)$. Comme $x\wedge (x-1)=1$, on a $x\wedge p=1$ ou $x-1\wedge p=1$. On a donc $p^\alpha \wedge x=1$ ou $p^\alpha\wedge (x-1)=1$. Dans le premier cas, $\overline{x}$ est inversible donc $\overline{x}-\overline{1}=\overline{0}$, dans le second cas, $\overline{x}-\overline{1}$ est inversible, donc $\overline{x}=\overline{0}$. D'où le résultat.
+
+
+
+\eqref{cardinal_idempotents} De même qu'à la question \eqref{idempotent_explicite}, si $x\in \Z/n\Z$, $x$ est idempotent si et seulement si $f(x)$ l'est. Écrivons $f(x)=(x_1,\ldots,x_k)$, avec $x_i\in \Z/p_i^{\alpha_i}\Z$, pour $i\in \llbracket 1,k\rrbracket$. Alors $f(x)^2=(x_1^2,\ldots,x_k^2)$, donc $f(x)^2=f(x)$ si et seulement si $x_i^2=x_i$ pour tout $i\in\llbracket 1,k\rrbracket$. D'après la question \eqref{caracterisation_idempotent_primaire} on en déduit le résultat. Il y a donc $2^k$ idempotents dans $\Z$. 
+
+\eqref{idempotents_100} L'ensemble des idempotents de $\Z/100\Z$ est \[\begin{aligned}&\{\phi^{-1}(0\mathrm{\ mod\ }4,0\mathrm{\ mod\ }25),\phi^{-1}(1\mathrm{\ mod\ }4,0\mathrm{\ mod\ }25),\phi^{-1}(0\mathrm{\ mod\ }4,1\mathrm{\ mod\ }25),\phi^{-1}(1\mathrm{\ mod\ }4,1\mathrm{\ mod\ }25)\} \\&=\{0\mathrm{\ mod\ }100,1\mathrm{\ mod\ }100 ,25\mathrm{\ mod\ }100,76\mathrm{\ mod\ }100\}.\end{aligned}\]
+
+
+
+\end{document}

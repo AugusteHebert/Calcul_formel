@@ -1,0 +1,15 @@
+*.aux
+*.idx
+*.bbl
+*.blg
+*.log
+*.out
+*.pdf
+*.gz
+*.toc
+*.err
+*.nav
+*.snm
+*.pdf_tex
+auto/*
+*.xoj

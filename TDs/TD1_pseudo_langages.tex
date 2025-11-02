@@ -1,0 +1,114 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+
+
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2023/2024 \\  L3 Mathématiques
+}
+\chead{\textbf{Calcul formel\\ }} 
+ \rhead{  Université de Lorraine \\ }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    Feuille de TD n$^{\boldsymbol{\circ}}$1
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+\
+
+\begin{ex}\
+Que renvoie l'algorithme suivant ?
+
+\begin{center}
+\begin{tabular}{| l}
+Val$(x,y)$\\
+si $x>y$ \\
+\ \ \ \rm{|} $d \leftarrow x-y$ \\
+sinon \\
+\ \ \ \rm{|}      $d \leftarrow y-x$\\
+renvoyer $d$      \\
+\end{tabular}
+\end{center}
+  
+  
+\end{ex}
+
+\begin{ex}\
+Écrire un algorithme qui, prenant en entrée trois entiers $a,b$ et $c$, détermine le minimum de ces trois valeurs.
+\end{ex}
+
+
+\begin{ex}\
+Écrire un algorithme qui, prenant en entrée un réel $a$ et un entier positif $n$, calcule le produit de ces deux valeurs en n'utilisant que l'addition.
+\end{ex}
+
+
+
+
+\begin{ex}\
+Soit $n$ un entier strictement positif.
+\begin{itemize} 
+\item[•]On appelle \textbf{diviseur propre} de $n$ un diviseur de $n$ distinct de $n$. 
+\item[•] $n$ est dit \textbf{parfait} s'il vaut la somme de ses diviseurs propres.
+\item[•]  $n$ est dit \textbf{chanceux} si $(n+m+m^2)$ est premier pour tout $ 0 \leqslant m < n-1$. 
+\end{itemize}
+
+\begin{itemize}
+\item[$1.$] Écrire un algorithme {Div$($n$)$} qui, prenant en entrée un entier strictement positif $n$, calcule la somme de ses diviseurs propres.
+\item[$2.$] Écrire un algorithme Parfait$($n$)$ qui renvoie vrai si l'entier strictement positif $n$ pris en entrée est parfait et faux sinon.
+\item[$3.$] Idem pour l'algorithme Chanceux$($n$)$ en supposant qu'on dispose d'un test de primalité Premier$(m)$ qui renvoie vrai si $m$ est premier et faux sinon.   
+\end{itemize}
+
+\end{ex}
+
+
+
+
+
+
+\end{document}

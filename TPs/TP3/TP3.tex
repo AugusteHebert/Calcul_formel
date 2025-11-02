@@ -1,0 +1,201 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage[french]{babel}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{stmaryrd}
+\usepackage{graphics}
+\usepackage{comment}
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2023/2024 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{ Université de Lorraine  \\ }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+\newcommand{\Z}{\mathbb{Z}}
+
+\newcommand{\md}[3]{#1 \equiv #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod #3 }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod #3 }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod #3 }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    TP n$^{\boldsymbol{\circ}}$3
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+\vspace{0.01cm}
+
+
+
+\subsection*{Exercice 1 (\textit{groupe multiplicatif})}
+Soit $n \geqslant 1$ un entier. Écrire une fonction \texttt{ordre(a, n)} un couple d'entiers et renvoyant l'ordre de $a$ dans le groupe $(\mathbb{Z}/n\mathbb{Z})^{\times}$. On renverra un message d'erreur lorsque cette  question n'a pas de sens. Comparer avec la fonction «~multiplicative\_order~».
+
+
+
+\subsection*{Exercice 2 (\textit{Chiffrement de César})}
+
+Dans \textit{Vie des douze Césars}, Suétone rapporte que, pendant la guerre des Gaules, Jules César communiquait avec ses généraux grâce à un code secret qu'il avait imaginé. La technique est ainsi: faire une permutation circulaire des lettres de l'alphabet en remplaçant chaque lettre par celle située trois rangs après elle: D remplace A, E remplace B, F remplace C et ainsi de suite jusqu'à la lettre Z qui est remplacée par la lettre C.
+
+\begin{enumerate}
+
+\item Écrire un programme code\_ascii($T$) qui prend en entrée un texte $T$ écrit entre guillemets (entre apostrophe '$\ldots$
+') en majuscules, sans espaces et qui renvoie une liste correspondant au code ASCII de chaque lettre. 
+
+\textit{On pourra utiliser la commande ord qui prend en entrée un caractère écrit entre guillements et qui renvoie son  code ascii. Les lettres majuscules sont codées par un nombre entre 65 et 90 (par exemple ord('A')=65, ord('B')=66, ord(C)=67, ... ord('Z')=90). En première approximation, on peut voir un message entre guillemets comme une liste, on a par exemple 'BONJOUR'[1]='O', on peut écrire «~for l in 'BONJOUR'~», 'BONJOUR'+'A'='BONJOURA' ...}
+
+
+
+\item Écrire un  programme Cesar($T,n$) qui prend entrée un texte $T$ écrit en majuscule non accentuées et sans espace et un entier $n\in \llbracket 0,25\rrbracket$ et qui renvoie le texte codé par la méthode de César en remplaçant chaque lettre par celle située n rang après dans l'ordre alphabétique.
+
+\textit{On pourra utiliser la commande «~chr~» qui prend en entrée un nombre et qui renvoie le code ascii associé, par exemple chr(65)='A'.}
+
+
+\item Décoder le texte suivant, codé par la méthode de Jules César :
+$$  SVUNALTWZQLTLZBPZJVBJOLKLIVUULOLBYL    $$ De combien les lettres ont-elles été décallées ?
+
+
+En généralisant la méthode de Jules César, \textbf{la méthode affine} transforme elle aussi une lettre L de l'alphabet en une lettre L'. Si $x$ est le rang de L dans l'alphabet, appelons $y$ celui de L'. Ce nombre $y$ sera le reste de la division euclidienne du nombre $ax+b$ par 26, $a$ et $b$ étant deux nombres entiers choisis par l'utilisateur dans l'intervalle $\llbracket 0,25\rrbracket$.
+
+\item En adaptant le programme de codage par la méthode de Jules César, écrivez un programme de codage affine d'un texte écrit en lettres capitales non accentuées et sans espaces entre les mots.
+\item Observez ce qui se passe pour $a=1$, $a=0$ et $a=13$.
+\item Quelles sont les valeurs de $a$ et de $b$ qui conviennent à un vrai codage affine ? Comment décode-t-on dans ce cas là ? Combien y a-t-il de ces codages affines ?
+\item Vérifiez que le codage affine de paramètres $a=7$ et $b=3$ a pour transformation affine inverse de paramètre $a'=15$ et $b'=7$.
+
+
+\end{enumerate}
+
+
+
+\subsection*{Exercice 3 (\textit{Algorithme $\rho$ de Pollard })}
+
+L'algorithme de Pollard est un algorithme de factorisation des entiers. Il est efficace lorsque $n$ admet des «~petits~» facteurs premiers. On renvoie à Demazure, \textit{Cours d'algèbre} pour plus  de détails sur cet algorithme.
+
+
+Soit $n$ un entier naturel impair. Pour un $x_0$ choisi aléatoirement dans $\lb 0, n-1 \rb$, on définit une suite $(x_i)$ à valeurs dans cet ensemble par la relation de récurrence $x_{i+1}= x_i^2+1 \mod n$, pour $i\in \mathbb{N}$.
+\begin{enumerate}
+
+\item Écrire une fonction \texttt{pollard} prenant en argument $n$, choisissant un $x_0$ au hasard dans $\llbracket 0,n-1\rrbracket$ et déterminant le plus petit entier $ i \geqslant 1$ tel que $(x_{2i}-x_i)\wedge n \neq 1$, renvoyant ce pgcd s'il est différent de $n$ et déclenche une erreur sinon.
+
+\textit{Pour calculer $x_{2i}$, on pourra utiliser la fonction $f\circ f$, où $f:\Z/n\Z\rightarrow \Z/n\Z$ est définie par $f(x)=x^2+1$, pour $x\in \Z/n\Z$.}%(utiliser la syntaxe \texttt{raise Exception}).\\
+
+
+\item Écrire une fonction \texttt{premier} prenant en argument un entier $N$ et renvoyant un nombre premier choisi aléatoirement ayant $N$ chiffres (en base 10).
+
+% \textit{On pourra utiliser les fonctions next\_prime et ZZ.random\_element.}
+
+\item Écrire une fonction \texttt{semipremier}(N) renvoyant un produit de nombres $pq$ où $p$ et $q$ sont deux nombres premiers à $N$ chiffres tirés au sort.
+
+\item Effectuer plusieurs essais de factorisation de semipremier(N) pour différentes valeurs de $N$.
+
+
+\item Comparer avec la fonction \texttt{factor}. 
+\end{enumerate}
+
+
+
+
+
+\subsection*{Exercice 4 \textit{(Chiffrement de Vigenère)}}
+Le chiffrement de Vigenère fonctionne sur le principe suivant : on dispose d'une clé qui est une chaîne de caractères (en général un mot), et on décale la première lettre du texte d'un rang correspondant à celui de la première lettre de la clé dans l'alphabet et ainsi de suite. Par exemple, si la clé est « python », la première
+lettre sera décalée de 15 (p est la 15ème lettre de l'alphabet, en partant de 0), le deuxième de 24 etc. On
+revient au début de la clé si le texte à crypter est plus long que la clé).
+Exemple :
+\begin{tabular}{|c|| c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+texte clair &  u & n&  e & x&  e&  m&  p&  l&  e&  d&  e&  c&  h&  i&  f&  f&  r&  e \\
+\hline
+clé&  p&  y&  t& h&  o&  n&  p&  y&  t&  h&  o&  n&  p&  y&  t&  h&  o&  n \\
+\hline
+décalage &  15&  24&  19&  7&  14&  13&  15&  24&  19&  7 & 14 &  13&  15&  24&  19&  7&  14&  13 \\
+\hline
+texte crypté &  J &  L &  X &  E &  S &  Z  &  E &  J  & X  & K  & S  & P &  W &  G &  Y  & M  & F  & R  \\
+\hline
+\end{tabular}
+
+Ce chiffrement, décrit au XVIe siècle, a été considéré comme incassable de sa popularisation au XVIIe siècle
+jusqu’au milieu du XIXe siècle.
+
+
+\begin{itemize}
+\item[$1.$] Écrire un programme prenant comme argument une clé \texttt{cle} et le texte à crypter \texttt{texte} (deux
+chaînes de caractères en majuscule et sans espaces) et effectuant le chiffrement.
+\item[$2.$] Comment déchiffrer le texte en connaissant la clé ? Écrire le programme.
+\end{itemize}
+
+
+
+\subsection*{Exercice 5 (\textit{Encodage, RSA})}
+
+Pour chiffrer/déchiffrer des messages, on va représenter les 26 lettres (majuscules) de l'alphabet latin par les nombres entiers de 2 à 27, l'espace étant représenté par un 1. Si $n$ est un (grand) entier, et $k$ le plus grand entier tel que $28^{k} \leqslant n$, on représente un «~mot~» $w_0 w_1 \ldots w_{k-1}$ (avec $w_i \in \lb 1;27 \rb$) par l'entier $\sum_{i=0}^{k-1} w_i 28^i$. Pour encoder une phrase ayant plus de $k$ lettres, on la découpera en une suite de blocs de $k$ lettres, encodés chacun par le procédé ci-dessous:
+\begin{itemize}
+\item[•] Ecrire une fonction \texttt{decode} prenant en argument un entier $x$, détermine les $w_i$ tels que $ x=\sum_{i}w_i 28^i$, et renvoie en toutes lettres le mot ainsi encodé.\\ 
+\textit{Indication: considérer la chaîne \texttt{code:="  ABC...Z"}(deux espaces au début); la lettre codée par $i \in \lb 1;27 \rb  $ est \texttt{code[i]}.}
+\item[•] Écrire une procédure dechiffrage($n,e,L$) qui prend en entrée un nombre semi-premier $n$, un entier $e$ premier à $\varphi(n)$ et une liste $L$ d'éléments de $\llbracket 0,n-1\rrbracket$ et qui renvoie le message décodé (en lettres), en supposant que le message a été codé via RSA avec la clé publique $(n,e)$. Déchiffrer le message suivant.\\
+n=3359974451\\
+e=951009887\\
+m=$[$1478185749,1160141687,2221916040,2447771658,1098373102,
+
+3322294213,1705720959,2925409812,1578632783$]$
+
+
+\textit{On pourra utiliser la fonction «~factor~» ou la fonction «~euler\_phi~».}
+\item[•] Inversement, écrire une fonction \texttt{encode} qui renvoie le nombre qui encode un mot. On prendra garde au fait que ord(' ')=32.
+\item[•] Ecrire une fonction prenant en argument deux nombres premiers $p$ et $q$ et renvoyant des clés publiques et privées de module $n=pq$.
+\item[•] Écrire une fonction \texttt{chiffre}($N,m$) qui prend en entrée un entier $N$ positif, qui génère une clé publique $(n,e)$ où $n$ est  nombre semi-premier $pq$ avec $p,q$ deux nombres premiers distincts aléatoires à $N$ chiffres, $m$ est un message (écrit en lettres majuscules entre guillemets) et qui  renvoie $(n,e)$ et le message $m$ codé comme une liste   de nombres entre $0$ et $n-1$ (le message $m$ doit d'abord être séparé en blocs de $k$ lettres, avec $k$ comme ci-dessus). Tester avec votre voisin.
+
+
+
+
+\end{itemize}
+
+
+
+\subsection*{Exercice 6 (\textit{restes chinois})}
+
+Écrire une fonction \texttt{systemeCongruence(c,m)} qui, à partir de listes d'entiers \texttt{c} et \texttt{m} de même longueurs, renvoie une solution $x$ du système de congruences
+$$       x \equiv c_i[m_i], \quad 1 \leqslant i \leqslant r     $$
+en supposant que les $m_i$ sont des entiers 2 à 2 premiers entre eux. On utilisera l'algorithme de Garner. On pourra utiliser la fonction power\_mod($x,-1,n$) qui renvoie l'inverse de $x$ modulo $n$ lorsque cela a un sens.
+
+
+
+\end{document}

@@ -1,0 +1,133 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\usepackage{comment}
+\usepackage{xr-hyper}
+
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2023/2024 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{ Université de Lorraine \\  }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+
+
+
+\newcommand{\md}[3]{#1\ \equiv \ #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod {#3} }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod {#3} }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod {#3} }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\moa}[2]{#1 \! \!  \pmod {#2} }
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    DM 1
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+
+
+
+
+\begin{center}
+\textbf{A rendre le 17 octobre}
+\end{center}
+
+Le but de ce devoir maison est d'étudier les idempotents de $\Z/n\Z$ (c'est à dire les $x\in \Z/n\Z$ tels que $x^2=x$), pour $n\in \N^*$. On commence par traiter quelques exemples, puis on traite le cas général. 
+
+
+\begin{enumerate}
+\item Déterminer les idempotents de $\Z/6\Z$ et $\Z/7\Z$. 
+
+
+Soit $\phi:\Z/100\Z\rightarrow \Z/4\Z\times \Z/25\Z$ l'isomorphisme chinois (c'est à dire que $\phi(a\mathrm{\ mod\ }100)=(a\mathrm{\ mod\ }4, a\mathrm{\ mod\ }25)$, pour tout $a\in \Z$).
+
+
+\item\label{inverse_theorem_chinois} En utilisant les deux algorithmes vus en cours, déterminer $\phi^{-1}\big((1\mathrm{\ mod\ }4,0\mathrm{\ mod\ }25)\big)$ et 
+
+ $\phi^{-1}\big((0\mathrm{\ mod\ }4,1\mathrm{\ mod\ }25)\big)$.
+
+\item\label{idempotent_explicite} Montrer que $\phi^{-1}\big((1\mathrm{\ mod\ }4,0\mathrm{\ mod\ }25)\big)$ et  $\phi^{-1}\big((0\mathrm{\ mod\ }4,1\mathrm{\ mod\ }25)\big)$ sont idempotents (on essaiera de limiter les calculs, qui peuvent se faire de tête en s'y prenant bien).
+
+
+
+
+\item\label{inversibles} Décrire (faire la liste des éléments de) $(\Z/10\Z)^\times$ et $(\Z/16\Z)^\times$.
+
+\item\label{idempotent_anneau} Soit $A$ un anneau commutatif unitaire et $x\in A$ un idempotent de $A$. Que peut-on dire de $x$ si  $x$ est inversible.
+
+\item\label{idempotents10_16} Faire la liste des éléments idempotents de $\Z/10\Z$ et de $\Z/16\Z$.
+
+\item\label{pgcd} Soit $x\in \Z$. Montrer que $x\wedge (x-1)=1$.
+
+
+\item\label{caracterisation_idempotent_primaire} Soit $p\in \mathbb{P}$ et $\alpha\in \N^*$. Montrer que si $x\in \Z/p^\alpha\Z$ est idempotent, alors $x\in \{0\mathrm{\ mod\ }p^\alpha, 1\mathrm{\ mod\ }p^\alpha\}$ (on pourra utiliser la question précédente).
+
+
+
+
+\bigskip
+
+ Soit $n\in \N_{\geq 2}$. On suppose que la décomposition de $n$ en produits de facteurs premiers s'écrit $n=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$, avec  $p_1,\ldots,p_k\in \mathbb{P}$, $p_1<\ldots < p_k$ et $\alpha_1,\ldots,\alpha_k\in \N^*$. Soit $f:\Z/n\Z\rightarrow \Z/p_1^{\alpha_1}\Z\times \ldots \times \Z/p_k^{\alpha_k}\Z$ l'isomorphisme chinois (c'est à dire que si $x \ \mathrm{mod}\ n\in \Z/n\Z$, $f(x\ \mathrm{mod}\ n)=(x\ \mathrm{mod}\ p_1^{\alpha_1},\ldots,x\ \mathrm{mod}\  p_k^{\alpha_k})$). 
+ 
+\item\label{cardinal_idempotents} Soit $x\in \Z/n\Z$. Montrer que $x$ est idempotent si et seulement si $x\mathrm{\ mod\ }p_i^{\mathrm{\alpha_i}}\in \{0\mathrm{\ mod\ }p_i^{\alpha_i},1\mathrm{\ mod\ }p_i^{\alpha_i}\}$ pour tout $i\in\llbracket 1,k\rrbracket$ (on pourra considérer $f$ et utiliser la question~\ref{caracterisation_idempotent_primaire}). Combien $\Z/n\Z$ possède-t-il d'idempotents ?
+
+
+\item\label{idempotents_100} Déterminer les idempotents de $\Z/100\Z$.
+
+
+
+\end{enumerate}
+
+
+
+
+\end{document}

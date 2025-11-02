@@ -1,0 +1,119 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{comment}
+\usepackage{graphicx}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2020/2021 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{  Université de Lorraine \\}
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+%\newcommand{\md}[3]{#1 \equiv #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod #3 }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod #3 }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod #3 }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\md}{\mathrm{\ mod\ }}
+
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    Feuille de TD n$^{\boldsymbol{\circ}}$6
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+Exercice~5
+(1) On a $QR=X^{k_0+\ell_0}\tilde{Q}\tilde{R}$, avec $\tilde{Q}(0)\neq 0$ et $\tilde{R}(0)\neq 0$, donc $\tilde{Q}\tilde{R}(0)\neq 0$. On en déduit que le coefficient de degré $k_0+\ell_0$ de $QR$ est non nul, donc $k_0+\ell_0=n$. Comme $A$ est intègre, $\deg(QR)=\deg(Q)+\deg(R)$. De plus, $\deg(Q)\geq k_0$, $\deg(R)\geq \ell_0$, donc $k_0+\ell_0\leq \deg(Q)+\deg(R)=n=k_0+\ell_0$. On en déduit que $k_0=\deg(Q)$, $\ell_0=\deg(R)$, donc il existe $u,v\in A$ tels que $Q=u X^{k_0}$ et $R=vX^{\ell_0}=vX^{n-k_0}$. On a $QR=uv X^{n}=X^n$ donc $uv=1$, d'où le résultat.
+
+
+(2) Supposons que $P=QR$, où $Q$ et $R$ ne sont pas inversibles dans $\Z[X]$. Comme $P$ est primitif, si $Q\in \Z$, alors $Q=\pm 1$ (car $Q$ divise tous les coefficients de $P$), donc $Q$ est inversible : c'est absurdre. On en déduit que $Q,R$ sont de degré strictement positifs. Pour $S\in \Z[X]$, on note $\overline{S}$ son image dans $\Z/p\Z[X]$. Alors $\overline{\cdot}:\Z[X]\rightarrow \Z/p\Z[X]$ est un morphisme d'anneaux et $\overline{P}=\overline{Q}\overline{R}$. Par hypothèse, $\overline{P}=\overline{X^n}$. On en déduit que $\overline{Q},\overline{R}$ sont des diviseurs de $\overline{X}^n$, donc il existe $u\in \Z/p\Z^*$ et $k\in \llbracket 1,n-1\rrbracket$ tels que $\overline{Q}=u \overline{X^k}$ et $\overline{R}=u^{-1} \overline{X^{n-k}}$. Alors $\overline{Q}(0)=0=\overline{R}(0)$, donc $p$ divise $Q(0)$ et $R(0)$ donc $p^2$ divise $P(0)=QR(0)=a_0$. On aboutit à une contradiction. Donc $P$ est irréductible.
+
+\begin{comment}
+\begin{ex}\label{cyclicité_groupe_multiplicatif_corps_fini}(Cyclicité des sous-groupes finis du groupe multiplicatif d'un corps, voir Perrin, \textit{cours d'algèbre}, théorème 2.7 page 74)
+
+Soient $K$ un corps (commutatif) et $G$ un sous-groupe fini de $(K,.)$. Soit $n$ l'ordre de $G$. L'objectif est de montrer que $G$ est isomorphe à $\Z/n\Z$. Ce résultat s'applique en particulier à $K=\Z/p\Z$, où $p$ est un nombre premier.
+
+\begin{enumerate}
+
+\item Soit $x\in G$. Montrer que son ordre $d$ divise $n$.
+
+\item Montrer que $\langle x\rangle=\{y\in K|y^d=1\}$ (on pourra utiliser l'exercice~\ref{nombre_racines_polynôme}).
+
+\item Montrer que l'ensemble des éléments dont l'ordre divise $d$ est inclus dans $\langle x\rangle$.
+
+\item Soit $d\in\N$. Montrer que $\Z/d\Z$ a exactement $\varphi(d)$ éléments d'ordre $d$.
+
+\item Si $d$ est un diviseur de $n$, on note $N_d$ le nombre d'éléments de $G$ d'ordre $d$. Montrer que $N_d$ est soit nul, soit égal à $\varphi(d)$.
+
+\item Montrer que $n=\sum_{d|n} N_d$. 
+
+\item En déduire que $N_d=\varphi(d)$ pour tout $d|n$ (on pourra utiliser l'exercice~\ref{indicatrice_d_Euler}), puis que $G$ est isomorphe à $\Z/n\Z$.
+
+\end{enumerate}
+
+\end{ex}
+
+Exercice~\ref{cyclicité_groupe_multiplicatif_corps_fini}
+
+1. Par le théorème de Lagrange, $d=\langle x\rangle$ divise $n$.
+
+2,3. Soit $P=X^d-1\in K[X]$. Soit $y\in \langle x\rangle$. On a $y=x^k$, pour un certain $k\in \llbracket 0,d-1\rrbracket$. Alors $y^d=x^{kd}=(x^d)^k=1$, donc $\langle x\rangle\subset P^{-1}(\{0\})$. D'après l'exercice~\ref{nombre_racines_polynôme}, $P$ a au plus $d$ racines. Comme $|\langle x\rangle |=d$, on a $P^{-1}(\{0\})=\langle x\rangle$. L'ensemble des éléments dont l'ordre divise $d$ étant exactement l'ensemble des racines de $P$, on a le résultat.
+
+4. Soit $a\in \Z/d\Z$. Supposons que $a$ est d'ordre $d$ (dans $(\Z/d\Z,+)$). Alors $|\langle a\rangle |=|\{ka|k\in \Z\}|=|\Z/d\Z|$, donc $ \langle a\rangle =\Z/d\Z$. En particulier, $\overline{1}\in \langle a\rangle$ donc il existe $k\in \Z$ tel que $ka=\overline{1}$, donc $a$ est inversible dans $\Z/d\Z$ (pour $.$). Réciproquement, si $a\in \Z/d\Z^*$, alors il existe $k\in \Z$ tel que $ka=\overline{1}$. Si $\overline{x}\in \Z/d\Z$, alors $xka=\overline{x}$, donc $\langle a\rangle =\Z/d\Z$. Ainsi, l'ensemble des éléments d'ordre $d$ de $\Z/d\Z$ est l'ensemble des inversibles de $(\Z/d\Z,.)$, d'où le résultat.
+
+5. Soit $d$ un diviseur de $n$ tel que $N_d\neq 0$. Soit $X_d$ l'ensemble des éléments de $G$ d'ordre $d$. Soit $x\in X_d$. On a vu que $X_d\subset \langle x\rangle$.  De plus, $\langle x\rangle \simeq \Z/d\Z$, donc $\langle x \rangle$ a exactement $\varphi(d)$ éléments d'ordre $d$. On en déduit que $|X_d|=\varphi(d)$. 
+
+6. Tout élément de $G$ a un ordre divisant $n$ donc $\bigsqcup_{d|n} X_d=G$ donc \[|\bigsqcup_{d|n} X_d|=\sum_{d|n} |X_d|=\sum_{d|n}N_d=n.\]
+
+
+7. On a vu que $N_d\leq\varphi(d)$ pour tout $d|n$. De plus, on a vu à l'exercice~\ref{indicatrice_d_Euler} que $\sum_{d|n} \varphi(d)=n$. S'il existait $d'$ divisant $n$ tel que $N_{d'}<\varphi(d')$, on aurait nécessairement $n=\sum_{d|n}N_d <\sum_{d|n}\varphi(d)=n$, donc pour tout $d$ divisant $n$, $N_d=\varphi(d)$. En particulier, $N_n=\varphi(n)>0$. Il existe donc $x\in G$ d'ordre $n$. Alors $\Z/n\Z\simeq \langle x\rangle =G$, donc $G$ est cyclique.
+\end{comment}
+
+\end{document}

@@ -1,0 +1,205 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage[french]{babel}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{stmaryrd}
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2023/2024 \\  L3 Mathématiques
+}
+\chead{\textbf{Calcul formel}\\} 
+ \rhead{  Université de Lorraine \\ }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+\newcommand{\md}[3]{#1 \equiv #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod #3 }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod #3 }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod #3 }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    TP n$^{\boldsymbol{\circ}}$1: Prise en main de Sage
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+\
+
+Le but de ce TP est de se familiariser avec le logiciel \texttt{Sage}.  On obtient l'aide de \texttt{Sage} sur une commande donnée en faisant suivre son nom d'un point d'interrogation. Par exemple pour avoir de l'aide sur la commande « expand »,  on peut taper : \texttt{expand?}.\\
+
+Pour lancer \texttt{sage}, on peut taper «~sage -n jupyter~» dans le terminal (que l'on peut lancer en tapant « ctrl  + alt + t »). 
+
+\section{Symboles, expressions et variables}
+
+\texttt{Sage} peut être en premier lieu être vu comme une
+ calculatrice. Il utilise les symboles usuels (\texttt{$+$},
+  \texttt{$-$}, \texttt{$*$}, \texttt{$/$}, \textasciicircum, etc.) pour les opérations usuelles correspondantes. \texttt{Sage} connait un certain nombre de fonctions prédéfinies (\texttt{exp}, \texttt{ln}, \texttt{cos}, \texttt{sin}, etc.) et de constantes (\texttt{e}, \texttt{pi}, \texttt{i}, \texttt{infinity}, etc.).\\
+
+\texttt{Sage} est un outil de calcul formel, ce qui veut dire qu'il ne manipule pas seulement des nombres ou des fonctions, mais aussi des expressions, qui peuvent ainsi faire intervenir des indéterminées. Par exemple, \texttt{Sage} a des fonctions qui permettent de calculer des dérivées (\texttt{diff}), des intégrales ou primitives (\texttt{integrate}), des sommes ou séries (\texttt{sum}), etc. Pour prévenir \texttt{Sage} que la lettre $t$ (par exemple),  va être utilisée comme variable indéterminée, on tape t=\texttt{var('t')}. Il faut faire cette opération pour toute lettre ou groupe de lettre (par exemple ta, t1, ...). Pour la lettre $x$, cette opération n'est pas nécessaire, car $x$ est considéré comme une variable par défaut. Il ne faut pas confondre ces éléments, appelés au sens informatique du terme des symboles, avec des variables, ces derniers étant des objets auxquels on a donné un nom à l'aide de l'opérateur $=$. Ce dernier opérateur ne doit pas non plus être confondu avec l'opérateur de comparaison $==$. Par exemple, essayer, dans l'ordre, les commandes suivantes:
+  \begin{itemize}
+\item[•] \texttt{n $=$ 15}
+\item[•] \texttt{n $+$ 5}
+\item[•] \texttt{n $==$ 1}
+\end{itemize}  
+
+On peut aussi utiliser \texttt{Sage} pour faire des manipulations d'expressions qui sont: le développement (\texttt{expand}), la factorisation (\texttt{factor}), etc.
+
+Pour s'entraîner, essayer par exemple de:
+\begin{itemize}
+\item[•] calculer la dérivée de quelques dérivées usuelles; (par exemple, pour calculer la dérivée de la fonction $x\mapsto x^2+1$, on peut taper «diff($x^2+1$,$x$)», ou «diff($y^2+1$, $y$)», après avoir déclaré $y$ comme variable).
+\smallskip
+\item[•] calculer leurs primitives (on pourra utiliser la fonction «integral»);
+\smallskip
+\item[•] calculer $ \displaystyle \int_{-\infty}^{+\infty}\mathrm{e}^{-x^2}\mathrm{d}x$ (on pourra utiliser la fonction «integral», $\infty$ s'écrit «infinity» ou «oo» (deux «o») dans sage);
+\smallskip
+\item[•] factoriser $3x^3-3x^2y+8x^2-8xy+4x-4y $ (on pourra utiliser la fonction «factor»);
+\smallskip
+\item[•] afficher $200$ décimales de $\pi$ (à l'aide de la fonction \texttt{N});
+\smallskip
+\item[•] calculer $\displaystyle \sum_{n=1}^{+\infty}\frac{1}{n^2}$.
+\end{itemize}
+
+
+\section{Types}
+
+\texttt{Sage} classifie ses objets suivant leur type. La fonction \texttt{type} renvoie le type d'un objet (essayer avec certains des objets rencontrés jusqu'ici).\\
+
+Par exemple, pour $(a,n)\in \mathbb{Z}\times \mathbb{N}^*$, la classe de $a$ modulo $n$ peut être représentée par \texttt{IntegerModRing(n)(a)}. Il est possible de stocker un type dans une variable: on peut ainsi définir l'anneau $\mathbb{Z}/7\mathbb{Z} $ via l'expression \texttt{Z7=IntegerModRing(7)}. On peut alors "appliquer" \texttt{Z7} à un entier donné: la sortie obtenue est la classe de cet entier modulo 7. Pour obtenir un représentant d'une classe $a \in \mathbb{Z}/7\mathbb{Z}$, on peut donc utiliser la commande \texttt{Z7(a)}. On peut vérifier que le résultat obtenu (par exemple pour $a=2$) n'est pas pris par \texttt{Sage} du même type que $2$.
+
+\begin{itemize}
+\item[•] Calculer $7^{5^{5^5}}(=7^{(5^{(5^5)})})$ modulo $13$.
+\item[•] Essayer de faire le même calcul en calculant d'abord l'entier $7^{5^{5^5}}$ puis en réduisant modulo $13$ à l'aide de l'opération \texttt{\%} qui calcule le reste d'une division euclidienne (par exemple, si on tape \texttt{10$\%$6}, \texttt{Sage} renvoie \texttt{4}). 
+\end{itemize}
+
+On peut aussi utiliser la commande \texttt{power\_mod}. 
+
+\subsection*{Listes}
+
+Une suite ordonnée d'expressions s'appelle une liste (par exemple, \texttt{L=[5,2,3,1,74]}). La commande \texttt{L[i]} appelle le i-ème élément de la liste \texttt{L}, sachant que le premier est numéroté zéro. Ainsi, dans l'exemple, \texttt{L[1]} est 2. La longueur de \texttt{L} s'obtient par \texttt{len(L)}. Pour obtenir la liste des entiers entre $1$ et $n$, on utilise \texttt{[1..n]}. Pour construire une séquence (ou une liste) obtenue en faisant varier un paramètre, l'opérateur \texttt{for} est très utile. Essayer par exemple la commande \texttt{[2$\textasciicircum$i for i in [1..10]]}. 
+
+\begin{itemize}
+\item[•] Après avoir défini une liste $\texttt{L}$, expérimenter les commandes \texttt{L$+$L}, \texttt{4$*$L} et \texttt{L.append(pi)} suivi de l'affichage de \texttt{L}.
+\item[•] Créer la liste des six premières dérivées de $x\mathrm{e}^x$ sous forme factorisée (\texttt{diff},\texttt{factor}).
+\end{itemize}
+
+\section{Un peu de programmation}
+
+On peut créer de nouvelles fonctions en utilisant la commande \texttt{def}. Par exemple, la définition suivante:\\
+\texttt{ \begin{tabular}{rl}
+def & sommeEntiers(n): \\ 
+ & L=[1..n] \\ 
+ & return sum(L) \\ 
+\end{tabular} }\\
+définit une fonction renvoyant la somme des entiers de $1$ à $n$. 
+
+\newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
+
+Comme dans les algorithmes écrits en cours, le nombre d'espaces au début de chaque ligne a une influence sur la manière dont le code sera interprété. Il en est de même pour les boucles \texttt{while} et \texttt{for}. Ainsi, essayer:\\
+\texttt{ \begin{tabular}{p{0.35cm}p{0.35cm}l}
+ \mc{3}{l}{for i in [1..3]:} \\ 
+ & \mc{2}{l}{j=0} \\ 
+ & \mc{2}{l}{while j$<$4:} \\
+ &  & print "i=", i, "j=", j\\
+  & & j=j+1 
+\end{tabular} } 
+
+\begin{itemize}
+\item[•] Ecrire une fonction \texttt{sommeEntiersFor(n)} (resp.  \texttt{sommeEntiersWhile(n)}) qui calcule la somme des entiers de $1$ à $n$ en utilisant une boucle \texttt{for}, puis une autre avec une boucle \texttt{while}.
+\end{itemize}
+
+L'instruction \texttt{if} sert à exécuter une portion de programme seulement si une certaine condition est vérifiée. Pour exprimer cette condition on peut utiliser le opérateurs de comparaison \texttt{==, >, <, <=, >=, <>} signifiant respectivement $=,>,<,\leqslant,\geqslant,\neq$ et qu'on peut combiner logiquement en utilisant \texttt{or} et \texttt{and}. Essayer par exemple la fonction suivante qui détermine si un entier est pair (et ne renvoie rien si l'entier est impair):\\
+\texttt{ \begin{tabular}{p{0.35cm}p{0.35cm}l}
+ \mc{3}{l}{def Parite(n):} \\ 
+ & \mc{2}{l}{if n{\%}2==0:} \\ 
+ &  & print n, "est pair".
+\end{tabular} }\\
+On peut aussi définir à l'aide du mot \texttt{else} une portion à exécuter seulement si la condition n'est pas vérifiée; ce qui donne, si on complète la fonction précédente:\\
+\texttt{ \begin{tabular}{p{0.35cm}p{0.35cm}l}
+ \mc{3}{l}{def Parite(n):} \\ 
+ & \mc{2}{l}{if n{\%}2==0:} \\ 
+ &  & print n, "est pair" \\
+ & \mc{2}{l}{else:}\\
+ & & print n, "est impair" \\
+ & & print "Tout va bien"
+\end{tabular} }\\
+
+Pour comprendre l'importance de la place d'une instruction dans un algorithme, comparer la fonction précédente avec 
+
+\texttt{ \begin{tabular}{p{0.35cm}p{0.35cm}l}
+ \mc{3}{l}{def Parite(n):} \\ 
+ & \mc{2}{l}{if n{\%}2==0:} \\ 
+ &  & print n, "est pair" \\
+ & \mc{2}{l}{else:}\\
+ & & print n, "est impair" \\
+ &  \mc{2}{l}{print "Tout va bien"}
+\end{tabular} }\\
+
+
+\begin{itemize}
+\item[•] Définir une fonction \texttt{factorielle} de deux manières:
+\begin{itemize}
+\item[-] en utilisant une boucle \texttt{for};
+\item[-] en utilisant un appel récursif.
+
+Essayer de calculer 1000! en utilisant les deux méthodes.
+
+\end{itemize}
+\smallskip
+\item[•] Faire de même pour la fonction \texttt{fibonacci}. Essayer de calculer Fibonacci(32) par les deux méthodes.
+\smallskip
+\item[•] Ecrire une fonction \texttt{listePremiers} qui pour un entier \texttt{n} renvoie la liste des nombres premiers plus petit que n (on pourra utiliser la fonction «is\_prime», en utilisant la syntaxe «if is\_prime(i)\!:»
+
+
+$\ldots$ ou la fonction \texttt{next{\_}prime}. Pour ajouter l'élément «i» à une liste $L$, on peut par exemple utiliser la fonction $L=L+[i]$, la liste vide est la liste $[\ ]$).
+\smallskip
+\item[•] Donner la liste des nombres premiers jumeaux (i.e. des couples de nombres premiers de la forme (p,p+2) tels que p est inférieur à 1000.
+\smallskip
+\item[•] Etudier le comportement de la  suite suivante (appelée suite de Syracuse) en fonction de sa donnée initiale $u_0$:
+$$ u_0 \in \mathbb{N}^* \text{ donné}, \qquad u_{n+1}=\frac{u_n}{2} \text{ si } u_n \text{ est pair,} \qquad u_{n+1}=3u_n+1 \text{ sinon.}        $$ (on pourra définir une fonction \texttt{Syracuse}(u0,k), qui prend en entré des entiers $u_0$ et $k$, et qui renvoie la liste des $u_i$, pour $i\leq k$).
+Le même phénomène se produit-il si le coefficient $3$ dans la définition de $(u_n)$ est remplacé par $5$?
+\smallskip
+%\item[•] Définir une fonction \texttt{Exponentiation$\_$rapide(a,n)} renvoyant $a^n$.
+\smallskip
+%\item[•] Et si vous avez fini ce qui précède, entrainez-vous à écrire en \texttt{Sage} les pseudo-codes vus en cours.
+\end{itemize}   
+
+
+
+
+
+\end{document}

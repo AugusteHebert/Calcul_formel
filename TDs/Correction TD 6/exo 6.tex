@@ -1,0 +1,89 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{comment}
+\usepackage{graphicx}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2020/2021 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{  Université de Lorraine \\}
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+%\newcommand{\md}[3]{#1 \equiv #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod #3 }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod #3 }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod #3 }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\md}{\mathrm{\ mod\ }}
+
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    Feuille de TD n$^{\boldsymbol{\circ}}$6
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+Exercice~6
+
+
+1. Par le théorème de Lagrange, $d=\langle x\rangle$ divise $n$.
+
+2,3. Soit $P=X^d-1\in K[X]$. Soit $y\in \langle x\rangle$. On a $y=x^k$, pour un certain $k\in \llbracket 0,d-1\rrbracket$. Alors $y^d=x^{kd}=(x^d)^k=1$, donc $\langle x\rangle\subset P^{-1}(\{0\})$. D'après l'exercice~\ref{nombre_racines_polynôme}, $P$ a au plus $d$ racines. Comme $|\langle x\rangle |=d$, on a $P^{-1}(\{0\})=\langle x\rangle$. L'ensemble des éléments dont l'ordre divise $d$ étant exactement l'ensemble des racines de $P$, on a le résultat.
+
+4. Soit $a\in \Z/d\Z$. Supposons que $a$ est d'ordre $d$ (dans $(\Z/d\Z,+)$). Alors $|\langle a\rangle |=|\{ka|k\in \Z\}|=|\Z/d\Z|$, donc $ \langle a\rangle =\Z/d\Z$. En particulier, $\overline{1}\in \langle a\rangle$ donc il existe $k\in \Z$ tel que $ka=\overline{1}$, donc $a$ est inversible dans $\Z/d\Z$ (pour $.$). Réciproquement, si $a\in \Z/d\Z^*$, alors il existe $k\in \Z$ tel que $ka=\overline{1}$. Si $\overline{x}\in \Z/d\Z$, alors $xka=\overline{x}$, donc $\langle a\rangle =\Z/d\Z$. Ainsi, l'ensemble des éléments d'ordre $d$ de $\Z/d\Z$ est l'ensemble des inversibles de $(\Z/d\Z,.)$, d'où le résultat.
+
+5. Soit $d$ un diviseur de $n$ tel que $N_d\neq 0$. Soit $X_d$ l'ensemble des éléments de $G$ d'ordre $d$. Soit $x\in X_d$. On a vu que $X_d\subset \langle x\rangle$.  De plus, $\langle x\rangle \simeq \Z/d\Z$, donc $\langle x \rangle$ a exactement $\varphi(d)$ éléments d'ordre $d$. On en déduit que $|X_d|=\varphi(d)$. 
+
+6. Tout élément de $G$ a un ordre divisant $n$ donc $\bigsqcup_{d|n} X_d=G$ donc \[|\bigsqcup_{d|n} X_d|=\sum_{d|n} |X_d|=\sum_{d|n}N_d=n.\]
+
+
+7. On a vu que $N_d\leq\varphi(d)$ pour tout $d|n$. De plus, on a vu à l'exercice~\ref{indicatrice_d_Euler} que $\sum_{d|n} \varphi(d)=n$. S'il existait $d'$ divisant $n$ tel que $N_{d'}<\varphi(d')$, on aurait nécessairement $n=\sum_{d|n}N_d <\sum_{d|n}\varphi(d)=n$, donc pour tout $d$ divisant $n$, $N_d=\varphi(d)$. En particulier, $N_n=\varphi(n)>0$. Il existe donc $x\in G$ d'ordre $n$. Alors $\Z/n\Z\simeq \langle x\rangle =G$, donc $G$ est cyclique.
+
+
+\end{document}

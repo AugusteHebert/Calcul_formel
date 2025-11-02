@@ -1,0 +1,131 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2023/2024 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{ Université de Lorraine \\  }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\md}[3]{#1\ \equiv \ #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod {#3} }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod {#3} }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod {#3} }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\moa}[2]{#1 \! \!  \pmod {#2} }
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    DM 
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+
+
+
+\begin{center}
+\textbf{A rendre  le mardi 28 novembre}
+\end{center}
+
+\
+
+L'objet de ce devoir est la caractérisation de certains nombres, appelés nombres de Carmichaël.\\
+Rappelons qu'un nombre $n$ est appelé nombre de Carmichaël si :
+\begin{itemize}
+\item[$a)$]  $n$ n'est pas premier;
+\item[$b)$]  pour tout nombre $a$ premier avec $n$, $a^{n-1} \equiv 1 [n]$.
+\end{itemize}
+
+
+\begin{itemize}
+\item[$1.a)$] Soit $x\in  \Z$, $k\in \N^*$, $p_1,\ldots,p_k$ des nombres premiers distincts, $\alpha_1,\ldots,\alpha_k\in \N^*$ et $n=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$. Montrer que $x\equiv 1[n]$ si et seulement si ($x\equiv 1[p_i^{\alpha_i}]$, pour tout $i\in \llbracket 1,k\rrbracket$).
+
+\item[$1.b)$] Montrer que si $n = p_1 \times p_2 \ldots \times  p_k$ où $k\geq 2$ et $p_1,\ p_2,\ \ldots, p_k$ sont des nombres premiers deux à deux
+distincts tels que $(p_i - 1)$ divise $(n - 1)$ pour tout $i\in \lb 1; k\rb$, alors $n$ est un nombre de Carmichaël.
+Montrer en particulier que $561$ et $10585$ sont des nombres de Carmichaël.\\
+\item[$2.$] Dans toute cette question, on suppose que $n$ est un nombre de Carmichaël et l'on désire établir la réciproque du résultat obtenu en question $1$ b).\\
+\begin{itemize}
+\item[$a)$] On suppose tout d'abord que $n$ est une puissance de $2$, $n = 2^{\alpha}$, où $\alpha$ est un entier supérieur à $2$. Quel est le cardinal de $(\mathbb{Z}/n\mathbb{Z})^{\times}$ ? En déduire que pour tout entier $a$ impair $a^{2^{\alpha} - 1}$ ne peut
+être congru à $1$ modulo $n$ sauf si $a$ est congru à $1$ modulo $n$; que peut-on conclure ?\\
+\item[$b)$] On suppose désormais que $n$ admet au moins un facteur premier impair $p_1$ et l'on note $p_1, p_2,\ldots, p_k$ les facteurs premiers de $n$ ; la décomposition de $n$ est alors $n =\prod_{i=1}^k p_i^{\alpha_i}$.\\
+\begin{itemize}
+\item[$(i)$] Soit $\omega$ un entier dont la classe modulo $p_1^{\alpha_1}$ est un générateur de $((\mathbb{Z}/p_1^{\alpha_1}
+\mathbb{Z})^{\times}, \times)$ ; on admet l'existence d'un tel $\omega$. En utilisant le théorème des restes chinois, montrer qu'on peut trouver un entier $t$ tel que :\\
+$t \equiv \omega [p_1^{\alpha_1}]$ et, pour tout $i$ (s'il en existe) tel que $i \in \lb 2;k\rb$, $t \equiv 1 [p_i^{\alpha_i}]$.\\
+Montrer qu'alors $t^{n-1}\equiv 1 [n]$. \\
+\item[$(ii)$] En déduire que $p_1^{\alpha_1-1}(p_1 - 1)$ divise $(n- 1)$, puis que $\alpha_1 = 1$, et enfin que $(p_1 - 1)$ divise $(n - 1)$. En déduire que $n$ est impair.\\
+\item[$(iii)$] Montrer que $n$  peut s'écrire sous la forme $n = p_1 \times p_2 \times \ldots \times p_k$ où $p_1, p_2, \ldots, p_k$ sont des nombres premiers deux à deux distincts tels que $(p_i - 1)$ divise $(n - 1)$ pour tout $i \in \lb 1,k \rb $. Conclure.\\
+\end{itemize}
+\end{itemize}
+\item[$3.$] Montrer qu'un nombre de Carmichaël admet au moins trois facteurs premiers.\\
+\item[$4.$] Résoudre l'équation $85p - 16k = 1$, où $(k, p)\in \mathbb{Z}^2$.\\
+Déterminer le plus petit nombre de Carmichaël divisible par $5$ et $17$.\\
+
+
+%\item[$5.$] Montrer que si les nombres $6k+1$, $12k+1$ et $18k+1$ sont tous les trois premiers, alors leur produit est un nombre de Carmichael.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

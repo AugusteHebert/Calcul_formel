@@ -1,0 +1,152 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\usepackage{comment}
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2020/2021 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{ Université de Lorraine \\  }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+
+
+
+\newcommand{\md}[3]{#1\ \equiv \ #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod {#3} }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod {#3} }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod {#3} }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\moa}[2]{#1 \! \!  \pmod {#2} }
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+Examen janvier
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+
+
+
+
+\begin{center}
+\textbf{durée : 1 heure}
+\end{center}
+
+
+
+\begin{ex}(Question de cours)
+Soient $a,b \in \mathbb{Z}\setminus\{0\}$.  Montrer qu'il existe un unique entier positif $d$ tel que : \begin{enumerate}
+\item $d$ divise $a$ et $b$,
+
+\item tout diviseur commun à $a$ et $b$ divise $d$.
+\end{enumerate} Montrer qu'il existe $(u,v)\in¨ \Z\times \Z$ tel que $d=au+bv$.
+\end{ex}
+
+
+\begin{ex}\label{RSA} \
+\textbf{erreur : $165$ n'est pas semi-premier !! à corriger}
+Dans un cryptosystème utilisant l'algorithme RSA, déterminer la clé secrète $(d,\varphi(n) )$ ainsi que le message envoyé $m$ de $\mathbb{Z}/n\mathbb{Z}$ pour la clé publique $(n,e)$ et le cryptogramme $c=m^e$ suivant :
+$n=165,$  $e=85,$  $c=10.$
+
+
+
+
+\end{ex}
+
+\begin{ex}\label{eq_chinois}
+
+
+
+On considère le système suivant, d'inconnue $x\in \Z/221\Z$ : 
+
+\[ \left\{\begin{aligned} x &\equiv 2[13]\\
+x &\equiv 3[17].\end{aligned}\right.\]
+
+\begin{enumerate}
+\item Combien le système a-t-il de solution (le démontrer) ?
+
+\item Le résoudre.
+\end{enumerate}
+
+\end{ex}
+
+
+\begin{ex}\label{nombres_primaires}
+Les algorithmes pourront êtres rédigés en pseudo-langage (pas nécessairement en langage sage)
+
+\item[$1.$] Pour les algorithmes demandés, on admettra qu'on possède l'algorithme Euclide$(a,b)$ qui détermine le PGCD de 2 entiers $a$ et $b$ avec $a \in \mathbb{N}$ et $b \in \mathbb{N}^*$.
+\begin{itemize}
+\item[$(a)$] Écrire une fonction Test($k$,$n$) prenant en entrée 2 entiers $(k ,n)\in \mathbb{N}\times (\mathbb{N}\smallsetminus\{0,1\})$ et renvoyant 1 si $k \in (\mathbb{Z}/n \mathbb{Z})^{\times}$ et 0 sinon.
+\item[$(b)$] Écrire une fonction Card($n$) prenant en entrée un entier $n\in \mathbb{N}^*$ et renvoyant le cardinal de $(\mathbb{Z}/n \mathbb{Z})^{\times}$. 
+
+\item[$(c)$] Écrire une fonction Ord($k$,$n$) prenant en entrée 2 entiers $(k,n)\in \mathbb{N}\times (\mathbb{N}\smallsetminus\{0,1\})$ et renvoyant l'ordre de $\overline{k}$ dans $(\mathbb{Z}/n\mathbb{Z})^{\times}$ si $\overline{k} \in (\mathbb{Z}/n \mathbb{Z})^{\times}$ et Erreur sinon.
+
+\end{itemize}
+
+\medskip
+ Soit $n \in  \mathbb{N}$. On dit que $n$ est primaire lorsqu'il existe un nombre premier $p$ et $\alpha \in \mathbb{N}^{*}$ tels que $n = p^{\alpha}$. 
+ 
+\begin{itemize}
+\item[$2.$] Soit $n \in  \mathbb{N}\smallsetminus\{0,1\}$ tel que $n$ ne soit pas primaire. 
+\begin{itemize}
+\item[$(a)$] Établir qu'il existe deux entiers, que l'on notera $n_1$ et $n_2$, tels que $n = n_1n_2$ avec $1<n_1 < n$ et $n_1\wedge n_2= 1$.
+\item[$(b)$] Montrer alors que $(n_1 + n_2)\wedge n = 1$ (on pourra raisonner par l'absurde et considérer un diviseur premier $p$ commun à $n_1+n_2$ et $n$).
+\item[$(c)$] Établir également que : $\overline{n_1} \not \in (\mathbb{Z}/n\mathbb{Z})^{\times}$  et $\overline{n_2} \not \in (\mathbb{Z}/n\mathbb{Z})^{\times}$.
+\end{itemize}
+\item[$3.$] On considère $p$ un nombre premier et $\alpha \in \mathbb{N}^*$. \\
+Soit $k \in \mathbb{Z}$. Prouver que $\overline{k}$ n'est pas inversible dans $(\mathbb{Z}/p^{\alpha}\mathbb{Z})$ si et seulement si $p  \mid k$.
+\item[$4.$] Soit $n \in \mathbb{N}$ tel que $n > 1$.\\
+Démontrer que l'ensemble des éléments non inversibles de $\mathbb{Z}/n \mathbb{Z}$ est un sous-groupe de $(\mathbb{Z}/n\mathbb{Z}, +)$ si et seulement si $n$ est primaire.
+
+\end{itemize}
+\end{ex}
+
+
+\end{document}

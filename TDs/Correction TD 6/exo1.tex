@@ -1,0 +1,296 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{comment}
+\usepackage{graphicx}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2020/2021 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{  Université de Lorraine \\}
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+%\newcommand{\md}[3]{#1 \equiv #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod #3 }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod #3 }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod #3 }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\md}{\mathrm{\ mod\ }}
+
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    Feuille de TD n$^{\boldsymbol{\circ}}$6
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+Exercice~1
+
+1. On a $87=81+3.2$ donc $87=10020_3$
+
+
+2. 
+
+\begin{tabular}{ll}
+\textbf{Algorithme} & ternaire($a$)\\
+		           & $L=[\ ]$\\
+		           & $b=a$\\
+		           & tant que $b>0$:\\
+		                & \ \ \ {\rm | }$c=b\%3$\\
+		                & \ \ \ {\rm | }$L=[b]+L$\\
+		                & \ \ \ {\rm | }$b=(b-c)//3$\\
+		           & renvoyer $L$. \\
+\end{tabular}
+
+
+4.
+
+ \begin{tabular}{ll}
+\textbf{Algorithme} &expo\_rapide\_ternaire($a,n$)\\
+		           & $L=\mathrm{ternaire}(n)$\\
+		           & $P=a$\\
+		           & $k=\mathrm{len}(L)$\\
+		           & $b=1$\\
+		           & $i=0$\\
+		           & tant que $i<k$:\\
+		           	    & \ \ \ {\rm | }$b=b.P^{L[k-i-1]}$\\
+		           	    & \ \ \ {\rm | }$i=i+1$\\
+		           	    & \ \ \ {\rm | }$P=P^3$\\
+				   & Renvoyer $b$.\\
+\end{tabular}
+
+
+5.
+
+ \begin{tabular}{ll}
+\textbf{Algorithme} &expo\_rapide\_recursif($a,n$)\\
+		           & si $n\%3==0$:\\
+		                & \ \ \ {\rm | }Renvoyer  expo\_rapide\_recursif($a,n//3)^3$ \\		
+		           & si $n\%3==1$:\\
+		                & \ \ \ {\rm | }Renvoyer  expo\_rapide\_recursif($a,(n-1)//3)^3.a$ \\		
+		           & si $n\%3==2$:\\
+		                & \ \ \ {\rm | }Renvoyer  expo\_rapide\_recursif($a,(n-2)//3)^3.a^2$ \\		
+\end{tabular}
+
+
+6. On a $a^{87}=(((a^3)^3)^3)^3.(a^3)^2$. Calculer un cube coûte deux multiplications (car $x^3=(x.x).x$). Il faut calculer $((((a^3)^3)^3)^3$, ce qui coûte $2.4$ multiplications. Puis multiplier par $(a^3)^2$, ce qui fait deux autres multiplications (car on a déjà calculé $a^3$). On utilise donc $10$ multiplications.
+
+On a $87=2^6+2^4+2^2+2+1=1010111_2$, donc $a^{87}=(((((a^2)^2)^2)^2)^2)^2).((((a^2)^2)^2)^2).((a^2)^2).a^2.a$. Il faut d'abord calculer $(((((a^2)^2)^2)^2)^2)^2)$, ce qui fait $6$ multiplications (une élévation au carré compte pour une multiplication). Au passage on aura calculé $((((a^2)^2)^2)^2)$, $((a^2)^2)$, $a^2$ et $a$. Il faut ensuite faire $3$ multiplications.
+
+On a $81=3^4$, il faut donc faire $8$ multiplications pour calculer $a^{81}=(((a^3)^3)^3)^3$. On a $81=64+16+1=1010001_2$, il faut donc $8$ multiplications pour calculer $a^{81}$ par l'algorithme d'exponentiation rapide usuel.
+
+On a $128=81+27+18+2=11202_3$. Il faut donc $4.2+1+2+2=13$ multiplications par l'algorithme d'exponentiation rapide ternaire.
+On a $128=2^7$, il faut donc $7$ multiplications pour calculer $a^{128}$ par l'algorithme d'exponentiation rapide usuel.
+
+
+\begin{comment}
+\begin{ex}\label{nombre_racines_polynôme}
+
+Soit $K$ un corps. On rappelle que si  $(A,B)\in K[X]\times K[X]\setminus\{0\}$, alors il existe un unique couple $(Q,R)\in K[X]^2$ tel que $\deg(R)<\deg(B)$ et $A=BQ+R$.
+
+\begin{enumerate}
+
+\item Soit $P\in K[X]$ et $\alpha\in K$. On écrit $P=B(X-\alpha)+R$, avec $R\in K$. Exprimer $R$ en fonction de $P(\alpha)$. En déduire que si $P(\alpha)=0$, alors $(X-\alpha)$ divise $P$.
+
+\item Soit $P$ un polynôme non nul et  $n$ son degré. Montrer que $P$ a au plus $n$ racines.
+
+\item Soit $P=2X\in \Z/4\Z[X]$. Combien $P$ a-t-il de racines ?
+
+
+\end{enumerate}
+\end{ex}
+
+Exercice~\ref{nombre_racines_polynôme}
+
+1. On a $P(\alpha)=B(\alpha).0+R(\alpha)$. De plus $R$ est constant donc $R(\alpha)=R$. On a donc $R=P(\alpha)$. Si $P(\alpha)=0$, on a donc $P=(X-\alpha)B$, donc $(X-\alpha)$ divise $B$.
+
+2. Soit $P\in K[X]$. Si $P$ est de degré $0$, $P$ est constant, donc $P$ n'a pas de racine. Soit $n\in  \N$. Supposons que tout polynôme de degré $n$ a au plus $n$ racines. Soit $P$ un polynôme de degré $n+1$. Supposons que $P$ admette une racine $\alpha$. Alors on peut écrire $P=(X-\alpha)B$, où $B\in K[X]$ et $B$ est de degré $n$. Soit $x\in K$. Alors $P(x)=0$ si et seulement si $x-\alpha=0$ ou $B(\alpha)=0$. On a donc $P^{-1}(\{0\})\subset \{\alpha\}\cup B^{-1}(\{0\})$, donc $P$ a au plus $n+1$ racines.
+
+3. Les racines de $P$ sont $0$ et $2$ donc $P$ a deux racines. En fait, si $K=A$ est un anneau commutatif, on peut montrer que le résultat précédent reste vrai si et seulement si $A$ est intègre.
+
+
+\begin{ex}\label{caractérisation_carrés}
+Soit $p\in \mathbb{P}\setminus\{2\}$. On veut montrer que l'ensemble des carrés non nuls de $\Z/p\Z$ est l'ensemble $\{x\in \Z/p\Z|x^{(p-1)/2}=1\}$. \begin{enumerate}
+
+\item Soit $x\in (\Z/p\Z)^*$. Montrer que si $x$ est un carré, alors $x^{(p-1)/2}=1$.
+
+\item Soit $f:(\Z/p\Z)^*\rightarrow (\Z/p\Z)^*$ définie par $f(x)=x^2$, pour $x\in (\Z/p\Z)^*$. Montrer que si $\alpha\in (\Z/p\Z)^*$, alors $|f^{-1}(\{\alpha\})|\in \{0,2\}$. 
+
+\item En déduire que $|f\big((\Z/p\Z)^*\big)|=\frac{p-1}{2}$.
+
+\item En déduire que l'ensemble des carrés non nuls de $\Z/p\Z$ est l'ensemble $\{x\in \Z/p\Z|x^{(p-1)/2}=1\}$. (on pourra utiliser l'exercice précédent)
+
+\item Donner une condition nécessaire et suffisante sur $p$ pour que $-1$ soit un carré.
+
+\end{enumerate}
+\end{ex}
+
+Exercice~\ref{caractérisation_carrés}
+
+1. Si $x$ est un carré non nul, on peut écrire $x=\alpha^2$, pour un certain $\alpha\in \Z/p\Z^*$. Par le petit théorème de Fermat, $x^{(p-1)/2}=\alpha^{p-1}=\overline{1}$.
+
+2. Soit $\alpha\in (\Z/p\Z)^*$. Supposons que $\alpha$ soit un carré. Alors il existe $\beta\in \Z/p\Z^*$ tel que $\beta^2=\alpha$. Soit $x\in \Z/p\Z$. Alors $x^2=\alpha$ si et seulement si $x^2-\beta^2=0$ si et seulement si $(x-\beta)(x+\beta)=0$. On a donc $f^{-1}(\{\alpha\})=\{\beta,-\beta\}$. De plus, $2$ est premier avec $p$, donc $\overline{2}$ est inversible dans $\Z/p\Z$, donc $2\beta=\beta+\beta\neq 0$. On en déduit que $\beta\neq -\beta$ donc $|f^{-1}(\{\alpha\})|=2$.
+
+3. Soit $X=f(\Z/p\Z^*)$. Si $x\in \Z/p\Z^*$, alors $x\in f^{-1}(\{f(x)\})$. On a donc $\Z/p\Z^*=\bigsqcup_{\alpha\in X} f^{-1}(\{\alpha\})$. On a donc $|\Z/p\Z^*|=p-1=\sum_{\alpha\in X} |f^{-1}(\{\alpha\})|=\sum_{\alpha\in X} 2=2|X|$, donc $X=\frac{p-1}{2}$.
+
+4. Soit $P=X^{(p-1)/2}-1$. Alors par l'exercice précédent, $P$ a au plus $\frac{p-1}{2}$ racines (car $\Z/p\Z$ est un corps). Par la question 1, tout élément de $X$ est une racine de $P$ et par la question 3, $X$ a $\frac{p-1}{2}$. L'ensemble $X$ est donc l'ensemble des racines de $P$, ce qu'on voulait démontrer.
+
+5. On en déduit que $-1$ est un carré si et seulement si $\frac{p-1}{2}$ est pair si et seulement si $p\equiv 1[4]$. 
+
+
+\begin{ex}\label{indicatrice_d_Euler}(voir Saux-Picart, \textit{cours de calcul formel})
+
+\begin{enumerate}
+
+\item Soit $p\in \mathbb{P}$ et $\alpha\in \N^*$. Déterminer $\varphi(p^\alpha)$, où $\varphi$ est l'indicatrice d'Euler. 
+
+\item En déduire que $p^\alpha=\sum_{d|p^\alpha} \varphi(d)$, où la somme est effectuée sur l'ensemble des diviseurs positifs.
+
+\item Soit $n\in \N^*$. Montrer que $n=\sum_{d|n}\varphi(d)$. (on pourra faire une récurrence sur le nombre de nombres premiers divisant $n$).
+
+
+\end{enumerate}
+\end{ex}
+
+
+Exercice~\ref{indicatrice_d_Euler}
+
+
+1. On a $\varphi(p^\alpha)=|\{x\in \llbracket 0,p^\alpha-1\rrbracket| x\wedge p^\alpha=1\}|$. Si $x\in \Z$, $x\wedge p^\alpha=1$ si et seulement si $x\wedge p=1$ (car $p$ divise tout diviseur non trivial de $p^\alpha$). On a donc \[\varphi(p^\alpha)=|\llbracket 0,p^\alpha-1\rrbracket\setminus p\llbracket 0,p^{\alpha-1}-1\rrbracket|=p^\alpha-p^{\alpha-1}. \]
+
+2. L'ensemble des diviseurs de $p^\alpha$ est $\{p^\beta|\beta\in \llbracket 0,\alpha\rrbracket\}$. On a donc \[\begin{aligned}\sum_{d|p^\alpha} \varphi(d) &=\varphi(1)+\sum_{\beta=1}^\alpha \varphi(p^\beta)\\ &= 1+\sum_{\beta=1}^\alpha p^\beta-p^{\beta-1}\\ 
+&= 1+(p-1)+(p^2-p)+(p^3-p^2)+\ldots (p^{\alpha }-p^{\alpha-1})=1+p^\alpha-1=p^\alpha.\end{aligned}\]
+
+
+3. Si $n\in \N_{\geq 2}$, on note $k(n)$ le nombre de nombres premiers divisant $n$. On a montré que si $k(n)=1$, alors la formule est vraie. Soit $k\in \N$. Soit $\mathscr{P}_k:$ ``Pour tout $n\in \N$ tel que $k(n)\leq k$, $\sum_{d|n}\varphi(d)=n$''. Soit $k\in \N$ tel que $\mathscr{P}_k$ est vraie. Soit $n\in \N$ tel que $k(n)=k+1$. Écrivons $n=p_1^{\alpha_1}\ldots p_{k+1}^{\alpha_{k+1}}$ la décomposition de $n$ en produit de facteurs premiers (les $p_i$ sont des nombres premiers distincts, et les $\alpha_i$ sont des entiers strictement positifs). Soit $n'=n/p_{k+1}^{\alpha_{k+1}}=p_1^{\alpha_1}\ldots p_{k}^{\alpha_{k}}$. Soit $d$ un diviseur de $n$. Alors $d=p_1^{\beta_1}\ldots p_{k+1}^{\beta_{k+1}}$, où $\beta_i\in \llbracket 0,\alpha_i\rrbracket$ pour tout $i\in \llbracket 1,k+1\rrbracket$. Soit $d'=p_1^{\beta_1}\ldots p_k^{\beta_k}$ et $d_{k+1}=p_{k+1}^{\beta_{k+1}}$. Alors $d=d'd_{k+1}$, $d'|n'$ et $d_{k+1}|p_{k+1}^{\alpha_{k+1}}$. Réciproquement, si $d'$ est un diviseur de $n'$ et $d_{k+1}$ est un diviseur de $p_{k+1}^{\alpha_{k+1}}$, alors $d'd_{k+1}$ divise $n$. Ainsi, \[\begin{aligned} \sum_{d|n} \varphi(d) &=\sum_{d'|n',d_{k+1}|p_{k+1}^{\alpha_{k+1}}} \varphi(d'd_{k+1})\\ &= 
+ \sum_{d'|n',d_{k+1}|p_{k+1}^{\alpha_{k+1}}} \varphi(d')\varphi(d_{k+1})\text{ car }d'\wedge d_{k+1}=1\text{ si } d'|n'\text{ et } d_{k+1}|p_{k+1}^{\alpha_{k+1}}\\  
+ &= \sum_{d'|n'} \varphi(d')\sum_{d_{k+1}|p_{k+1}^{\alpha_{k+1}}} \varphi(d_{k+1})\\
+ &= n' p_{k+1}^{\alpha_{k+1}}=n.\end{aligned}\]
+ 
+On en déduit que $\mathscr{P}_{k+1}$ est vraie, donc $\mathscr{P}_k$ est vraie pour tout $k\in \N$ donc la formule est vraie.
+  
+Si $P\in \Z[X]$, $P$ est dit \textbf{irréductible} si pour tous $Q,R\in \Z[X]$ tels que $P=QR$, alors $Q$ ou $R$ est inversible dans $\Z[X]$.
+
+
+
+\begin{ex}(critère d'Eisenstein)\label{critere_dEisenstein}
+\begin{enumerate}
+
+\item Soit $A$ un anneau intègre et $n\in \N$. Soient $Q,R\in A[X]$ tels $QR=X^n$. Montrer qu'il existe $u\in A^\times$ et $k\in \llbracket 0,n\rrbracket$ tels que $Q=uX^{k}$ et $R=u^{-1} X^{n-k}$.
+
+\item Soit $P=\sum_{i=0}^n a_n X^n\in \Z[X]$ un polynôme primitif (c'est à dire que le PGCD de tous ses coefficients vaut $1$). On suppose qu'il existe $p\in \mathbb{P}$ tel que :\begin{itemize}
+\item $p| a_i$, pour tout $i\in\llbracket 0,n-1\rrbracket$,
+
+\item $p\not | a_n$,
+
+\item $p^2|a_0$. 
+\end{itemize} 
+
+
+\end{enumerate}
+
+
+Montrer que $P$ est irréductible.
+
+\item Montrer que $2X^3+3X^2+3$ est irréductible dans $\Z[X]$.
+
+\textit{Indications : (1) on pourra écrire $Q$ et $R$ sous la forme $Q=X^{k_0} \tilde{Q}$, $R=X^{\ell_0}\tilde{R}$, où $k_0,\ell_0\in \N$, $\tilde{Q},\tilde{R}\in A[X]$ sont tels que $\tilde{Q}(0)\neq 0$, $\tilde{R}(0)\neq 0$, et considérer les degrés de $Q$ et $R$.}
+
+\textit{(2) on pourra considérer se placer dans $\Z/p\Z[X]$.}
+
+
+Exercice~\ref{critere_dEisenstein}
+(1) On a $QR=X^{k_0+\ell_0}\tilde{Q}\tilde{R}$, avec $\tilde{Q}(0)\neq 0$ et $\tilde{R}(0)\neq 0$, donc $\tilde{Q}\tilde{R}(0)\neq 0$. On en déduit que le coefficient de degré $k_0+\ell_0$ de $QR$ est non nul, donc $k_0+\ell_0=n$. Comme $A$ est intègre, $\deg(QR)=\deg(Q)+\deg(R)$. De plus, $\deg(Q)\geq k_0$, $\deg(R)\geq \ell_0$, donc $k_0+\ell_0\leq \deg(Q)+\deg(R)=n=k_0+\ell_0$. On en déduit que $k_0=\deg(Q)$, $\ell_0=\deg(R)$, donc il existe $u,v\in A$ tels que $Q=u X^{k_0}$ et $R=vX^{\ell_0}=vX^{n-k_0}$. On a $QR=uv X^{n}=X^n$ donc $uv=1$, d'où le résultat.
+
+
+(2) Supposons que $P=QR$, où $Q$ et $R$ ne sont pas inversibles dans $\Z[X]$. Comme $P$ est primitif, si $Q\in \Z$, alors $Q=\pm 1$ (car $Q$ divise tous les coefficients de $P$), donc $Q$ est inversible : c'est absurdre. On en déduit que $Q,R$ sont de degré strictement positifs. Pour $S\in \Z[X]$, on note $\overline{S}$ son image dans $\Z/p\Z[X]$. Alors $\overline{\cdot}:\Z[X]\rightarrow \Z/p\Z[X]$ est un morphisme d'anneaux et $\overline{P}=\overline{Q}\overline{R}$. Par hypothèse, $\overline{P}=\overline{X^n}$. On en déduit que $\overline{Q},\overline{R}$ sont des diviseurs de $\overline{X}^n$, donc il existe $u\in \Z/p\Z^*$ et $k\in \llbracket 1,n-1\rrbracket$ tels que $\overline{Q}=u \overline{X^k}$ et $\overline{R}=u^{-1} \overline{X^{n-k}}$. Alors $\overline{Q}(0)=0=\overline{R}(0)$, donc $p$ divise $Q(0)$ et $R(0)$ donc $p^2$ divise $P(0)=QR(0)=a_0$. On aboutit à une contradiction. Donc $P$ est irréductible.
+
+\end{ex}
+
+
+\begin{ex}\label{cyclicité_groupe_multiplicatif_corps_fini}(Cyclicité des sous-groupes finis du groupe multiplicatif d'un corps, voir Perrin, \textit{cours d'algèbre}, théorème 2.7 page 74)
+
+Soient $K$ un corps (commutatif) et $G$ un sous-groupe fini de $(K,.)$. Soit $n$ l'ordre de $G$. L'objectif est de montrer que $G$ est isomorphe à $\Z/n\Z$. Ce résultat s'applique en particulier à $K=\Z/p\Z$, où $p$ est un nombre premier.
+
+\begin{enumerate}
+
+\item Soit $x\in G$. Montrer que son ordre $d$ divise $n$.
+
+\item Montrer que $\langle x\rangle=\{y\in K|y^d=1\}$ (on pourra utiliser l'exercice~\ref{nombre_racines_polynôme}).
+
+\item Montrer que l'ensemble des éléments dont l'ordre divise $d$ est inclus dans $\langle x\rangle$.
+
+\item Soit $d\in\N$. Montrer que $\Z/d\Z$ a exactement $\varphi(d)$ éléments d'ordre $d$.
+
+\item Si $d$ est un diviseur de $n$, on note $N_d$ le nombre d'éléments de $G$ d'ordre $d$. Montrer que $N_d$ est soit nul, soit égal à $\varphi(d)$.
+
+\item Montrer que $n=\sum_{d|n} N_d$. 
+
+\item En déduire que $N_d=\varphi(d)$ pour tout $d|n$ (on pourra utiliser l'exercice~\ref{indicatrice_d_Euler}), puis que $G$ est isomorphe à $\Z/n\Z$.
+
+\end{enumerate}
+
+\end{ex}
+
+Exercice~\ref{cyclicité_groupe_multiplicatif_corps_fini}
+
+1. Par le théorème de Lagrange, $d=\langle x\rangle$ divise $n$.
+
+2,3. Soit $P=X^d-1\in K[X]$. Soit $y\in \langle x\rangle$. On a $y=x^k$, pour un certain $k\in \llbracket 0,d-1\rrbracket$. Alors $y^d=x^{kd}=(x^d)^k=1$, donc $\langle x\rangle\subset P^{-1}(\{0\})$. D'après l'exercice~\ref{nombre_racines_polynôme}, $P$ a au plus $d$ racines. Comme $|\langle x\rangle |=d$, on a $P^{-1}(\{0\})=\langle x\rangle$. L'ensemble des éléments dont l'ordre divise $d$ étant exactement l'ensemble des racines de $P$, on a le résultat.
+
+4. Soit $a\in \Z/d\Z$. Supposons que $a$ est d'ordre $d$ (dans $(\Z/d\Z,+)$). Alors $|\langle a\rangle |=|\{ka|k\in \Z\}|=|\Z/d\Z|$, donc $ \langle a\rangle =\Z/d\Z$. En particulier, $\overline{1}\in \langle a\rangle$ donc il existe $k\in \Z$ tel que $ka=\overline{1}$, donc $a$ est inversible dans $\Z/d\Z$ (pour $.$). Réciproquement, si $a\in \Z/d\Z^*$, alors il existe $k\in \Z$ tel que $ka=\overline{1}$. Si $\overline{x}\in \Z/d\Z$, alors $xka=\overline{x}$, donc $\langle a\rangle =\Z/d\Z$. Ainsi, l'ensemble des éléments d'ordre $d$ de $\Z/d\Z$ est l'ensemble des inversibles de $(\Z/d\Z,.)$, d'où le résultat.
+
+5. Soit $d$ un diviseur de $n$ tel que $N_d\neq 0$. Soit $X_d$ l'ensemble des éléments de $G$ d'ordre $d$. Soit $x\in X_d$. On a vu que $X_d\subset \langle x\rangle$.  De plus, $\langle x\rangle \simeq \Z/d\Z$, donc $\langle x \rangle$ a exactement $\varphi(d)$ éléments d'ordre $d$. On en déduit que $|X_d|=\varphi(d)$. 
+
+6. Tout élément de $G$ a un ordre divisant $n$ donc $\bigsqcup_{d|n} X_d=G$ donc \[|\bigsqcup_{d|n} X_d|=\sum_{d|n} |X_d|=\sum_{d|n}N_d=n.\]
+
+
+7. On a vu que $N_d\leq\varphi(d)$ pour tout $d|n$. De plus, on a vu à l'exercice~\ref{indicatrice_d_Euler} que $\sum_{d|n} \varphi(d)=n$. S'il existait $d'$ divisant $n$ tel que $N_{d'}<\varphi(d')$, on aurait nécessairement $n=\sum_{d|n}N_d <\sum_{d|n}\varphi(d)=n$, donc pour tout $d$ divisant $n$, $N_d=\varphi(d)$. En particulier, $N_n=\varphi(n)>0$. Il existe donc $x\in G$ d'ordre $n$. Alors $\Z/n\Z\simeq \langle x\rangle =G$, donc $G$ est cyclique.
+\end{comment}
+
+\end{document}

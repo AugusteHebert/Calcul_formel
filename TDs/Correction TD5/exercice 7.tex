@@ -1,0 +1,122 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{comment}
+\usepackage{graphicx}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2020/2021 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{  Université de Lorraine \\}
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+%\newcommand{\md}[3]{#1 \equiv #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod #3 }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod #3 }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod #3 }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\md}{\mathrm{\ mod\ }}
+
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    Feuille de TD n$^{\boldsymbol{\circ}}$5
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+
+Exercice~7
+
+\begin{tabular}{ll}
+\textbf{Algorithme} & Occurence($n,c$)\\
+$L \leftarrow $Ecr\_Dec$(n)$\\
+$x\leftarrow 0$\\
+$\ell\leftarrow \mathrm{len}(L)$\\
+pour $i$ de $0$ à $\ell$ :\\
+& \ \ \ {\rm | }si $L[i]=c$ : \\
+& \ \ \ \ \ \  {\rm | }$x\leftarrow x+1$\\        		
+Renvoyer $x$.
+\end{tabular}
+
+\begin{comment}
+\begin{ex}\label{Hanoi}$($Tours de Hanoï, voir figure$)$\ \\
+Le problème des tours de Hanoï est un jeu de réflexion imaginé par le mathématicien français Édouard Lucas, et consistant à déplacer des disques de diamètres différents d'une tour source à une tour destination en passant par une tour « intermédiaire » et ceci en un minimum de coups, tout en respectant les règles suivantes :
+\begin{itemize}
+\item on ne peut déplacer plus d'un disque à la fois,
+\item on ne peut placer un disque que sur un autre disque plus grand que lui ou sur un emplacement vide.
+\end{itemize}
+On suppose que cette dernière règle est également respectée dans la configuration de départ.
+
+\begin{itemize}
+\item[$1.$]  Essayer de résoudre le problème pour une tour de $1$, $2$, $3$ et $4$ palets.
+\item[$2.$]  Décrire une méthode récursive pour résoudre le problèmes des tours de Hanoï.
+\end{itemize}
+
+\textit{Indication:}Résoudre le problème des tours de Hanoï, c'est-à-dire déplacer $n$ disques d'une tour source
+'S' vers une tour destination 'D' en utilisant une tour intermédiaire 'I', revient à :
+\begin{itemize}
+\item[-] déplacer $n - 1$ disques de la tour source vers la tour intermédiaire;
+\item[-] déplacer $1$ disque de la tour source vers la tour destination;
+\item[-] déplacer $n - 1$ disques de la tour intermédiaire vers la tour destination.
+\end{itemize}
+
+\end{ex}
+
+
+Exercice~\ref{Hanoi}
+
+Soit $n\in \N^*$. Supposons que l'on sache déplacer une tour à $n$ disques  d'un bâton à un autre. On considère une tour à $n+1$ disques placés sur $A$. On envoie d'abord les $n$ premiers disques sur $C$. On envoie le plus gros disque sur $B$ puis on déplace les $n$ disques de $C$ sur $B$. On a donc déplacé les $n+1$ disques de $A$ à $B$.
+
+
+\centering\includegraphics[scale=1]{hanoi.png}
+\
+
+\end{comment}
+
+
+\end{document}

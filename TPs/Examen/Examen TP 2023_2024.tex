@@ -1,0 +1,215 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[top=2cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage[french]{babel}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{stmaryrd}
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\title{}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+
+\date{}
+\begin{document}
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2023/2024 \\  L3 Mathématiques \\ Semestre 5
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{\  Université de Lorraine \\}
+
+
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+\newcommand{\md}[3]{#1 \equiv #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod #3 }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod #3 }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod #3 }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\moa}[2]{#1 \! \! \pmod #2 }
+\thispagestyle{fancy}
+
+\vspace*{-0.9cm}
+\begin{center}
+%    \HRule \\[-0cm]
+    { \huge \bfseries
+    Examen TP
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+\begin{center}
+  mercredi 10 janvier 2024 \\
+\textbf{Durée: 2 heures}
+\end{center}
+
+
+\subsection*{Instructions}
+
+
+Penser à numéroter les questions. Vous pouvez ajouter des remarques ou des commentaires à vos algorithmes en créant des parties texte dans le fichier Sage (pour ajouter un commentaire, il faut utiliser \#, qui se situe au niveau du $3$ sur certains claviers).
+
+Les exercices sont indépendants. Ils pourront être traités dans l'ordre que l'on souhaitera. 
+
+On rappelle que si $a,b\in \Z$, $a\wedge b$ s'obtient grâce à la fonction \texttt{gcd}($a,b$).
+
+
+\begin{ex}(les   questions sont indépendantes)
+
+\begin{enumerate}
+
+\item Écrire un programme \texttt{factorielle}($n$), qui prend en entrée un entier $n$ et qui renvoie $n!$, sans utiliser la fonction \texttt{factorial}.
+
+
+
+\item Écrire un programme \texttt{decomposition}($n$) qui prend en entrée un entier naturel $n$ non nul et qui renvoie $(s,t)\in \N$ tels que $n=2^s t$, avec $t$ impair.
+
+
+\item On admet le théorème de Dirichlet: pour tous $m,n\in \N^*$ tels que $m\wedge n =1$, il existe une infinité de nombres premiers congrus à $m$ modulo $n$. Écrire un programme qui prend en entrée $m,n,K\in \N$, qui renvoie «~erreur~» si $m\wedge n\neq 1$, et qui renvoie la liste des $K$ premiers nombres premiers congrus à $m$ modulo $n$ sinon. Donner la liste des $10$ premiers nombres premiers congrus à $3$ modulo $100$.
+
+\item Un triplet pythagoricien est un élément $(a,b,c)\in \N^3$ tel que $a^2+b^2=c^2$. Déterminer la liste des triplets pythagoriciens $(a,b,c)$ tels que $c\in \llbracket 0,25\rrbracket$.
+
+
+
+
+\item Déterminer (à l'aide de Sage) le reste dans la division euclidienne de $10^{(10^{10})}$ par $7$.
+
+
+\end{enumerate}
+\end{ex}
+
+
+\begin{ex}
+\begin{enumerate}
+\item On définit la suite $(u_n)_{n\in \N}$ par $u_0=0$, $u_1=1$ et $u_{n+2}=u_n+u_{n+1}$ pour tout $n\in \N$. Écrire un programme qui prend en entrée un entier $n\in \N$ et qui renvoie $u_n$. 
+
+\item Que vaut le reste de $u_{10^7}$ dans la division euclidienne par $10$ ? (en s'y prenant bien, le temps de calcul de l'ordinateur peut être de l'ordre de quelques secondes).
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}
+\item Écrire un programme qui prend en entrée un entier $n\in \N_{\geq 2}$, et qui renvoie "True" s'il est premier et "False" s'il ne l'est pas, sans utiliser la commande \texttt{is\_prime} (on pourra par exemple tester si les nombres  entre $1$ et $ \sqrt{n}$ divisent $n$).
+
+\item En utilisant la commande "\texttt{is\_prime}"  écrire un programme qui prend en entrée un entier $n$ et qui renvoie le $n$-ième nombre premier. Quel est le $1000$-ème nombre premier ?
+
+\item Écrire un programme qui prend en entrée un élément $n\in \N_{\geq 2}$ et qui renvoie la liste de ses diviseurs premiers sous la forme d'une liste $L=[p_1,\ldots,p_k]$, avec $k\in \N^*$, $p_1< \ldots <p_k$. On pourra utiliser la fonction \texttt{next\_prime} (mais pas la fonction "\texttt{prime\_divisors}").
+
+
+ \item Écrire un programme qui prend en entrée un élément $n\in \N_{\geq 2}$, et qui renvoie la liste $[(p_1,\alpha_1),\ldots,(p_k,\alpha_k)]$ telle que $k\in \N^*$, $p_1<\ldots<p_k$, les $p_i$ sont premiers, $\alpha_i\in \N^*$ pour tout $i\in \llbracket 1,k\rrbracket$ et $n=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$. On ne  pourra pas utiliser la fonction \texttt{factor} (mais on pourra utiliser la fonction \texttt{prime\_divisors}). 
+\end{enumerate}
+\end{ex}
+
+
+
+\begin{ex}
+ On rappelle le théorème suivant.
+
+\begin{thm} 
+Soit  $n$ un entier impair $\geq 3$. Alors :\begin{enumerate}
+\item $n$ est premier si et seulement si pour tous $a\in \Z$ tel que $a\wedge n=1$, $ \big( \tfrac{a}{n} \big)\equiv a^{(n-1)/2} [n]$,
+
+\item si $n$ est composé, $\{a\in \llbracket 2,n-1\rrbracket|\ a^{(n-1)/2}\equiv \left(\frac{a}{n}\right) [n]\}$ a au plus $\varphi(n)/2$ éléments.
+\end{enumerate}
+\end{thm}
+
+Si $n$ est composé et si $a\in \llbracket 2,n-1\rrbracket$, on dit que $a$ est un \textbf{témoin d'Euler} si $\left(\frac{a}{n}\right)\not \equiv a^{(n-1)/2}[n]$. Le test de Solovay-Strassen pour un nombre $n$ consiste à choisir $k\in \N$ tel que $2^k$ est «~grand~» et à effectuer les étapes suivantes : \begin{enumerate}
+\item le programme choisit un nombre $a$ de $\llbracket 2,n-1\rrbracket$  aléatoirement,
+
+\item il teste si $a$ est un témoin d'Euler,
+
+\item si $a$ est un témoin d'Euler, le programme s'arrête et renvoie "$n$ n'est pas premier", sinon il   recommence les étapes les étapes (a), (b) et (c), sauf s'il a déjà tiré $k$ nombres auquel cas il renvoie "$n$ est peut-être premier".
+\end{enumerate}
+
+\begin{enumerate}
+\item Écrire un programme qui prend en entrée deux entiers $n,a$ tels que $n\in \N^*$ est impair et $a\in \llbracket 2,n-1\rrbracket$ et qui teste si $a$ est un témoin d'Euler (on pourra utiliser la fonction \texttt{jacobi\_symbol}). 
+
+\item Implémenter le test de Solovay-Strassen, qui prend en entrée un entier $n$ et un entier $k$.
+
+\item Faire la liste des nombres composés impairs $n\in \llbracket 3,10^5\rrbracket$ pour lesquels \texttt{Solovay\_strassen}($n$,2) renvoie $n$ est peut-être premier. Faire la liste des nombres composés impairs $n\in \llbracket 3,10^5\rrbracket$ pour lesquels \texttt{Solovay\_strassen}($n$,5) renvoie $n$ est peut-être premier. 
+\end{enumerate}
+
+\end{ex}
+
+
+\begin{ex}
+Le chiffrement de Vigenère fonctionne sur le principe suivant : on dispose d'une clé qui est une chaîne de caractères (en général un mot), et on décale la première lettre du texte d'un rang correspondant à celui de la première lettre de la clé dans l'alphabet et ainsi de suite. Par exemple, si la clé est « python », la première
+lettre sera décalée de 15 (p est la 15ème lettre de l'alphabet, en partant de 0), le deuxième de 24 etc. On
+revient au début de la clé si le texte à crypter est plus long que la clé).
+Exemple :
+\begin{tabular}{|c|| c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+texte clair &  u & n&  e & x&  e&  m&  p&  l&  e&  d&  e&  c&  h&  i&  f&  f&  r&  e \\
+\hline
+clé&  p&  y&  t& h&  o&  n&  p&  y&  t&  h&  o&  n&  p&  y&  t&  h&  o&  n \\
+\hline
+décalage &  15&  24&  19&  7&  14&  13&  15&  24&  19&  7 & 14 &  13&  15&  24&  19&  7&  14&  13 \\
+\hline
+texte crypté &  J &  L &  X &  E &  S &  Z  &  E &  J  & X  & K  & S  & P &  W &  G &  Y  & M  & F  & R  \\
+\hline
+\end{tabular}
+
+
+
+
+\begin{itemize}
+\item[$1.$] Écrire un programme prenant comme argument une clé \texttt{cle} et le texte à crypter \texttt{texte} (deux
+chaînes de caractères en majuscule et sans espaces) et effectuant le chiffrement.
+\item[$2.$] Comment déchiffrer le texte en connaissant la clé ? Écrire le programme.
+\end{itemize}
+
+\end{ex}
+
+
+\begin{ex}
+On rappelle le fonctionnement du cryptosystème RSA. Soient $p$ et $q$ deux nombres premiers distincts  et $n=pq$. Soient $\varphi=(p-1)(q-1)$ et $e\in \llbracket 2,\varphi-1\rrbracket$ un élément premier avec $\varphi$. On veut transmettre un message $m\in \llbracket 0,n-1 \rrbracket$. Pour le crypter, on calcule $m^e\mathrm{\ mod\ }n$. Pour déchiffrer un message $C\in \llbracket 0,n-1\rrbracket$, on calcule $C^d\mathrm{\ mod\ }\varphi$, où $d\in \llbracket 2,\varphi-1\rrbracket$ est tel que $ed\equiv 1[\varphi]$.  La clé publique est alors $(n,e)$ et la clé privé est $(d,\varphi)$. 
+
+\begin{enumerate}
+\item Écrire un programme \texttt{premier\_aleatoire} qui prend en entrée un entier $K$ et qui renvoie un nombre nombre premier aléatoire entre $10^K$ et $10^{K+1}$. Le résultat devra changer à chaque exécution du programme (sauf malchance). On pourra utiliser la fonction \texttt{ZZ.random\_element}.
+
+\item Écrire un programme \texttt{cle} qui prend en entrée un entier $K$ et qui renvoie une liste $[(n,e)],[d,\varphi)]$, où $n=pq$, $\varphi=(p-1)(q-1)$, $e\in \llbracket 2,\varphi-1\rrbracket$ est tel que $e\wedge \varphi=1$, $d\in \llbracket 2,\varphi-1\rrbracket$ est tel que $ed\equiv 1[\varphi]$ et $p,q$ sont deux nombres premiers aléatoires entre $10^K$ et $10^{K+1}$ (si le programme de la question précédente ne fonctionne pas, on pourra fixer $p=708641$ et $q=817787$).
+
+\item Crypter le message $2\  718\  281\ 828$, avec $p=708641$ et $q=817787$, $n=pq$ et $e=691$.
+
+\item Écrire un programme qui prend en entrée un message $m$, une clé publique $(n,e)$, et qui renvoie le message crypté suivant le cryptosystème RSA.
+
+\item Écrire un programme qui prend en entrée un message $C$ et une clé publique $(n,e)$, et qui renvoie le message décrypté (c'est à dire l'élément $m\in \llbracket 0,n-1\rrbracket$ tel que $m^e\equiv C[n]$. (on pourra utiliser la fonction \texttt{factor} pour déterminer la clé privée à partir de la clé publique :  si $n\in \N$ se décompose en facteur premier $n=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$, \texttt{factor}$(n)[0]=(p_1,\alpha_1)$ et  \texttt{factor}$(n)[0][0]=p_1$).
+
+\item On pose $p=708641$ et $q=817787$ et $n=pq$ et $e=691$. Décrypter le message $279148699747$. 
+\end{enumerate}
+
+\end{ex}
+
+
+
+
+
+
+\end{document}

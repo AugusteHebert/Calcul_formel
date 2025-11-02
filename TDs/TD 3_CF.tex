@@ -1,0 +1,339 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{comment}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{remarque}{Remarque}
+\newtheorem*{remarques}{Remarques}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+
+
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2023/2024 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{   Université de Lorraine \\ }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+
+\newcommand{\md}[3]{#1\ \equiv \ #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod {#3} }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod {#3} }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod {#3} }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\moa}[2]{#1 \! \!  \pmod {#2} }
+
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    Feuille de TD n$^{\boldsymbol{\circ}}$3
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+
+
+\begin{ex}\label{inverse_modulaire}\
+A partir de l'algorithme d'Euclide étendu, calculer $(8\mathrm{\ mod\ }27)^{-1}$.
+\end{ex}
+
+
+
+\begin{ex}\label{equation_lineaire_modulaire}\
+Trouver les solutions de l'équation suivante d'inconnue $x\in \Z$ :
+$$  {45x}\equiv {10}\  [{50}].    $$
+\end{ex}
+
+
+
+\begin{ex}\label{equation_lineaire_modulaire_generale}
+Soient $a,b\in \Z$, $n\in \N$. Soit (E) l'équation $a x\equiv b[n]$, d'inconnue $x\in \Z$. \begin{enumerate}
+\item On suppose que $a\wedge n=1$. Résoudre (E) (on pourra exprimer les solutions à l'aide de $(a \mathrm{\ mod\ }n)^{-1}$).
+
+\item En utilisant (1), résoudre (E) dans le cas où $a\wedge n$  divise $b$. Que peut-on dire lorsque $a\wedge n$ ne divise pas $b$ ?
+\end{enumerate}
+\end{ex}
+
+
+\begin{comment}
+
+\begin{ex}\label{banque}\
+Pierre donne à sa banque un chèque de $x$ euros et $y$ centimes. Par erreur, le banquier encaisse $y$ euros et $x$ centimes, ce qui représente $5$ centimes de plus que le double du montant de son chèque. Calculer $x$ et $y$.
+\end{ex}
+\end{comment}
+
+\begin{ex}
+Déterminer les sous-groupes suivants: $\langle \overline{12},\overline{21}\rangle\subset \Z/100\Z$ et $\langle \overline{12},\overline{21}\rangle\subset \Z/30\Z$. 
+\end{ex}
+
+
+\begin{ex}
+Soit $n\in \Z$. Montrer que l'addition et la multiplication sont bien définies dans $\Z/n\Z$, c'est  à dire que si $\overline{x},\overline{y}\in \Z/n\Z$, alors $\overline{x+y}=\overline{x'+y'}$ et $\overline{x'y'}=\overline{xy}$, pour tous $x'\in \overline{x}, y'\in \overline{y}$. 
+\end{ex}
+
+
+\begin{ex}\label{Carrés_modulo_n}
+\begin{enumerate} \item Soit $p\in \mathbb{P}$. Déterminer $\{x\in \Z/p\Z\mid x^2=\overline{1}\}$.
+
+\item En utilisant le théorème chinois, déterminer l'ensemble des $x\in \Z/92\Z$ tels que $x^2=\overline{1}$.
+\end{enumerate}
+
+
+\end{ex}
+
+
+
+
+\begin{ex}\label{division_Z_nZ}\
+Soient $a \in \mathbb{Z}^*$ et $n \in \mathbb{N}^* $. \begin{enumerate}
+\item On suppose que $a\wedge n=1$. Montrer que si $x,y\in \Z$ vérifient  $ \mda{ax}{ay}{n}  $, alors $ \mda{x}{y}{n}$.
+
+\item Donner un contre-exemple pour le cas $a\wedge n\neq 1 $, $a\not\equiv 0[n]$.
+\end{enumerate} 
+\end{ex}
+
+
+
+\begin{ex}\label{systeme_equations_modulaires}\
+Donner les solutions entières du système:
+$$ \left \{ \begin{array}{l}
+{x}\equiv {4} \ [{5}] \\
+{x} \equiv {5} \ [{11}]
+\end{array} \right.   $$
+\end{ex}
+
+
+
+\begin{ex}\label{systeme_non_premier}\
+ Résoudre les systèmes $ \left \{ \begin{array}{l}
+{x}\equiv 1 [2]\\
+{x} \equiv  1[3]\\
+x\equiv 3[4]\\
+x\equiv 2[5]\\
+x\equiv 1[6]
+\end{array} \right.   $ et  $ \left \{ \begin{array}{l}
+{x}\equiv 1 [2]\\
+{x} \equiv  1[3]\\
+x\equiv 2[4]\\
+x\equiv 2[5]\\
+x\equiv 1[6]
+\end{array} \right.   $, d'inconnue $x\in \Z$. 
+
+
+\end{ex}
+
+
+
+\begin{comment}
+\begin{ex}\
+Soient $a$ et $n$ deux entiers premiers entre eux. Supposons que $n=\prod_{i=1}^k n_i$ où les $n_i$ sont premiers entre deux à deux et posons $ a_i= a \! \mod n_i$ pour $i \in \lb 1,k \rb$. Montrer alors que $a\mathrm{\ mod\ }n$ est inversible si et seulement si $a_i \mathrm{\ mod\ }n_i$ est inversible pour tout $i\in \llbracket 1,k\rrbracket$. 
+$$ x=a^{-1}\! \! \! \! \!  \mod n \Longleftrightarrow \left \{ \begin{array}{c}
+x= a_1^{-1} \! \! \! \! \! \mod n_1 \\
+\ \ \ \ \ \ \vdots  \\
+x= a_k^{-1} \! \! \! \! \! \mod n_k 
+\end{array} \right.    $$
+
+\end{ex}
+\end{comment}
+
+
+
+\begin{ex}\label{exEquation_degre_2_F_p}(Équations du second degré dans $\Z/p\Z$)
+Soit $p\in \mathbb{P}_{\geq 3}$. 
+\begin{enumerate}
+\item Soit $u\in \Z/p\Z\setminus\{0\}$. Montrer que l'ensemble des solutions de l'équation $x^2=u$ est soit l'ensemble vide, soit de la forme $\{b,-b\}$, pour un certain $b\in \Z/p\Z$.
+
+\item Montrer qu'il y a exactement $\frac{p+1}{2}$ carrés dans $\Z/p\Z$.
+
+\item Soient $a,b\in \Z/p\Z$. On suppose que l'on sait résoudre l'équation $x^2=u$ d'inconnue $x\in \Z/p\Z$, pour 
+tous $u\in \Z/p\Z$. Résoudre l'équation $x^2+ax+b=0$, d'inconnue $x\in \Z/p\Z$ (on pourra calculer $(x+\overline{2}^{-1} a)^2$). 
+
+\item Soient $p_1,\ldots,p_k\in \mathbb{P}$ et $n=p_1\ldots p_k$. On suppose les $p_i$ distincts. Montrer que si $u\in \Z/n\Z$ et $N=|\{x\in \Z/n\Z\mid  x^2=u\}|$, alors $N$ est soit nul, soit une puissance de $2$ inférieure ou égale à $2^k$ (on pourra utiliser le théorème  chinois). 
+
+\end{enumerate}
+
+\end{ex}
+
+
+
+\begin{ex}(Nombres parfaits. Un théorème d'Euclide)\
+
+Un entier $n$ est dit \textbf{parfait} si $n \geqslant 2$ et si $n$ est égal à la somme de ses diviseurs positifs autres que lui-même. Par exemple, $6$ est parfait car $6=1+2+3$. \\
+D'après une feuille de TD précédente, si $2^p-1$ est premier, alors $p$ est premier. \\
+Soit $n\geqslant 2$ un entier. Notons $\sigma(n)$ la somme de tous les diviseurs positifs de $n$, de sorte que $n$ est parfait si et seulement si $\sigma(n)=2n$.
+\begin{itemize}
+\item[$1.$]\begin{itemize}
+\item[$a)$] Montrer que $n$ est premier si et seulement si $\sigma(n)=n+1$.
+\item[$b)$] Montrer que pour tout $r \in \mathbb{N}^*$, $\sigma(2^r)=2^{r+1}-1$.
+\item[$c)$] Montrer que si $m$ et $n$ sont premiers entre eux, alors $\sigma(mn)=\sigma(m)\sigma(n)$.
+\end{itemize}
+\item[$2.$] Montrer le résultat suivant, appelé théorème d'Euclide: si le nombre $q=2^p-1$ est premier, le nombre
+$$ n=\sum_{i=1}^q i=\frac{q(q+1)}{2}=2^{p-1}(2^p-1) $$
+est parfait.
+\end{itemize}
+\end{ex}
+
+
+
+
+\begin{ex}\label{reciproque_euclide}(Une réciproque du théorème d'Euclide)\
+
+On suppose le résultat de l'exercice précédent résolu. Soit $n$ un nombre parfait pair.
+\begin{itemize}
+\item[$1.$] Montrer qu'il existe un entier $k \geqslant 2$ tel que $n=2^{k-1}m$ avec $m$ impair.
+\item[$2.$] Montrer que $m$ est divisible par $(2^k-1)$. On pose $m=(2^k-1)d$.
+\item[$3.$] Montrer que $d+m=\sigma(m)$.
+\item[$4.$] Montrer que si $d \geqslant 2$, on a $1+d+m \leqslant \sigma(m)$. En déduire que $d=1$.
+\item[$5.$] En déduire le résultat d'Euler: tout nombre parfait pair est de la forme $2^{p-1}(2^p-1)$, avec $(2^p-1)$ premier.
+\end{itemize}
+\end{ex}
+
+
+\begin{rem}
+Les nombres parfaits ont été étudiés par Euclide au $III^{eme}$ siècle avant J.C., et ce dernier a montré le résultat de l'exercice 11. Au $XVIII^{eme}$ siècle, Euler a démontré la réciproque partielle, qui montre le lien entre la recherche entre les nombres parfais pairs et les nombres de Mersenne premiers. \\
+En revanche, on ne connait aucun nombre parfait impair et l'existence de tels nombres reste un problème ouvert. On ne sait pas non plus s'il existe une infinité de nombres de Mersenne premiers ou de nombres parfaits. 
+\end{rem}
+
+\begin{ex}
+Soit $A$ un anneau intègre. Soit $x\in A$. On dit que $x$ est \textbf{irréductible} s'il est ni nul, ni inversible, ni produit de deux éléments  non inversibles. On dit que $x$ est \textbf{premier} s'il est non-nul et non-inversible et si pour tout $a,b\in A$ tels que $x$ divise $ab$, alors $x$ divise $a$ ou $x$ divise $b$.
+
+\begin{enumerate}
+\item Montrer que tout élément premier est irréductible.
+
+\item Montrer que dans $\Z$, un élément est irréductible si et seulement si il est premier si et seulement si il est premier au sens donné dans le cours.
+
+\item Soit $A=\Z[i\sqrt{3}]$. On définit $N:A\rightarrow \N$ par $N(z)=|z|^2$ pour tout $z\in A$ (où $|\cdot|$ désigne le module de $\mathbb{C}$). Donner l'expression de $N(a+ib\sqrt{3})$, pour $a,b\in \Z$.  Montrer que $N$ est bien à valeurs dans $\N$ et que $N(z z')=N(z)N(z')$ pour tous $z,z'\in A$.
+
+\item Déterminer l'ensemble des éléments inversibles de $A$ (on pourra utiliser $N$).
+
+\item Montrer que $4=2\times 2=(1+i\sqrt{3})(1-i\sqrt{3})$ et que $2, 1+i\sqrt{3}$, $1-i\sqrt{3}$ sont irréductibles.
+
+\item Un anneau intègre $B$ est dit factoriel si pour tout élément $x\in B$, non-nul et non-inversible, on a :\begin{enumerate}
+\item  il existe $n\in \N^*$ et $p_1,\ldots,p_n\in B$ des éléments irréductibles tels que $x=p_1\ldots p_n$,
+
+\item si $m,n\in \N^*$, $p_1,\ldots,p_n,q_1,\ldots,q_m\in B$ sont irréductibles et $x=p_1\ldots p_n=q_1\ldots q_m$, alors $m=n$ et il existe une permutation $\sigma$ de $\llbracket 1,n\rrbracket$, $u_1,\ldots,u_n\in B^\times$ tels que $p_i=u_iq_{\sigma(i)}$ pour tout $i\in \llbracket 1,n\rrbracket$.
+\end{enumerate}
+
+\item L'anneau $A$ est-il factoriel ?
+
+
+\end{enumerate}
+\end{ex}
+
+
+
+\begin{comment}
+\paragraph{Correction exercice 8 TD 1}
+
+
+(1) Soit $d=(2n+1)\wedge n^2+n$. Alors $d$ divise $2(n^2+n)-n(2n+1)=n$, donc $d \mid (2n+1)\wedge n=1$, donc $d=1$.
+
+(2) Soit $d=(15n^2+8n+6)\wedge (30 n^2+21n+13)$. Alors $d$ divise  $30 n^2+21n+13-2.(15 n^2+8n+6)=5n+1$ donc $d$ divise $(15 n^2+8n+6)\wedge 5n+1$ donc $d$ divise $15 n^2+8n+6-3n(5n+1)=15 n^2+8n+6-15n^2-3n=5n+6$ donc $d$ divise $(5n+6)\wedge(5n+1)$ donc $d$ divise $5=(5n+6)-(5n+1)$.
+
+Supposons que $5$ divise $15n^2+8n+6$ et $30 n^2+21n+13$. Alors $5$ divise $8n+6$ donc $3n+1=8n+6-5(n+1)$ et  $n+3=30n^2+21+13-5(6n^2+4n+2)$. Ainsi, $5$ divise $3n+1-3(n+3)=-8$ : c'est absurde donc $d=1$. 
+\end{comment}
+\begin{comment}
+
+\paragraph{Correction}
+
+Exercice~\ref{inverse_modulaire}. On a  :\[\begin{aligned} 27&=&3\times 8+3\\ 8&=&3\times 2+2\\ 3&=&2\times 1+1,\end{aligned}\] et donc \[1=3-2=3-(8-3\times 2)=-8+3\times 3=-8+3\times (27-3\times 8)=-10\times 8+3\times 27.\]
+
+Dans $\Z/27\Z$, $\overline{8}$ est donc inversible et on a  $\overline{8}^{-1}=\overline{-10}=\overline{17}$.
+
+Exercice~\ref{equation_lineaire_modulaire}
+
+On a $45\wedge 50=5\mid10$, donc l'équation admet des solutions. Soit $x\in \Z$. Alors $45x\equiv 0[50]$ si et seulement si $50$ divise $45 x$, ssi $10$ divise $9x$ ssi $10$ divise $x$. On a donc $\{\overline{x}\in \Z/50\Z\mid45 \overline{x}=\overline{0}\}=10 \Z/50\Z=\{\overline{0},\overline{10}, \overline{20}, \overline{30}, \overline{40}\}$ ou $\{x\in \mid45x\equiv 0[50]\}=10\Z$. 
+
+Par Euclide étendu (ou directement), on obtient que $50\times 2-45\times 2 =10$, donc $\overline{x_0}=\overline{-2}$ est solution de l'équation. On obtient donc que $\{x\in \Z\mid45x\equiv 10[50]\}=-2+10\Z$. 
+
+
+Exercice~\ref{equation_lineaire_modulaire_generale}
+
+
+(1) On se place dans $\Z/n\Z$. Comme $a\wedge n=1$, $\overline{a}$ est inversible. Alors $\overline{a}\overline{x}=\overline{b}$ si et seulement si $\overline{x}=\overline{a}^{-1}\overline{b}$. 
+
+(2) Si $ax\equiv b[n]$, on a $b\in a\Z+n\Z=a\wedge n \Z$, donc si $b\notin a\wedge n \Z$, l'équation n'admet pas de solution. Supposons que $a\wedge n $ divise $b$. Soit $d=a\wedge n$. Alors $ax\equiv b[n]$ équivaut à $a/d x\equiv b/d[n/d]$ et $a/d\wedge n/d=1$.
+
+Exercice~\ref{banque}
+
+On a $(100 y +x) 2(100x+y)+5$, avec $x,y\in \N$, ce qui équivaut à $199x +98 y=5$. Résolvons d'abord cette équation dans $\Z$ : soit $(E_\Z)$ : $199x +98 y=5$, d'inconnue $(x,y)\in \Z^2$. Après Euclide étendu, on trouve que $x_0=33$ et $y_0=67$ est une solution particulière de $(E_\Z)$.  Soit $(x,y)\in \Z^2$ tel que $199x+98y=0$. Alors $199$ divise $98y$ donc $199$ divise $y$, on peut donc écrire $y=199 k$, où $k\in \N$. On a donc $199 x +98.199 k=0$, donc $x=-98k$. Si $(x',y')\in \Z^2$ est solution de $(E_\Z)$, alors $x'=x_0-98k$ et $y'=y'+199k$, pour $k\in \N$. Si $x',y'\in\N$, on obtient donc $k=0$. 
+
+Exercice~\ref{Carrés_modulo_n}
+
+(1) Dans $\Z/p\Z$, on a $x^2-\overline{1}=\overline{0}$ équivaut à $(x-\overline{1})(x+\overline{1})=\overline{0}$ équivaut à $\overline{x}=\pm \overline{1}$. 
+
+(2) Dans $\{x\in \Z/4\Z\mid\ x^2=\overline{1}\}=\{\overline{1},\overline{3}\}$. Soit $\phi:\Z/92\Z\rightarrow \Z/4\Z\times \Z/23\Z$ l'isomorphisme chinois. 
+
+On a $4\times 6-23=1$. On a $\phi(\overline{24})=(\overline{0},\overline{1})$ et $\phi(\overline{-23})=(\overline{1},\overline{0})$. On a donc $\{x\in \Z/92\Z\mid x^2=1\}=\{\overline{1},\overline{-1},\overline{47},\overline{-47}\}$. 
+
+Exercice~\ref{division_Z_nZ}
+
+(2) Si $a=2$, $n=4$ et $x=0$, $y=2$, alors ok.
+
+Exercice~\ref{systeme_equations_modulaires}
+
+Soit $\phi:\Z/55\Z\rightarrow \Z/5\Z\times \Z/11\Z$ l'isomorphisme chinois. On a $11-5\times 2=1$, donc $\phi(\overline{11})=(\overline{1},\overline{0})$ et $\phi(\overline{-10})=(\overline{0},\overline{1})$. On a donc $\phi^{-1}(\overline{4},\overline{5})=4.\overline{11}+5.\overline{-10}=\overline{-6}$.
+
+
+Exercice~\ref{systeme_equations_modulaires}
+
+Soit $E=\{x\in \Z\mid x\equiv1 [2], x\equiv 2[3], x\equiv 3[4], x\equiv 4[5]\text{ et }x\equiv 5[6]\}$. Soit $x\in \Z$. Alors $x\equiv 5[6]$ si et seulement si $x\equiv 2[3]$ et $x\equiv 1[2]$. Donc $E=\{x\in \Z\mid x\equiv1 [2], x\equiv 2[3], x\equiv 3[4]\text{ et } x\equiv 4[5]\}$. De plus, si $x\equiv 3[4]$, alors $x\equiv 1[2]$. Donc $E=\{x\in \Z\mid x\equiv 2[3], x\equiv 3[4] \text{ et }x\equiv 4[5]\}$. Alors $E$ s'écrit $x_0+60\Z$, pour un certain $x_0\in \Z$. On cherche $x_0$ sous la forme $x_0=n_3+3 n_4+3.4 n_5$, où $n_i\in \llbracket 0,i-1\rrbracket$. Alors $n_3=2$. On a $n_3+3n_4\equiv 3[4]$, donc $n_4=3$. On a $n_3+3n_4+12 n_5\equiv 3[5]$, donc $n_4=1$. On a donc $x_0=2+9+12=23$.
+
+Exercice~\ref{reciproque_euclide}
+
+
+
+2) On a  $2^{k-1}\wedge m =1$. On a $\sigma(m)=\sigma(2^{k-1}m)=\sigma(2^{k-1})\sigma(m)=2m$, donc $2^k-1=\sigma(2^{k-1}) \mid m$. 
+
+3) On a $\sigma(n)=(2^k-1)\sigma(m)=2n=2^km=2^k(2^k-1)d$. On a donc $\sigma(m)=2^kd=m+d$. 
+
+4) Si $d\geq 2$, $\{1,d,m\}$ est un ensemble de diviseurs de $m$ de cardinal $3$, donc $\sigma(m)\geq 1+d+m$. On en déduit que $d=1$ et donc que $m$ est premier, ce qui démontre le théorème d'Euler.
+\end{comment}
+
+\end{document}

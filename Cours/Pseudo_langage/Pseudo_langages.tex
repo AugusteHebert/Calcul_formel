@@ -1,0 +1,573 @@
+\documentclass[handout]{beamer}
+\useoutertheme{smoothbars}
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{dsfont}
+\usepackage{graphicx}
+\theoremstyle{plain}
+\usepackage{amsfonts}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+\newtheorem{thm}{\blue{\textbf{Théorème}}}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollaire}
+\newtheorem{defin}{Définition}
+\newtheorem{lemme}[thm]{Lemme}
+%\usepackage{mathrsfs}
+\usepackage[all]{xy}
+\usepackage{mathbbol}
+\usepackage{lipsum}% pour créer du texte aléatoire
+\usepackage{changepage}% pour utiliser adjustwidth
+\usepackage{comment}
+
+
+
+
+%\title[Introduction au calcul du PGCD de deux polynômes]
+%\date{Lundi 12 octobre 2020}
+%\author{Auguste Hébert}
+
+
+
+%\institute{ENS de Lyon}
+
+
+
+\newcommand{\tfjm}{$\mathbb{TFJM}^2$}
+
+\newcommand{\llp}{(\!(}
+\newcommand{\rrp}{)\!)}
+
+\newcommand{\backupbegin}{
+   \newcounter{framenumberappendix}
+   \setcounter{framenumberappendix}{\value{framenumber}}
+       \setbeamertemplate{footline}{
+      \leavevmode%
+      \hbox{%
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+        \usebeamerfont{author in head/foot}\insertshortauthor~~(\insertshortinstitute)
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+        \usebeamerfont{title in head/foot}\insertshorttitle
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+        \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+         \hfill \hspace*{2ex} % hier hat's sich geändert
+      \end{beamercolorbox}}%
+      \vskip0pt%
+    }
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumberappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumberappendix}} 
+}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\HC}{\mathcal{H}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\OC}{\mathcal{O}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\RF}{\mathfrak{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\setbeamertemplate{navigation symbols}{} 
+
+\begin{document}
+
+
+
+\section*{}
+
+
+\begin{frame}
+\begin{itemize}
+\item Calcul formel.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Calcul formel}
+
+\begin{itemize}[<+->]
+
+\item \textbf{« Définition »} (Wikipédia):  « le calcul formel, ou parfois calcul symbolique, est le domaine des mathématiques et de l’informatique qui s’intéresse aux algorithmes opérant sur des objets de nature mathématique par le biais de représentations finies et exactes. Ainsi, un nombre entier est représenté de manière finie et exacte par la suite des chiffres de son écriture en base 2.
+
+ \item Étant données les représentations de deux nombres entiers, le calcul formel se pose par exemple la question de calculer celle de leur produit.  Le calcul formel est en général considéré comme un domaine distinct du calcul scientifique, cette dernière appellation faisant référence au calcul numérique approché à l'aide de nombres en virgule flottante, là où le calcul formel met l'accent sur les calculs exacts sur des expressions pouvant contenir des variables ou des nombres en précision arbitraire. »
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}{Contenu du cours}
+\begin{itemize}[<+->]
+\item[-]    Dans ce cours : étude de  $\Z$ et  $\Z/n\Z$, pour $n\in \N^*$. Étude de différentes notions arithmétiques:
+
+\item[ ]  PGCD,  nombres premiers, théorème des restes chinois ... et  applications en cryptographie. 
+
+\item[-] Étude d'un point de vue algorithmique : étude d'algorithmes  «~efficaces~» qui permettent de les déterminer en pratique.  
+\end{itemize}
+
+\end{frame} 
+ 
+ 
+\begin{frame}{Algorithmes}
+\begin{itemize}[<+->]
+\item «~\textbf{Définition}~» :
+
+\item[ ]  Un algorithme est une suite finie et non ambiguë d’opérations ou d'instructions permettant de résoudre une classe de problèmes. 
+
+\item \textbf{Exemples :}
+
+
+\item [ ] Algorithmes vus à l'école primaire : addition de deux nombres entiers, multiplication de deux nombres entiers en la posant, division euclidienne, algorithme d'Euclide ...
+
+\item Le terme \textit{algorithme} provient du nom du mathématicien persan Al-Khwârismî ($\simeq$780 - $\simeq$850). Cependant, les algorithmes sont antérieurs à ce mathématicien, puisque, par exemple, on a retrouvé une tablette d'argile datant  d'entre 2000 et 1650 avant J.-C indiquant que les babyloniens avaient des méthodes algorithmiques pour calculer l'inverse de certains nombres.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Pseudo-langage}
+
+\begin{itemize}[<+->]
+\item Dans ce chapitre, nous voyons quelques bases de programmation.
+
+\item  Exemples donnés rédigés en \textit{pseudo-langage}, i.e en langage «~presque naturel~», sans faire référence à  un langage de programmation particulier. 
+
+\item Implémentation : \textit{Sage},  basé sur le langage \textit{Python}.  
+\end{itemize}
+
+
+\end{frame}
+ 
+\section{Types de données} 
+ \subsection{Variables et valeurs}
+ 
+\begin{frame}
+\begin{itemize}[<+->]
+
+
+\item Pour mener à  bien des calculs, il est nécessaire de manipuler 
+des quantités données. Par exemple, pour calculer $P(2)$ avec
+$P(x) = x^2 - 1$, on remplace la valeur $2$ partout où apparaît la
+variable $x$. Le vocabulaire de l'algorithmique garde les mêmes mots.
+
+\item \textbf{Valeur :}   quantité connue au moment du calcul. Le calcul
+concret va faire intervenir des valeurs. Par exemple, nous
+verrons souvent apparaître~:
+\begin{itemize}
+\item[-] des valeurs entières~: 0, 72, -3, 25643, \ldots
+\item[-] des valeurs flottantes (qui représentent des nombres réels)~:
+3.14159, 2.5, -21.876543, \ldots
+\item[-] des valeurs booléennes~: vrai ou faux
+\item[-] des chaînes de caractères, par exemple : 'bonjour'
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Variable}
+\begin{itemize}[<+->]
+
+\item \textbf{Variable :} nom, qui va servir à  décrire des calculs. 
+
+\item[-] En mathématiques on utilise la notation $P(x)=x^2-1$, et si on calcule l'image 
+de $x$ par la fonction $x\mapsto P(x)$, alors on devra porter $x$ au carré
+et soustraire $1$. Ceci reste vrai pour n'importe quelle 
+valeur\footnote{Notons que ceci est vrai car le domaine de définition 
+de $x\mapsto P(x)$ est $\R$ tout entier.} $x=1$, 
+$x=\pi$ ou $x=-2.5$. En algorithmique, on utilisera aussi ce concept, 
+et les variables serviront à  {\em stocker} des valeurs. 
+
+\item[-] Ceci  permettra d'organiser le calcul par étapes, en stockant les résultats intermédiaires.
+On pourra imaginer qu'une variable est le nom d'un tiroir dans lequel 
+on range une valeur, et dont on peut lire la valeur qui y est rangée. 
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Différence entiers/flottants}
+\begin{itemize}[<+->]
+
+
+\item [ ]Bien que $\Z$ soit inclus dans $\R$, il est souvent important de voir les entiers comme des entiers en Python et non comme des réels (cela se fait automatiquement en général).
+
+\item[-] Permet  de faire certaines opérations   qui ne sont pas autorisées pour les réels (par exemple réduire un nombre modulo $2$). 
+
+\item[-] Permet aussi de faire des calculs exacts et d’éviter les problèmes d'arrondis propres aux flottants. 
+
+\item[-] Exemple : pour Sage, $1$ est un entier, $10^{-15}$ est un nombre rationnel et $10^{-15}+0.0$ est un réel ou flottant. Les calculs utilisant des nombres entiers ou rationnels sont exacts, mais ceux utilisant des nombres réels sont des approximations. 
+
+\item[-] Par exemple, en Sage $a=1+0.0+10^{-15}$, on obtient $a=1.0$. Et si on calcule $a-1$, Sage affiche  $1.11022302462516e-15$.  
+
+\item[-] Dès que l'on rentre un nombre avec une virgule, Sage l’interprète comme un flottant, alors qu'un quotient de deux entiers est un rationnel.
+
+\end{itemize}
+\end{frame}
+
+\subsection{Listes}
+
+\begin{frame}{Listes}
+
+\begin{itemize}[<+->]
+\item \textbf{Définition : } une \textbf{liste} est une suite ordonnée d'expressions.
+
+\item[-] Exemple : $[4,5,7]$, $[5,[2,7]]$,...
+
+\item La \textbf{longueur} d'une liste est le nombre d'éléments de la liste.
+
+\item Exemple : \begin{itemize}
+\item[•] La longueur de $[a_1,\ldots, a_n]$ vaut $n$.
+\item[•] La longueur de la liste vide $[\ ]$ vaut 0.
+\item[•] La longueur de $[3,1,[2,7],[3,5,6],[[2],5]]$ vaut 5.
+\end{itemize}
+
+
+\item Généralement, les indices sont des entiers allant de 0 à  la longueur de la liste à  laquelle on retire 1.\par
+On accède à  une case du tableau en précisant son indice entre crochets.
+
+\item Exemple : pour $L=[0,5,7,3,12]$,  $L[0]=0$ et $L[4]=12$.  
+
+\item Il faut bien vérifier, lorsque l'on accède à  une case de la liste, que celle-ci existe bien.  Par exemple, $L[5]$ renverra « erreur ».
+\end{itemize}
+\end{frame}
+
+
+\section{Les actions fondamentales}
+
+
+
+\begin{frame}{L'affectation}
+\begin{itemize}
+\item Un algorithme est une suite d'actions. On souhaite en faire une 
+description précise et sans ambiguïté. Dans ce but, nous convenons dans 
+cette partie d'un {\em pseudo-langage} en même temps que nous dressons 
+la liste des actions fondamentales. 
+
+\end{itemize}
+
+\end{frame}
+\subsection{L'affectation}
+
+\begin{frame}{Affectation}
+\begin{itemize}[<+->]
+
+\item L'affectation
+consiste à  stocker une valeur dans une variable, et on la note
+\begin{displaymath}
+  variable \leftarrow valeur.
+\end{displaymath}
+
+\item Exemple~:
+\begin{eqnarray*}
+  xEntier &\leftarrow& 3 \\
+  xFlottant &\leftarrow& 3.14159 \\
+  xBooleen &\leftarrow& vrai \\
+\end{eqnarray*}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Affectation}
+\begin{itemize}[<+->]
+\item \textbf{Utilisation de la valeur stockée dans une variable :}
+
+\item[ ] Une fois qu'une variable a reçu une valeur, on peut utiliser la variable pour
+rappeler la valeur.
+
+\item[-] Exemple : si $x$ contient la valeur 3, 
+alors  l'expression~:
+\begin{displaymath}
+ x + 3 
+\end{displaymath}
+ est une valeur,  qui vaut 6.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{itemize}[<+->]
+\item \textbf{Modification de la valeur stockée :}
+
+\item Seule la variable à  gauche de la flèche est modifiée. Ainsi, l'affectation~:
+\begin{displaymath}
+ x \leftarrow pam + 3
+\end{displaymath}
+ne change que le contenu de la variable $x$, et pas celui de la 
+variable $pam$. En effet, à  droite de la flèche, on n'utilise 
+$pam$ que pour sa valeur. 
+
+\item Exemple :\begin{eqnarray*}
+  x &\leftarrow& 3 \\
+ x &\leftarrow& x + 4
+\end{eqnarray*}
+A la fin de ces deux instructions, la variable $x$ contient la valeur 7. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{itemize}[<+->]
+
+\item \textbf{Ordre des instructions :}
+
+\item[-] Dans nos algorithmes, on pourra en général suivre les valeurs prises par 
+les variables. L'ordre dans lequel on effectue les instructions est important. 
+
+\item[-] Exemple : à  la fin des instructions~:
+\begin{eqnarray*}
+  i &\leftarrow & 12 \\
+  i &\leftarrow & 34
+\end{eqnarray*}
+ la variable $i$ contient la valeur 
+ 
+\item[ ]34. 
+
+\item[-] A la fin des instructions~:
+\begin{eqnarray*}
+  i &\leftarrow & 34 \\
+  i &\leftarrow & 12
+\end{eqnarray*}
+la variable $i$ contient la valeur 12.
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Affectation}
+
+\begin{itemize}[<+->]
+\item A la fin des instructions~:
+ \begin{eqnarray*}
+  i &\leftarrow & 34 \\
+  j &\leftarrow & i +2  \\
+  i &\leftarrow & i +1 
+\end{eqnarray*}
+
+\item[ ] la variable $i$ contient la valeur 35 et la variable $j$ contient la valeur 36. 
+
+\item À la fin des instructions~:
+ \begin{eqnarray*}
+  i &\leftarrow & 34 \\
+  i &\leftarrow & i +1 \\
+  j &\leftarrow & i +2  
+\end{eqnarray*}
+
+\item[ ] la variable $i$ contient la valeur 35 et la variable $j$ contient la valeur 37. 
+
+\end{itemize}
+
+\end{frame}
+
+
+\subsection{Structures de sélection}
+
+\begin{frame}{Structures de sélection}
+\begin{itemize}[<+->]
+\item Ces structures servent lorsqu'on est confronté à  des situations pour lesquelles une ou plusieurs instructions ne peuvent être exécutées que dans certaines conditions.
+
+
+
+\item[-] L'instruction conditionnelle sert lorsqu'un bloc d'instructions ne peut être exécuté que si une condition est vraie.
+
+\item[-] \begin{tabular}{ll}
+\textbf{Schéma.} & Condition(paramètres)\\
+& si condition \\
+& \ \ \  {\rm |} faire...
+\end{tabular}
+
+\item \textbf{Exemple :} Algorithme de calcul (exact) des racines réelles d'un polynôme de degré 2 à  coefficient dans $\R$.
+
+
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Structures de sélection}
+\begin{itemize}[<+->]
+
+\item Lorsqu'il y a un choix exclusif entre deux blocs d'instructions à  exécuter, on peut également utiliser « sinon » (else)\\
+
+\item \begin{tabular}{ll}
+\textbf{Schéma.} & Alternatif(paramètres)\\
+& si condition \\
+& \ \ \  {\rm |} faire... \\
+& sinon \\
+& \ \ \  {\rm |} faire... 
+\end{tabular}
+
+\item Algorithme pour déterminer si un entier est pair.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Structures de sélection}
+
+
+
+
+\begin{itemize}[<+->]
+
+\item Lorsqu'il y a un choix exclusif entre plusieurs blocs d'instructions, on peut aussi utiliser « sinon si » (elif dans Python).
+
+\item \begin{tabular}{ll}\textbf{Schéma.} & Multiple(paramètres)\\
+& si condition 1 \\
+& \ \ \  {\rm |} faire... \\
+& sinon si condition 2 \\
+& \ \ \  {\rm |} faire...\\
+& sinon si condition 3 \\
+& \ \ \  {\rm |} faire... \\
+& ...
+\end{tabular}
+
+\end{itemize}
+
+\end{frame}
+
+
+\subsection{Boucles itératives}
+
+\begin{frame}{Boucle « pour » ("for")}
+
+\begin{itemize}[<+->]
+\item La boucle « pour » sert lorsqu'on doit répéter un nombre de fois déterminé la même tâche.
+
+\item 
+
+\begin{tabular}{ll}
+\textbf{Schéma.} & For(paramètres)\\
+& pour $i$ de (valeur de départ) à  (valeur d'arrivée)   \\
+& \ \ \  {\rm |} faire... 
+\end{tabular}
+
+\item La variable $i$ est appelée \textbf{compteur}.
+
+\item À chaque passage dans la boucle, la valeur du compteur est automatiquement augmentée de $1$.
+
+\item Nous nous {\bf interdisons} de modifier la 
+valeur de $i$ par une affectation\footnote{D'ailleurs, cette interdiction
+est mise en place dans les langages de programmation qui se soucient 
+de la rigueur des programmes.}
+
+\item  Sinon il deviendrait très difficile de prédire 
+le comportement de l'algorithme. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Boucle « pour » ("for")}
+\begin{itemize}[<+->]
+
+\item Dans les instructions, il est possible de faire intervenir la {\em valeur} de 
+$i$. Lors du premier passage dans la boucle, $i$ aura la valeur 1, puis
+au deuxième passage, elle aura la valeur 2, et ainsi de suite jusqu'à  $n$. 
+
+\item[-] le nom du compteur de boucle importe peu, c'est-à -dire qu'il n'est
+pas obligatoire de l'appeler $i$;
+
+\item[-] le compteur de boucle peut prendre des valeurs qui sont dans des ensembles variés, entiers ou non, du moment qu'ils sont finis. 
+
+\item Exemple : calcul de la somme des entiers de $1$ à $n$.
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Boucle « tant que » ("while")}
+
+\begin{itemize}[<+->]
+
+\item Sert à  exécuter une commande tant qu'une condition est vraie.
+
+\item \textbf{Important : }\begin{itemize}
+\item[•] Avant la boucle, prévoir une condition initiale.
+\item[•] Éviter les boucles infinies, et pour cela, vérifier que la boucle s'arrête à  un moment de l'itération.
+\end{itemize}
+
+\item \begin{tabular}{ll}
+\textbf{Schéma.} & While(paramètres)\\
+& condition initiale \\
+& tant que condition vraie \\
+& \ \ \  {\rm |} faire... 
+\end{tabular}
+
+\item \textbf{Exemples :} calcul de la somme des entiers jusqu'à $n$, division euclidienne
+
+\item \textbf{Exemple à éviter}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Récursivité}
+\begin{itemize}[<+->]
+
+\item \textbf{Définition :} on appelle récursive toute fonction ou procédure qui s'appelle elle-même.
+
+\item Comme dans le cas d'une boucle, il faut un cas d'arrêt où l'on ne fait pas d'appel récursif.
+
+\item \begin{tabular}{ll}
+\textbf{Schéma.} & Récursive(paramètres)\\
+& si cas particulier \\
+& \  \ \  {\rm |} faire... \\
+& sinon \\
+&  \ \  \  {\rm |} ...  \\
+& \ \ \ {\rm |} Récursive(paramètres modifiés) \\
+& \ \ \ {\rm |}   ... 
+\end{tabular}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{itemize}[<+->]
+
+\item \begin{tabular}{ll}
+\textbf{Exemple.} & F($n$)\\
+& si $n=0$ \\
+& \  \ \  {\rm |} renvoyer $1$ \\
+& sinon \\
+&  \ \  \  {\rm |} renvoyer $n \times$ F($n-1$)  
+\end{tabular}
+
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Algorithme itératif}
+
+\begin{itemize}[<+->]
+
+\item Un algorithme est dit \textbf{itératif} s'il n'est pas récursif.
+
+\item[-]  Lorsque l'on a un programme récursif, on peut souvent le réécrire en un programme itératif. Par exemple pour calculer $n!$, on peut aussi utiliser l'algorithme suivant.
+
+\item \textbf{Exemple :} 
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Algorithme récursif vs algorithme itératif}
+
+\begin{itemize}[<+->]
+
+\item L'un des avantages des algorithmes récursifs est qu'ils sont parfois plus faciles à  programmer, par exemple lorsque l'on utilise des récurrences. 
+
+\item[-] En revanche, ils utilisent souvent plus de mémoire que les algorithmes itératifs, ce qui peut amener à  dépasser les capacités de l'ordinateur.
+
+\item  Par exemple pour calculer $12!$ en récursif, l'ordinateur va  devoir stocker $11!$, $10!$, ... jusqu'à  $1$. Alors qu'en itératif, il n'a besoin que de stocker $a$ et $k$.
+
+\item  Par exemple sous Python, le programme  échoue à  calculer $(10\ 000)!$ en récursif, alors qu'il calcule sans problème $(100\ 000)!$ en  itératif.
+
+\end{itemize}
+
+
+
+\end{frame}
+
+
+
+\section{Récursivité}
+
+
+\end{document}

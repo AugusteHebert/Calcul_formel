@@ -1,0 +1,125 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{comment}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2020/2021 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{  Université de Lorraine \\}
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+%\newcommand{\md}[3]{#1 \equiv #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod #3 }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod #3 }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod #3 }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\md}{\mathrm{\ mod\ }}
+
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+Correction
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+Exercice 6
+
+
+1) Si $\alpha=0$, alors la seule racine carrée de $\overline{0}$ dans $\Z/p\Z$ est $\overline{0}$, car $\Z/p\Z$ est intègre. De plus $1+(\frac{0}{p})=1$, donc la formule donnée est valable pour $\alpha=0$.
+
+Supposons que $\alpha$ n'admette pas de racine carrée dans $\Z/p\Z$. Alors $\alpha$ n'est pas un carré dans $\Z/p\Z$, donc $(\frac{\alpha}{p})=-1$ et $1+(\frac{\alpha}{p})=0$.
+
+Soient $A$ un anneau commutatif et  $x,y\in A$. Alors $(x-y)(x+y)=x^2-xy+yx-y^2=x^2-y^2$.
+
+Supposons que $\overline{\alpha}$ est un carré non nul de $\Z/p\Z$. Alors il existe $\overline{\beta}\in \Z/p\Z$ tel que $\overline{\beta}^2=\overline{\alpha}$. Soit $x\in \Z/p\Z$. Alors $x^2=\overline{\alpha}$ si et seulement si $x^2-\overline{\beta}^2=0$. De plus, $(x-\overline{\beta})(x+\overline{\beta})=x^2-\overline{\beta}^2$ donc $x^2-\overline{\beta}^2=0$ si et seulement si $(x-\overline{\beta})(x+\overline{\beta})=\overline{0}$ (car $\Z/p\Z$ est intègre) si et seulement si $x\in \{-\overline{\beta},\overline{\beta}\}$. Alors $\overline{\alpha}$ admet exactement $2=1+(\frac{\alpha}{p})$ racines carrées dans $\Z/p\Z$.
+
+2) Comme $a$ est inversible $x$ est solution de (E) si et seulement si $x^2+\frac{b}{a}x+\frac{c}{a}=0$. On a $(x+\frac{b}{2a})^2=x^2+2\frac{b}{2a}x+\frac{b^2}{4a^2}=x^2+\frac{b}{a}x+\frac{b^2}{4a^2}$. Soit $x\in \Z/p\Z$. Alors $x$ est solution de (E) si et seulement si $x^2+\frac{b}{a}x+\frac{c}{a}=0$ si et seulement si $(x+\frac{b}{2a})^2-\frac{b^2}{4a^2}+\frac{c}{a}=(x+\frac{b}{2a})^2+\frac{4ac-b^2}{4a^2}=0$ si et seulement si $(x+\frac{b}{2a})^2=\frac{b^2-4ac}{4a^2}$. Cette équation admet une solution si et seulement si $\frac{b^2-4ac}{4a^2}$ est un carré. Soit $y\in \Z/p\Z$. Alors $y^2=\frac{b^2-4ac}{4a^2}$ si et seulement si $(2ay)^2=b^2-4ac$ donc $\frac{b^2-4ac}{4a^2}$ est un carré si et seulement si $b^2-4ac$ est un carré. Si $b^2-4ac$ est un carré, les racines carrées de $\frac{b^2-4ac}{4a^2}$ sont exactement les $\frac{y}{2a}$ tels que $y$ est une racine carrée de $b^2-4ac$, d'où le résultat.
+
+3) On a $\Delta_a=-4$, donc $(\frac{\Delta_a}{83})=(\frac{-4}{83})=(\frac{-1}{83})(\frac{4}{83})=(-1)^{41}.(\frac{2}{83})^2=-1$ $\leadsto$ $0$ solution.
+
+On a $\Delta_b=-3$, donc $(\frac{\Delta_b}{83})=(\frac{-1}{83})(\frac{3}{83})=-(\frac{3}{83})$. On a $(\frac{3}{83})=(-1)^{(3-1)/2}(-1)^{(83-1)/2}(\frac{83}{3})=-(\frac{83}{3})=-(\frac{2}{3})=-(-1)^{(9-1)/8}=1$. On a donc$(\frac{\Delta_b}{83})=-1$ $\leadsto$ $0$ solution.
+
+
+On a $\Delta_c=16-4.13=-36$ donc $(\frac{\Delta_b}{83})=(\frac{-1}{83})(\frac{6}{83})^2=(\frac{-1}{83})=-1$ $\leadsto 0$ solution.
+
+On  a $\Delta_d=1-4.21=-83$ donc $(\frac{\Delta_d}{83})=(\frac{-83}{83})=0$ $\leadsto$ 1 solution.
+
+On a $\Delta_e=9^2-4.3=69$ donc $(\frac{\Delta_e}{83})=(\frac{69}{83})=(\frac{23}{83})(\frac{3}{83})=(\frac{23}{83})$ (car on a déjà calculé $(\frac{3}{83})=1$). On  a $(\frac{23}{83})=(-1)^{11}(-1)^{41}(\frac{83}{23})=(\frac{14}{23})=(\frac{2}{23})(\frac{7}{23})$. On a $23\equiv 7[16]$ donc $23^2\equiv 49[16]\equiv 1[16]$ donc $(-1)^{(23^2-1)/8}=1$. On a $(\frac{7}{23})=(\frac{23}{7})=(\frac{2}{7})=(-1)^{48/8}=1$. On a donc $(\frac{\Delta_e}{83})=1$ donc il y a $2$ solutions.
+
+
+\begin{comment}
+Exercice~\ref{legendre_p+1_p} 
+
+On a $(\frac{\frac{p+1}{2}}{p})(\frac{2}{p})=(\frac{p+1}{p})=(\frac{1}{p})=1$ donc $(\frac{\frac{p+1}{2}}{p})=(\frac{2}{p})^{-1}=(\frac{2}{p})=(-1)^{(p^2-1)/8}$.
+
+
+
+
+Exercice~\ref{securite_RSA}
+
+1) On a $(a^{2^{j}t})^2=a^{2.2^jt}=a^{2^{j+1}t}=\overline{1}$.
+
+2) Soit $a\in Y$. Soit $E(a)=\{j'\in \llbracket 1,s\rrbracket| a^{2^{j'}t}=\overline{1}\}$. Écrivons $ed-1=k\varphi$, avec $k\in\N^*$. Alors par le petit théorème de Fermat, $a^{k\varphi}=\overline{1}$, donc $a^{2^st}=\overline{1}$, donc $s\in E(a)$. Soit $j=\min E(a)$. Alors par définition, $a\in Y_j$. Par la question 1), $E(a)=\llbracket j,s\rrbracket$. On en déduit que si $a\in Y_{j'}$ pour $j'\in \llbracket 1,s\rrbracket$, alors $j'=j$. On a donc $Y=\bigsqcup_{j=1}^s Y_j$. Soit $a\in Z$. Par définition de $Z$, on a $Z=\bigcup_{j=1}^s Z_j$. De plus, si $j\in \llbracket 1,s\rrbracket$, on a $Z_j\subset Y_j$, donc l'union est disjointe : $Z=\bigsqcup_{j=1}^s Z_j$.
+
+
+3)a) Comme $Z_j\subset Y_j$, on a $Z_j\subsetneq Y_j$. Soit $a\in Y_j\setminus Z_j$, alors $a^{2^{j-1}t}\in \{\overline{-1},\overline{1}\}$ et $a^{2^{j-1}t}\neq \overline{1}$, donc $a^{2^{j-1}t}=\overline{-1}$.
+
+b) Soit $\phi:\Z/n\Z\rightarrow \Z/p\Z\times \Z/q\Z$ l'isomorphisme chinois. Écrivons $\phi(a)=(a_p,a_q)$. Alors $(a_p)^{2^j t}=-1\md p$ et $(a_q)^{2^jt}=-1\md q$. On a $(a_p)^{2^jtt_p}=(-1\md p)^{t_p}=-1\md p$. Par le petit théorème chinois, $(a^{tt_p})^{2^{k_p}}=(a^t)^{t_pk_p}=1\md p$. Par la question 1), pour tout $k'\geq k_p$, on a $(a^t)^{t_pk'}=1\md p$. On a donc $j\leq k_p$. 
+
+c) Soit $g\in (\Z/p\Z)^\times$ un générateur de $(\Z/p\Z)^\times$. Soit $x=g^{t_p2^{k_p-j}}$. Alors $x$ est d'ordre $2^j$. En effet, $x^{2^j}=1\md p$, donc l'ordre de $x$ divise $2^j$. Comme $g$ est d'ordre $t_p2^{k_p}$, $g^{t_p 2^{k_p-1}}\neq 1\md$, donc $x^{2^{j-1}}\neq 1\md p$, donc $x$ n'est pas d'ordre $2^{j-1}$ donc $x$ est d'ordre $2^j$.   Soit $\epsilon_j\in \Z$ tel que $\epsilon_j\md n= \phi^{-1}\big((x,1\md q)\big)$. Alors $\epsilon_j$ satisfait aux conditions de la question.
+
+d) Écrivons $\phi\big((\epsilon_j\md n)^{2^{j-1}})\big)=(y\md p, 1\md q)$, pour $y\in \Z$. Alors $(y\md p, 1\md q)^2=(1\md p,1\md q)$, donc $(y\md p)^2=1\md p$. On en déduit que $y\md p\in \{1\md p,-1\md p\}$. Par choix de $\epsilon_j$, on sait que $y\md p\neq 1\md p$ (sinon on aurait que $\phi\big((\epsilon_j\md n)^{2^{j-1}}\big)=(1\md p,1\md q)$,  ce qui serait contradictoire avec le choix de $\epsilon_j$). 
+
+e) On a $\phi\big((\epsilon_j a)^{2^{j-1}}\big)=\big((\epsilon_j\md p)^{2^{j-1}}(a_p)^{2^{j-1}},(a_q)^{2^{j-1}}\big)=(-(a_p)^{2^{j-1}},(a_q)^{2^{j-1}})=(1\md p,-1\md q)$. On a donc $(\epsilon_j a)^{2^{j-1}}\notin \{-1\md n,1\md n\}$. On a aussi $\phi\big((\epsilon_j a)^{2^{j}}\big)=\big((\epsilon_j\md p)^{2^{j}}(a_p)^{2^{j}},(a_q)^{2^{j}}\big)=\big((a_p)^{2^{j}},(a_q)^{2^{j}}\big)=(1\md p,1\md q)$, donc $(\epsilon_j a)^{2^{j}}=1\md n$, donc $\epsilon_j a\in Z_j$. 
+
+f) Soit $a\in Y_j\setminus Z_j$, alors $\epsilon_j a \neq a$ et comme $\epsilon_j\md n\in (\Z/n\Z)^\times$, on a $\epsilon_j b\neq \epsilon_j a$ pour tous $b\neq a$. On a donc $\bigsqcup_{a\in Y_j\setminus Z_j} \{\epsilon_j a\}\subset  Z_j$, donc $|Y_j\setminus Z_j|\leq |Z_j|$ donc $|Y_j|\leq 2 |Z_j|$. Si $Y_j=Z_j$, alors $|Y_j|\leq |Z_j|$. On a donc $|Y|=\sum_{j=1}^s |Y_j|\leq \sum_{j=1}^s 2|Z_j|=2|Z|$.
+\end{comment}
+
+
+\end{document}

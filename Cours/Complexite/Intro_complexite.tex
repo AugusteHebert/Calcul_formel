@@ -1,0 +1,270 @@
+\documentclass{beamer}
+\useoutertheme{smoothbars}
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{dsfont}
+\usepackage{graphicx}
+\theoremstyle{plain}
+\usepackage{amsfonts}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+\newtheorem{thm}{\blue{\textbf{Théorème}}}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollaire}
+\newtheorem{defin}{Définition}
+\newtheorem{lemme}[thm]{Lemme}
+%\usepackage{mathrsfs}
+\usepackage[all]{xy}
+\usepackage{mathbbol}
+\usepackage{lipsum}% pour créer du texte aléatoire
+\usepackage{changepage}% pour utiliser adjustwidth
+\usepackage{comment}
+
+
+
+
+%\title[Introduction au calcul du PGCD de deux polynômes]
+%\date{Lundi 12 octobre 2020}
+%\author{Auguste Hébert}
+
+
+
+%\institute{ENS de Lyon}
+
+
+
+\newcommand{\tfjm}{$\mathbb{TFJM}^2$}
+
+\newcommand{\llp}{(\!(}
+\newcommand{\rrp}{)\!)}
+
+\newcommand{\backupbegin}{
+   \newcounter{framenumberappendix}
+   \setcounter{framenumberappendix}{\value{framenumber}}
+       \setbeamertemplate{footline}{
+      \leavevmode%
+      \hbox{%
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+        \usebeamerfont{author in head/foot}\insertshortauthor~~(\insertshortinstitute)
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+        \usebeamerfont{title in head/foot}\insertshorttitle
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+        \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+         \hfill \hspace*{2ex} % hier hat's sich geändert
+      \end{beamercolorbox}}%
+      \vskip0pt%
+    }
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumberappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumberappendix}} 
+}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\HC}{\mathcal{H}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\OC}{\mathcal{O}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\RF}{\mathfrak{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\setbeamertemplate{navigation symbols}{} 
+
+\begin{document}
+
+
+
+\section*{}
+
+
+\begin{frame}{Introduction à la complexité}
+\begin{itemize}[<+->]
+
+
+\item Quand on conçoit un algorithme il est important d'évaluer le
+temps que prendra  ce dernier pour fournir le résultat escompté sur un ordinateur donné.
+
+\item De nombreux algorithmes et 
+formules   n'ont qu'une valeur théorique
+et ne débouchent sur aucun calcul pratique car leur exécution demanderait beaucoup trop
+de temps.
+
+\item \textbf{Exemple} : si $A\in \mathcal{M}_{25}(\Q)$, \[\det(A)=\sum_{\sigma \in \mathfrak{S}_n} \epsilon(\sigma) a_{\sigma(1),1}\ldots a_{\sigma(25),25}.\] 
+
+\item[$\leadsto$] $|\mathfrak{S}_{25}|=25 !\simeq 1.55.10^{25}$ produits,
+
+ \item avec $10$ milliards de ces produits par seconde, $\leadsto$ $49$ millions d'années pour effectuer ce calcul.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Calcul formel}
+
+\begin{itemize}[<+->]
+
+\item Avec cette formule, si $A\in \mathrm{M}_n(\Q)$, il faut faire $O(n!)$ produits,
+
+\item avec l'algorithme du pivot de Gauss :
+
+\item $O(n^3)$.
+
+\item[$\leadsto$]  Importance d'évaluer le temps que nécessitera un algorithme pour fournir
+le résultat avant de le programmer,
+
+\item on aimerait pouvoir comparer les algorithmes entre eux, et ceci de manière aussi intrinsèque que possible, i.e,
+sans que notre mesure dépende de l'ordinateur ou du langage de programmation que l'on
+utilisera. 
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}{Opérations élémentaires}
+\begin{itemize}[<+->]
+
+\item Hypothèse :  ordinateur dont le micro-processeur est capable de calculer  directement la somme, la différence et le produit de toute paire de nombres entiers naturels inférieurs à  un certain entier $b$. 
+
+\item Nous supposons aussi
+qu'il peut réaliser les divisions d'un nombre à  deux chiffres par un nombre à  un chiffre
+en base $b$, fournissant en une seule commande le quotient et le reste.
+
+\item  \textbf{opérations élémentaires}  : ces quatre opérations,
+
+\item $b$ dépend du processeur de l'ordinateur sur lequel on travaille.
+
+\item  Actuellement, pour la plupart des ordinateurs grand public, $b =2^{64}$.
+
+\item  Pour nous, la valeur de $b$ n'est pas très importante car on cherchera à  évaluer les algorithmes à  une constante multiplicative prés qui dépend du processeur utilisé. 
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Taille d'un entier}
+
+\begin{itemize}[<+->]
+
+\item   On choisit une base $b\in\N_{\geq 2}$ dans laquelle on représente les entiers naturels. 
+
+\item Tout $N\in \N^*$ s'écrit $N=\sum_{i=0}^k a_i b_i$, avec $a_i\in \llbracket 0,b-1\rrbracket$ et $a_k\neq 0$. 
+
+\item On a  $b^k\leq N<b^{k+1}$ et donc $k=\lfloor \log_b(N)\rfloor$.
+
+\item  Pour représenter $N$ en base $b$, on a besoin de $\lfloor \log_b(N)\rfloor+1$ chiffres. 
+
+\item La \textbf{taille} d'un entier $N\neq 0$ est $\log_2(|N|)$ (c'est l'ordre de grandeur du  nombre de  bits qu'il faut pour le représenter).
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Coût en temps}
+\begin{itemize}[<+->]
+
+
+\item On peut distinguer le \textit{coût en temps} et \textit{le coût en mémoire}. On s'intéressera surtout au coût en temps.
+
+
+\item \textbf{coût en temps} ou \textbf{complexité binaire} d'un algorithme :  nombre d'opérations élémentaires effectuées au cours de cet algorithme. Il dépend de la taille des données.
+
+
+\item On considère un algorithme qui prend en entrée un entier $N\in \N^*$. On note $c(N)$ son coût en temps. 
+
+\item L'algorithme est :\begin{itemize}[<+->]
+\item[•] \textit{linéaire} si $c(N)=_{N\rightarrow +\infty} O\big(\log_2(N)\big)$,
+
+\item[•] \textit{quadratique} si $c(N)=_{N\rightarrow +\infty}O\big(\log_2(N)^2)$,
+
+\item[•] \textit{polynomial} si $c(N)=_{N\rightarrow +\infty}O\big(\log_2(N)^\alpha\big)$ pour un certain $\alpha\in \N$,
+
+\item[•] \textit{exponentiel} si $c(N)=_{N\rightarrow +\infty}O\big(2^{\log_2(N)^\alpha}\big)$ pour un certain $\alpha\in \N$.
+
+
+\end{itemize} 
+
+\item<9-> Un algorithme tel que $c(N)\sim N$ est exponentiel et non linéaire. 
+
+
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Coût en temps}
+\begin{itemize}
+
+
+
+
+
+\item On considère un algorithme qui prend en entrée un entier $N\in \N^*$. On note $c(N)$ son coût en temps. 
+
+\item L'algorithme est :\begin{itemize}
+\item[•] \textit{linéaire} si $c(N)=_{N\rightarrow +\infty} O\big(\log_2(N)\big)$,
+
+\item[•] \textit{quadratique} si $c(N)=_{N\rightarrow +\infty}O\big(\log_2(N)^2)$,
+
+\item[•] \textit{polynomial} si $c(N)=_{N\rightarrow +\infty}O\big(\log_2(N)^\alpha\big)$ pour un certain $\alpha\in \N$,
+
+\item[•] \textit{exponentiel} si $c(N)=_{N\rightarrow +\infty}O\big(2^{\log_2(N)^\alpha}\big)$ pour un certain $\alpha\in \N$.
+
+
+\end{itemize} 
+
+\item Un algorithme tel que $c(N)\sim N$ est exponentiel et non linéaire. 
+
+\item Pour qu'un algorithme soit considéré comme réalisable en pratique, il faut que son coût soit polynomial (avec $\alpha$ pas trop grand).
+
+\item<2-> Contre-exemple : test de primalité élémentaire.
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Coût des opérations de base}
+
+
+
+
+
+\begin{itemize}[<+->]
+
+\item \textbf{Proposition :} Le coût en calcul de l'addition de deux entiers naturels $m,n$ par l'algorithme usuel (en posant l'addition, dans une base $b\in \N_{\geq 2}$) ou de la soustraction (en la posant également) est $O\big(\max\big(\log_2 m,\log_2 n)\big)$ opération élémentaires.
+
+\item \textbf{Proposition} (exercice) : 
+Soient $m,n\in \N^*$. 
+
+\item Le coût en calcul du produit  $mn$ en posant la multiplication est $O\big(\log_2(m)\log_2(n)\big)$. 
+
+\item Si $m\leq n$, le coût en calcul de la division euclidienne (par l'algorithme vu en primaire) de $m$ par $n$ est $O\big(\log_2(|m/n|)\log_2(|n|)\big)$.
+
+\item \textbf{Remarque :} Il existe des algorithmes plus efficaces pour calculer le produit de deux «~grands~» entiers (à  partir de $1000$ chiffres). Par exemple l'algorithme de Schöhnage-Strassen permet de calculer le produit de deux entiers de taille $n$ en $O(n\log_2(n)\log_2(\log_2(n))\big)$.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Calculs dans $\Z/n\Z$}
+\begin{itemize}[<+->]
+
+\item Soit $n\in \N^*$. On représente les éléments de $\Z/n\Z$ par des entiers de $\llbracket 0,n-1\rrbracket$. On note $\pi:\Z\twoheadrightarrow \Z/n\Z\simeq \llbracket 0,n-1\rrbracket$ la projection canonique (si $k\in \Z$, $\pi(k)$ est le reste de la division euclidienne de $k$ par $n$). 
+
+\item Par une proposition précédente, si $x\in \Z$, le coût du calcul de $\pi(x)$ est $O\big(\log_2(x/n)\log_2(n)\big)$. 
+
+\item  Si $x,y\in \Z/n\Z$, le coût du calcul de $x+y$ est $O\big(\log_2(n)\big)$. 
+
+\item Le coût du calcul de $xy$ est $O(\log_2(n)^2)$.
+
+
+\end{itemize}
+\end{frame}
+
+
+
+\end{document}
