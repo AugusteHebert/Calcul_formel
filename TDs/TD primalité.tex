@@ -1,0 +1,203 @@
+%\documentclass[a4paper,12pt]{article}
+
+\documentclass[12pt]{article}
+\usepackage[francais]{babel}
+\usepackage{cmlgc}
+\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%
+%\usepackage[english,francais]{babel}
+%\usepackage[latin1]{inputenc}
+%%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{comment}
+
+\newcommand{\df}[1]{{\emph{#1}}}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+
+
+\newcommand{\ja}[2]{\left(\frac{#1}{#2}\right)}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\Mat}{\operatorname{Mat}}
+\newcommand{\id}{\operatorname{Id}}
+\newcommand{\Ne}{\mathbb{N}^*}
+
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\tr}{\operatorname{tr}}
+
+\newcommand{\s}{\mathfrak{S}}
+
+\newcommand{\isom}{\stackrel{\sim}{\longrightarrow}}
+
+\newcommand{\inj}{\hookrightarrow}
+
+\newcommand{\SL}{\text{SL}}
+\newcommand{\GL}{\text{GL}}
+\newcommand{\M}{\text{M}}
+\newcommand{\mat}[4]{\begin{pmatrix}
+#1 & #2 \\
+#3 & #4
+\end{pmatrix}}
+\newcommand{\eps}{\varepsilon}
+
+%\newtheorem{enonce}{Exercice}
+%\newenvironment{exo}[0]{\begin{enonce}\rm}{\smallskip\end{enonce}}
+\newcounter{question}
+\newcounter{sousquestion}
+\newtheorem{enonce}{Exercice}
+\newenvironment{exo}[0]{\begin{enonce}{\bf ---}\rm\setcounter{question}{1}}{\end{enonce}}
+\newcommand{\quest}{{\setcounter{sousquestion}{1}\vspace{0.1cm}\bf \arabic{question}.\hspace{0.1cm}}\addtocounter{question}{1}}
+\newcommand{\sousq}{{\hspace{0.5cm}\vspace{0.1cm}\bf \alph{sousquestion}.\hspace{0.1cm}}\addtocounter{sousquestion}{1}}
+
+
+
+
+\begin{document}
+
+%\noindent \'ENS de Lyon\hfill Option C\\
+%2019-2020\hfill \
+\smallskip
+\begin{center}
+{\sc
+Tests de primalité}
+\end{center}
+\smallskip
+
+
+
+
+
+\begin{exo}{Nombres de Carmichael}
+
+%\quest  Montrer que tout nombre de Carmichael est impair.
+
+
+
+\quest  Soit $n\in \N$. On veut montrer que les conditions suivantes sont équivalentes : \begin{enumerate}
+\item[(i)] $n$ est sans facteur multiple et $p-1$ divise $n-1$ pour tout facteur premier $p$ de $n$
+
+\item[(ii)] $a^n\equiv a[n]$ pour tout entier $a$
+
+\item[(iii)] $a^{n-1}\equiv 1 [n]$ pour tout entier $a$ premier à $n$.
+\end{enumerate}
+
+
+\sousq Montrer que (i) implique (ii) et que (ii) implique (iii).
+
+\sousq Soit $n$ vérifiant (iii). Supposons que pour un nombre premier $p$, $p^2$ divise $n$. On écrit $n=p^2m$. Montrer que $1+pm$ est d'ordre $p$ modulo $n$. En déduire une contradiction.
+
+\sousq Soit $n$ vérifiant (iii). On écrit $n=p_1\ldots p_r$, où les $p_i$ sont des nombres premiers distincts. Montrer qu'il existe $a\in \llbracket 1,n\rrbracket$ tel que $a[p_i]$ soit une racine primitive $p_i-1$-ième de l'unité pour tout $i$. En déduire que $n$ vérifie (i).
+
+
+\quest Montrer que tout nombre de Carmichael est produit d'au moins trois nombres premiers distincts.
+
+%\quest Soit $n\in \N$. Montrer que ou bien $n$ ne possède aucun témoin de Fermat, ou bien il en possède au moins $\frac{n}{2}$.
+\end{exo}
+
+\begin{comment}
+\begin{exo}{Complexité du test de Miller-Rabin}
+
+
+Soit $n\in \N_{\geq 9}$ un entier impair. On écrit $n-1=2^st$ avec $t$ impair. Soit $a\in \llbracket 2,n-1\rrbracket$. On dit que $a$ est un \textbf{témoin de Miller} (pour $n$) si $a^t\not \equiv 1 [n] $ et $a^{2^i t}\not \equiv -1 [n]$ pour tout $i\in \llbracket 1,s-1\rrbracket$. On rappelle que si $n$ est premier, il n'a pas de témoin de Miller et si $n$ n'est pas premier, au moins les trois-quarts des $a\in \llbracket 2,n-1\rrbracket$ sont des témoins de Miller.
+
+\quest Soit $\epsilon\in ]0,1]$.  Soit $n\in \N$. On tire un nombre $a\in \llbracket 2,n-1\rrbracket $ au hasard et on teste si c'est un témoin de Miller. Majorer le nombre $C$ de $a\in \llbracket 1,n\rrbracket$ qu'il faut tester (avec remise) pour que si $n$ est composé, la « probabilité » de n'avoir choisi aucun témoin de Miller soit inférieure à $\epsilon$.
+
+\quest  Majorer le coût en calcul d'un test de Miller-Rabin prenant en entrée un entier $n$ et renvoyant  « Vrai » si l'entier est composé avec probabilité $< \eps$.
+\end{exo}
+
+\begin{exo}{Recherche d'un nombre premier aléatoire}
+
+Soit $m$ un entier. On cherche à obtenir un nombre premier
+aléatoire $\leq m$. On suppose qu'on dispose d'un test de primalité
+probabiliste, qui répond « Vrai » si l'entier est composé avec probabilité 
+$< \eps$. Si $n\in \N$, on note $C(n)$ le temps que met le test à renvoyer une réponse si l'entrée est inférieure ou égale à $n$.
+
+On utilise la méthode suivante : on tire un
+nombre $a$ au hasard dans $\{1,\dots,m\}$. Si le test répond Vrai on renvoie 
+$a$, sinon on recommence.
+
+\quest Majorer l'espérance du nombre de tirages nécessaires avant d'obtenir un $a$
+tel que le test réponde Vrai 
+(on se rappellera que  $n$ assez grand, le nombre $\pi(n)$ de
+nombres premiers $\leq n$ est de l'ordre de $n/\mathrm{ln} (n)$).
+
+\quest En déduire une majoration de l'espérance du temps que met le test à 
+renvoyer un entier $a$.
+
+\quest Majorer la probabilité que l'entier renvoyé soit composé.
+
+\end{exo}
+\end{comment}
+
+
+
+\begin{exo}{Test de primalité de Lucas-Lehmer pour les nombres de Mersenne}
+\end{exo}
+
+\quest Soient $a$ et $n\in \N_{\geq 2}$ tels que $a^n-1$ est premier. Montrer que $a=2$ et que $n$ est premier.
+
+\medskip
+
+Soient $p$ un nombre premier impair et $M=2^p-1$. On pose $s_0=4$ et $s_{k+1}=s_k^2-2$ pour $k\in \N$. L'objectif est de démontrer le théorème suivant : 
+
+$(*)$ $M$ est premier si et seulement si $s_{p-2}\equiv 0[M]$.
+
+\quest Donner une majoration de la complexité d'un test de primalité de $M$ utilisant $(*)$ en fonction  de la taille de $M$.
+
+On pose $\omega=2+\sqrt{3}$ et $\overline{\omega}=2-\sqrt{3}$.
+
+
+\quest Vérifier que $s_k=\omega^{2^k}+\overline{\omega}^{2^k}$ pour tout $k\in \N$.
+
+\quest Supposons que $s_{p-2}\equiv 0[M]$. Soit $k\in \N$ tel que $s_{p-2}=kM$. Montrer que $\omega^{2^{p-1}}=kM\omega^{2^{p-2}}-1$.
+
+ \quest On suppose que $M$ n'est pas premier et que $s_{p-2}\equiv 0[M]$. Soit $q$ un facteur premier (impair) de $M$. Soit $X$ l'anneau $\Z[\sqrt{3}]/q\Z[\sqrt{3}]$. Si $x=(a,b)\in \mathbb{F}_q^2$, on note $x=a+b\sqrt{3}$ et on note $\mathbb{F}_q\oplus \mathbb{F}_q \sqrt{3}$ au lieu de $\mathbb{F}_q^2$.
+
+
+\sousq Soit $\phi:X\rightarrow \mathbb{F}_q\oplus \mathbb{F}_q \sqrt{3}$ définie par \[\phi(a+b\sqrt{3}+q\Z[\sqrt{3}])=a[q]+b[q]\sqrt{3},\] pour tous $a,b\in \Z$. Montrer que $\phi:(X,+)\rightarrow ( \mathbb{F}_q\oplus \mathbb{F}_q \sqrt{3},+)$ est un isomorphisme de groupes. Quel est le cardinal de $X$ ?
+
+
+
+ Soit $\pi: \Z[\sqrt{3}]\twoheadrightarrow X$ la projection canonique.
+
+
+
+
+\sousq Montrer que $\pi(\omega)$ est d'ordre $2^p$ dans $X^\times$.
+
+\sousq En déduire que $q=M$.
+
+
+
+\quest On suppose maintenant que $M$ est premier. 
+
+\sousq Montrer que $\ja{3}{M}=-1$ (où $\ja{.}{.}$ désigne le symbole de Legendre).
+
+
+
+\sousq Montrer que $\ja{2}{M}=1$ (on pourra montrer directement que $2$ est un carré modulo $M$ en partant de $2^p\equiv 1[M]$).
+
+Soient $X=\Z[\sqrt{3}]/M\Z[\sqrt{3}]$ et $\pi:\Z[\sqrt{3}]\twoheadrightarrow X$ la projection canonique. Soit $\sigma=2\sqrt{3}$.
+
+\sousq Montrer que $\pi\big((6+\sigma)^M\big)=\pi(6-\sigma).$
+
+\sousq Montrer que $\omega=\frac{(6+\sigma)^2}{24}$. Montrer que $\pi(\omega^{(M+1)/2})=\pi(-1)$ (on pourra utiliser le fait que $24^{(M-1)/2}=(2^{(M-1)/2})^3.3^{(M-1)/2}$).
+
+\sousq Conclure en multipliant chaque membre de l'égalité par $\overline{\omega}^{(M+1)/4}$.
+
+
+
+\end{document}

@@ -1449,6 +1449,8 @@ Il existe des algorithmes plus efficaces pour calculer le produit de deux «~gra
 Soit $n\in \N^*$. On représente les éléments de $\Z/n\Z$ par des entiers de $\llbracket 0,n-1\rrbracket$. On note $\pi:\Z\twoheadrightarrow \Z/n\Z\simeq \llbracket 0,n-1\rrbracket$ la projection canonique (si $k\in \Z$, $\pi(k)$ est le reste de la division euclidienne de $k$ par $n$). Par la proposition~\ref{propCout_multiplication} que si $x\in \Z$, le coût du calcul de son image dans $\Z/n\Z$ est $O\big(\log_2(x/n)\log_2(n)\big)$.  Si $x,y\in \Z/n\Z$, le coût du calcul de $x+y$ est $O\big(\log_2(n)\big)$. En effet, on écrit $x=\overline{a}$ et $y=\overline{b}$, avec $a,b\in \llbracket 0,n-1\rrbracket$. Alors $x+y=\pi(a+b)\in \{a+b,a+b-n\}$ et on conclut avec la proposition~\ref{propCout_addition}. Le coût du calcul de $xy$ est $O(\log_2(n)^2)$. En effet, on calcule $ab\in \llbracket 0,(n-1)^2\rrbracket$, puis on effectue la division euclidienne de $ab$ par $n$ et on conclut avec la proposition~\ref{propCout_multiplication}.
 
 
+\newpage
+
 \section{Exponentiation rapide}
 
 Soit $A$ un anneau, $x\in A$ et $n\in \N$. Pour calculer $x^n$, on peut utiliser l'algorithme «~naïf~» suivant : 
@@ -2151,6 +2153,187 @@ La preuve de (1) qui peut-être faite en utilisant les propriétés des nombres 
 Si $n$ est composé, la probabilité de tomber sur un $a$ montrant que $n$ est composé est  $\geq 1/2$. \\
 Supposons que $n$ est composé. Si on fait le test $k$ fois, où les $k$ entiers sont choisis indépendamment entre 1 et $n-1$, la probabilité de prouver que $n$ est composé est $\geq 1-1/2^k$.
 \end{rem}
+ 
+ 
+ 
+ 
+
+\chapter{Recherche de racines carrées dans $\Z/n\Z$}
+
+Soit $n\in \N^*$. On se place dans $\Z/n\Z$. Dans cette partie, on s'intéresse au problème suivant. Soit $\overline{a}\in \Z/n\Z$.\begin{enumerate}
+\item $\overline{a}$ est-il un carré dans $\Z/n\Z$ ?
+
+\item Si $\overline{a}$ est un carré dans $\Z/n\Z$, déterminer les racines de $\overline{a}$ dans $\Z/n\Z$. 
+\end{enumerate}
+
+Par simplicité, on se restreint au cas où $n$ est un produit de nombres impairs, congrus à $3$ modulo $4$.
+
+Si l'on sait factoriser $n$. On écrit $n=\prod_{i=1}^k p_i^{\alpha_i}$, où $k\in \N$,  $p_i\in \mathbb{P}$ pour tout $i\in \llbracket 1,k\rrbracket$, $\alpha_i\in \N^*$ pour tout $i\in \llbracket 1,k\rrbracket$ et les $p_i$ sont tous distincts.  Ce problème se réduit, grâce au théorème chinois, à la recherche des racines carrées de $a$ modulo $p_i^{\alpha_i}$, pour tout $i\in \llbracket 1,k\rrbracket$. 
+
+Soit $p\in \mathbb{P}$ et $\alpha\in \N^*$. Nous allons commencer par décrire un algorithme qui permet de trouver une racine carrée de $a$ modulo $p$. Nous verrons ensuite comment en déduire une racine carrée de $a$ modulo $p^\alpha$.
+
+Cette partie se base sur \cite{demazure2008cours}. 
+
+\section{Recherche de racines carrées dans $\Z/p\Z$, pour $p\equiv 3[4]$}
+
+Soient $p\in \mathbb{P}$ tels que $p\equiv 3[4]$ et $a\in \Z$. On se place dans $\Z/p\Z$. On recherche une racine carrée de  $\overline{a}$.     Alors $(\overline{a}^{(p+1)/4})^2=\overline{a}.\overline{a}^{(p-1)/2}=\overline{a}.\left(\frac{a}{p}\right)$. Ainsi, si $\overline{a}$ est un carré, $\left(\frac{a}{p}\right)=1$ et $\overline{a}^{(p+1)/4}$ est une racine de $\overline{a}$.
+
+
+\begin{ex}
+On a $43\equiv 3[4]$ et après calcul, $\left(\frac{35}{43}\right)=1$. On en déduit que $\overline{35}^{11}$ est une racine carrée de $\overline{35}$ dans $\Z/43\Z$. On a $11=2^3+2+1$, donc \[\overline{35}^{11}=\overline{35}^8.\overline{35}^2.\overline{35}=((\overline{35}^2)^2)^2.\overline{35}^2.\overline{35}=(((\overline{-8})^2)^2)^2.(\overline{-8})^2.\overline{-8}.\]
+
+On a $\overline{8}^2=\overline{64}=\overline{21}$, $\overline{21}^2=\overline{441}=\overline{11}$ et $\overline{11}^2=\overline{121}=\overline{-8}$, donc $(-8)^{11}=\overline{-8}.\overline{21}.\overline{-8}=\overline{21}^2=\overline{11}$. On obtient que $\overline{11}$ est une racine carrée de $\overline{35}$ (et on a bien $\overline{11}^2=\overline{121}=\overline{86}+\overline{35}$).
+\end{ex}
+
+
+
+
+\begin{comment}
+ 
+On suppose maintenant $p\equiv 1[4]$. On écrit $p-1=2^{r+1} t$, où $r\in \N$ et $t$ impair. On a alors $\left(\frac{a}{p}\right)=\overline{a}^{2^rt}$. On suppose que l'on connait $\overline{z}\in \Z/p\Z$  tel que $\overline{z}^{2^r}=\overline{-1}$. La méthode suivante, due à Shanks, permet de trouver une racine carrée de $\overline{a}$. 
+
+
+
+
+
+\begin{tabular}{ll}
+\textbf{Algorithme :} & Racine($\overline{a}$)\\
+& $b,x,y\leftarrow \overline{a}^t,\overline{a},z$\\
+& pour $j$ allant de $r$ à 1:\\
+& \ \ \ {\rm |} si $b^{2^{j-1}}=\overline{1}$:\\
+&  \ \ \   \ \ \ {\rm |}$y\leftarrow y^2$\\
+&  \ \ \ {\rm |} sinon:\\
+&  \ \ \  \ \ \ {\rm |}$b,x,y\leftarrow by^2,xy,y^2$\\
+& Renvoyer $x$.
+\end{tabular}
+
+\begin{Prop}
+L'algorithme ci-dessus renvoie une racine carrée de $\overline{a}$.
+\end{Prop}
+
+\begin{proof}
+Pour $j\in \llbracket 1,r\rrbracket$, notons $b_j,x_j, y_j$ les valeurs de $b,x,y$ avant l'étape $j$ et on note $b_{0},x_{0},y_{0}$ les valeurs de $b,x,y$ après l'étape $j=1$.
+
+Montrons par récurrence descendante que \begin{equation}\label{eqInvariant_boucle_shanks}
+ \overline{a} b_j=(x_j)^2,\ (y_j)^{2^j}=\overline{-1},\ (b_j)^{2^j}=\overline{1},
+ \end{equation} pour $j\in \llbracket 0,r\rrbracket$.
+
+On a $\overline{a}b_r=\overline{a}^{t+1}=(\overline{a}^{(t+1)/2})^2$, $(y_r)^{2^r}=z^{2^r}=\overline{-1}$, $b^{2^r}=\overline{a}^{2^r t}=\overline{a}^{(p-1)/2}=\overline{\left(\frac{a}{p}\right)}=\overline{1}$. Soit $j\in \llbracket 0,r-1\rrbracket$. On suppose que \eqref{eqInvariant_boucle_shanks} est satisfaite pour $j+1$. 
+
+Si $(b_{j+1})^{2^{j}}=\overline{1}$, alors $b_{j+1}=b_j$ et $x_{j+1}=x_j$, on a donc $ab_{j}=(x_{j})^2$ . Alors $(y_{j})^{2^j}=((y_{j+1})^2)^{2^j}=(y_{j+1})^{2^{j+1}}=\overline{-1}$. On a aussi $(b_{j})^{2^{j}}=(b_{j+1})^{2^j}=\overline{1}$, par hypothèse, donc \eqref{eqInvariant_boucle_shanks} est vérifiée pour $j$.
+
+Supposons que  $(b_{j+1})^{2^{j}}\neq \overline{1}$. Alors $(b_{j+1})^{2^{j+1}}=((b_{j+1})^{2^j})^2=\overline{1}$, donc $(b_{j+1})^{2^j}=\overline{-1}$, d'après le corollaire~\ref{corRacines_carrées_moins_un}.
+
+On a $\overline{a}b_j=\overline{a}b_{j+1} (y_{j+1})^2=(x_{j+1})^2(y_{j+1})^2=(x_j)^2$. On a $(y_{j})^{2^j}=((y_{j+1})^2)^{2^j}=(y_{j+1})^{2^{j+1}}=\overline{-1}$. Enfin, $(b_j)^{2^j}=(b_{j+1}(y_{j+1})^2)^{2^j}=(b_{j+1})^{2^j} (y_{j+1})^{2^{j+1}}=\overline{(-1)}\overline{(-1)}=\overline{1}$ et donc \eqref{eqInvariant_boucle_shanks} est satisfaite pour $j$. On en déduit que \eqref{eqInvariant_boucle_shanks} est vraie pour tout $j\in \llbracket 0,r\rrbracket$. 
+
+En particulier, \eqref{eqInvariant_boucle_shanks} est satisfaite pour $j=0$. On a donc $(b_0)^{2^0}=b_0=\overline{1}$ et  \[\overline{a} b_0=\overline{a} b_0=\overline{a}=(x_0)^2.\]
+\end{proof}
+
+On a supposé que l'on connaissait $\overline{z}\in\Z/p\Z$ tel que $\overline{z}^r=\overline{-1}$. Il reste à trouver un tel $\overline{z}$. Soit $\overline{x}\in \Z/p\Z^*$. Supposons que $x$ n'est pas un résidu quadratique. Alors $\overline{x}^{(p-1)/2}=\overline{x}^{2^rt}=\overline{\left(\frac{x}{p}\right)}=\overline{-1}=(\overline{x}^t)^{2r}$. Il suffit donc de trouver un non-résidu quadratique. D'après la proposition suivante, prendre des éléments de $(\Z/p\Z)^*$ au hasard et tester si ce sont des résidus quadratiques aboutit relativement vite à une solution. Par exemple au bout de $10$ essais, la probabilité de ne pas en avoir trouvé est $(1/2)^{10}<1/1000$. 
+
+
+
+
+\begin{Prop}
+Soit $p\in \mathbb{P}_{\geq 3}$. Alors il y a exactement $\frac{p-1}{2}$ carrés dans $(\Z/p\Z)^*$. 
+\end{Prop}
+
+\begin{proof}
+Soit $f:(\Z/p\Z)^*\rightarrow (\Z/p\Z)^*$ défine par $f(x)=x^2$, pour $x\in (\Z/p\Z)^*$. Alors $f$ est un morphisme de groupes et $\ker(f)=\{\pm \overline{1}\}$, d'après le corollaire~\ref{corRacines_carrées_moins_un}. On a donc \begin{equation}\label{eqCardinal_quotient_image}
+|\mathrm{im}(f)||\ker(f)|=|(\Z/p\Z)^*|=p-1=2|\mathrm{im}(f)|.
+\end{equation}
+
+En effet, soit $y\in \mathrm{im}(f)$ et $x_y\in (\Z/p\Z)^*$ tel que $f(x_y)=y$. Soit $x'\in (\Z/p\Z)^*$. Alors $f(x')=y$ si et seulement si $f(x')=f(x_y)$ si et seulement si $f(x'(x_y)^{-1})=f(\overline{1})=\overline{1}$ si et seulement si $x'\in x_y\ker(f)$. On a donc $(\Z/p\Z)^*=\bigsqcup_{y\in \mathrm{im}(f)} x_y\ker(f)=\ker(f)\bigsqcup_{y\in \mathrm{im}(f)} x_y$, d'où \eqref{eqCardinal_quotient_image}. 
+\end{proof}
+\end{comment}
+
+
+ 
+\section{Recherche de racines dans $\Z/p^\alpha\Z$}
+
+Soient $p\in\mathbb{P}_{\geq 3}$, $\alpha\in \N^*$ et $a\in \Z$. On cherche une racine de $a$ modulo $p^\alpha$. Nous allons partir d'une racine carrée de $a$ modulo $p$, puis nous allons en déduire une racine carrée modulo $p^2$, modulo $p^4$, etc. Par simplicité, nous nous intéresserons au cas où $a$ est inversible modulo $p$. 
+
+Dans le cas $p\neq 2$, nous nous basons sur le lemme suivant, qui est une version simplifiée du lemme de Hensel, qui permet de trouver les racines d'un polynôme de $\Z[X]$ modulo $p^{2n}$ lorsque l'on connaît une racine de $P$ modulo $p^n$ qui n'est pas une racine de $P'$ modulo $p$.
+
+\begin{lemme}\label{lemHensel}(Hensel)
+Soient $P\in  \Z[X]$ et $n\in \N^*$. On suppose qu'il existe $c\in \Z$ tel que $P(c)\equiv 0[p^n]$ et $P'(c)\not \equiv 0[p]$. Alors il existe $c'\in \Z$, unique modulo $p^{2n}$, tel que $c'\equiv c [p^n]$ et  $P(c')\equiv 0[p^{2n}]$. 
+\end{lemme}
+
+\begin{proof}
+D'après la formule de Taylor à l'ordre $1$ en $c$, il existe $R\in \Z[X]$ tel que \[P(X)=P(c)+(X-c)P'(X)+(X-c)^2 R(X).\] On cherche $c'$ sous la forme $c'=c+kp^n$, où $k\in \Z$.  Écrivons $P(c)=p^n\ell$, où $\ell\in \Z$.   En évaluant en $c'$, on obtient \begin{equation}\label{eqTaylor_c'}
+P(c')=P(c)+kp^n P'(c')+p^{2n}k^2 R(c')=p^n\left(\ell+k P'(c')\right)+p^{2n}k^2 R(c').
+\end{equation}
+
+Comme $c'\equiv c[p^n]$, on a $P'(c)\equiv P'(c')[p^n]$, donc \begin{equation}\label{eqTaylor_c'}
+P(c')\equiv P(c)+kp^n P'(c)[p^{2n}]\equiv p^n(\ell+k P'(c))[p^{2n}].
+\end{equation}
+
+On a donc $P(c')\equiv 0[p^{2n}]$ si et seulement si $p^n (\ell+kP'(c))\equiv 0[p^{2n}]$ si et seulement si $\ell+kP'(c)\equiv 0[p^n]$. 
+
+Comme $P'(c)\not \equiv 0[p]$, $p$ ne divise pas $P'(c)$ donc $p^n\wedge P'(c)=1$, donc $P'(c)$ est inversible modulo $p^n$. Il existe donc $k\in \Z$ (unique modulo $p^n$) tel que $\ell+kP'(c)\equiv 0[p^n]$ donc tel que $P(c')\equiv 0[p^{2n}]$. 
+\end{proof}
+
+\begin{ex}
+On cherche une racine $\gamma$ de $35$ modulo $43^2$. On a vu que $11$ est une racine de $35$ modulo $43$, on cherche donc $\gamma$ sous la forme $\gamma=11+43k$, où $k\in \Z$. On cherche donc $k\in \Z$ tel que $(11+43k)^2\equiv 35 [43]$. On a alors $121+2.11.43k+43^2.k^2\equiv 35[43^2]\equiv 121+2.11.43k$. On a donc $2.11.43k\equiv 121-35=-86=(-2).43[43^2]$. On a donc $2.11k\equiv -2[43]$, soit $11k\equiv -1[43]$ et on constate que cette condition est vérifiée si et seulement $k=-4$. On en déduit que $11-4.43=-161$ et donc $161$ sont des racines de $35$ modulo $43^2$.
+\end{ex}
+
+\begin{remarque}
+Avec les notations du lemme, supposons que l'on cherche $c'\in \Z$ tel que $P(c')\equiv 0[p^{2n}]$. Alors $P(c')\equiv 0[p^n]$ donc $c'$ est une racine de $P$ modulo $p^n$. Il est donc naturel de chercher $c'$ congru à une racine de $P$ modulo $p^n$ dans le lemme. 
+\end{remarque}
+
+ 
+\begin{lemme}\label{lemExistence_racine_modulo_pAlpha_inversible}
+Soit $a\in \Z$ et $p\in \mathbb{P}_{\geq 3}$. On suppose que $\left(\frac{a}{p}\right)=1$. Alors pour tout $\alpha\in \N^*$, il existe $\gamma\in \Z$ tel que $\gamma^2\equiv a[p^n]$.
+\end{lemme}
+
+\begin{proof}
+  Soit $P=X^2-a\in \Z[X]$. Soit $\gamma_0\in \Z$ tel que $P(\gamma_0)\equiv 0[p]$. Alors $P'(\gamma_0)=2\gamma_0$. Comme $p$ ne divise pas $a$, $p$ ne divise pas $\gamma_0$. Par récurrence, en utilisant le lemme~\ref{lemHensel}, on en déduit une suite $(\gamma_k)\in \Z^{\N^*}$ telle que pour tout $k\in \N^*$, on ait $\gamma_{k+1}\equiv \gamma_k [p^{2^k}]$ et $P(\gamma_k)\equiv 0[p^{2^k}]$. 
+  
+  Soit $k\in \N$ tel que $2^k\geq n$. Alors il existe $m\in \Z$ tel que $\gamma_k^2+m p^{2^k}=a=\gamma_k^2+p^n.p^{2^k-n}m$, donc $\gamma_k$ est une racine carrée de $a$ modulo $p^n$. 
+\end{proof}
+
+
+
+\begin{comment}
+\begin{lemme}(admis, cf \cite[I.5.1.4]{demazure2008cours})
+Soit $a\in \Z$ impair et $\alpha\in \N_{\geq 3}$. Alors $a$ est un résidu quadratique modulo $2^\alpha$ si et seulement si $a\equiv 1[8]$.
+\end{lemme}
+
+\end{comment}
+
+
+\begin{Prop}
+Soient $p\in \mathbb{P}_{\geq 3}$ , $\alpha\in \N^*$ et $a\in \llbracket 0,p^\alpha-1\rrbracket$. On écrit $a=p^k a'$, où $k\in \llbracket 0,\alpha-1\rrbracket$ et $a'\in \llbracket 0,p^{\alpha-k}-1\rrbracket$ vérifie $a'\wedge p=1$.
+
+ Alors $x$ est un carré modulo $p^\alpha$ si et seulement si $k$ est pair et $a'$ est un carré modulo $p$.
+
+
+\end{Prop}
+
+\begin{proof}
+ On le démontre par récurrence sur $k$. On suppose que pour tout $\tilde{\alpha}\in \llbracket 0,\alpha-1\rrbracket$, pour tout $\tilde{k}\in \llbracket 0,\tilde{\alpha}-1\rrbracket$, pour tout $\tilde{a}\in \llbracket 0,p^{\tilde{\alpha}-\tilde{k}}-1\rrbracket$ tel que $\tilde{a}\wedge p=1$, $p^{\tilde{k}}\tilde{a}$ admet une racine carrée modulo $p^{\tilde{\alpha}}$, alors $\tilde{k}$ est pair et $\tilde{a}$ est un carré modulo $p$.    Si $k=0$, c'est une conséquence du lemme~\ref{lemExistence_racine_modulo_pAlpha_inversible}. Supposons que $k\geq 1$. Supposons qu'il existe une racine $\gamma$ de $a$ modulo $p^\alpha$. Alors il existe $\ell\in \Z$ tel que $\gamma^2=a+\ell p^\alpha=p^k a'+\ell p^\alpha$. On en déduit que $p$ divise $\gamma^2$. D'après le lemme d'Euclide, $p$ divise  $\gamma$. On peut donc écrire $\gamma=p \gamma'$, où $\gamma'\in \Z$. Alors $p^2\gamma'^2=p^k a'+\ell p^\alpha$. On a donc $p\gamma'-\ell p^{\alpha-1}=p^{k-1} a'$. Comme $\alpha>k>1$, on en déduit que $p$ divise $p^{k-1}a'$, donc $p$ divise $p^{k-1}$, d'après le lemme de Gauss. On a donc $k\geq 2$. Alors \[\gamma'^2=p^{k-2} a'+\ell p^{\alpha-2}.\] D'après l'hypothèse de récurrence, on en déduit que $k-2$ est pair et que $a'$ est un carré modulo $p$.
+
+Réciproquement, supposons que $k$ est pair et que $a'$ est un carré modulo $p$. D'après le lemme~\ref{lemExistence_racine_modulo_pAlpha_inversible}, il existe $\gamma',\ell'\in \Z$ tel que $\gamma'^2=a'+\ell'p^{\alpha-k}$. Alors $(p^{k/2}\gamma')^2=p^k(a'+\ell'p^{\alpha-k})=p^k\alpha+\ell' p^\alpha$. Donc $a$ est bien un carré modulo $p^\alpha$, ce qui démontre (1). 
+\end{proof}
+
+
+
+
+\section{Recherche de racines carrées dans $\Z/n\Z$}
+
+
+Soit $n\in \N_{\geq 2}$ et $a\in \Z$. On suppose que l'on sait décomposer $n$ en produit de facteurs premiers. On écrit $n=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$, où $k\in \N$, $\alpha_1,\ldots,\alpha_k\in \N^*$ et où les $p_i$ sont distincts deux à deux.  Alors $a\mathrm{\ mod\ }n$ est un carré si et seulement si $a\mathrm{\ mod\ }p_i^{\alpha_i}$ est un carré pour tout $i\in \llbracket 1,k\rrbracket$. En effet, supposons que $a\mathrm{\ mod\ }n=\gamma^2\mathrm{\ mod\ }n$. Alors \[\phi(a\mathrm{\ mod\ }n)=(a\mathrm{\ mod\ }p_1^{\alpha_1},\ldots,a\mathrm{\ mod\ }p_k^{\alpha_k})=\phi(\gamma\mathrm{\ mod\ }n)^2=(\gamma^2\mathrm{\ mod\ }p_1^{\alpha_1},\ldots,\gamma^2\mathrm{\ mod\ }p_k^{\alpha_k}),\] donc $a\mathrm{\ mod\ }p_i^{\alpha_i}$ est un carré pour tout $i\in \llbracket 1,k\rrbracket$. Réciproquement, si $a\mathrm{\ mod\ }p_i^{\alpha_i}=\gamma_i^2\mathrm{\ mod\ }p_i^{\alpha_i}$ pour tout $i\in \llbracket 1,k\rrbracket$, alors pour tout $\gamma\in  \Z$ tel que $\gamma\mathrm{\ mod\ }n=(\gamma_1\mathrm{\ mod\ }p_1^{\alpha_1},\ldots,\gamma_k\mathrm{\ mod\ }p_k^{\alpha_k})$, alors $\gamma$ est une racine de $a$ modulo $n$. Pour trouver les racine de $a$ modulo $n$, il suffit donc de trouver les racines de $a$ modulo $p_i^{\alpha_i}$ pour tout $i\in \llbracket 1,k\rrbracket$, puis de déterminer leur image réciproque par l'isomorphisme chinois. 
+
+\begin{ex}
+On se place dans $\Z/154\Z$. On se demande si $\overline{23}$ est un carré. On a $154=2.7.11$, il faut donc vérifier si $23$ est un carré modulo $7$ et modulo $11$ (car tout élément de $\Z/2\Z$ est un carré). On a $\left(\frac{23}{7}\right)=\left(\frac{2}{7}\right)=1$ car $7\equiv -1[8]$.  On a $\left(\frac{23}{11}\right)=\left(\frac{1}{11}\right)=1$, donc $23$ est un carré modulo $7$ et $11$, c'est donc un carré modulo $154$. On constate que $(3\mathrm{\ mod\ }7)^2=(2\mathrm{\ mod\ }7)=23\mathrm{\ mod\ }7$. Soit $\phi:\Z/154\Z\rightarrow \Z/2\Z\times \Z/7\Z\times \Z/11\Z$ l'isomorphisme chinois. Alors $\phi^{-1}(1\mathrm{\ mod\ }2,2\mathrm{\ mod\ }7,1\mathrm{\ mod\ }11)$ est une racine de $\overline{23}$. Grâce à l'algorithme de Garner, on obtient que $\overline{45}$ est une racine de $\overline{23}$.
+\end{ex}
+
+\begin{remarque}
+On a montré comment déterminer une racine modulo $n$ si l'on sait factoriser $n$ et si tous ses facteurs premiers sont congrus à $3$ modulo $4$. Des méthodes similaires permettent de trouver des racines carrées dans les cas restants (voir \cite{demazure2008cours}). Comme on ne connaît pas d'algorithme «~rapide~» de factorisation des entiers, on peut se demander s'il n'est pas possible de se dispenser de cette factorisation. En fait,  ce n'est pas possible,  car si on connaît une méthode pour extraire rapidement les racines carrées d'un nombre modulo $n$, alors on peut trouver un diviseur non trivial de  $n$. En effet, supposons que $n$ n'est pas primaire (c'est à dire que ce n'est pas la puissance d'un nombre premier, autrement dit $k\geq 2$). Soit $a\in \Z$ tel que $a\wedge n =1$. Alors si $\epsilon_1,\ldots,\epsilon_k\in \{-1,1\}$ et  $\gamma=\phi^{-1}((-1)^{\epsilon_1} a\mathrm{\ mod\ }p_1^{\alpha_1},\ldots,(-1)^{\epsilon_k} a\mathrm{\ mod\ }p_k^{\alpha_k})$, $\gamma$ est une racine carrée de $a^2\mathrm{\ mod\ }n$. On peut donc trouver une racine carrée $\gamma$ de $a^2$ modulo $n$, qui est différente de $\pm a$, modulo $n$. Alors $a^2\equiv \gamma [n]$, donc $(a-\gamma)(a+\gamma)\equiv 0[n]$ donc $n$ divise $(a-\gamma)(a+\gamma)$. Soit $d=(a-\gamma)\wedge n$. Si $d=1$, alors par le lemme de Gauss, $n$ divise $a+\gamma$, ce qui est absurde par choix de $\gamma$. Ainsi, $1<d<n$ et on a trouvé un diviseur non trivial de $n$. On a donc montré que connaître une méthode pour extraire les racines carrées de tous les nombres modulo $n$ est aussi difficile que de savoir factoriser $n$. 
+
+\end{remarque}
+
+ 
  
  
 
