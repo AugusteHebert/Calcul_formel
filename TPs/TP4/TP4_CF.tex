@@ -1,0 +1,205 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage[french]{babel}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{stmaryrd}
+\usepackage{graphics}
+\usepackage{comment}
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+ \newcommand{\N}{\mathbb{N}}
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2025/2026  \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{ Université de Lorraine  \\ }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+\newcommand{\Z}{\mathbb{Z}}
+
+\newcommand{\md}[3]{#1 \equiv #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod #3 }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod #3 }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod #3 }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    TP n$^{\boldsymbol{\circ}}$4: Algorithme d'Euclide
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+\vspace{0.01cm}
+
+
+
+\section{Quelques remarques}
+
+\paragraph{Variables locales/globales}
+Par défaut, les variables que l'on utilise dans un programme sont des variables locales. Par exemple dans l'exemple suivant, $S$ ne peut pas être appelé en dehors du programme.
+
+\centering\includegraphics[scale=0.5]{somme_entiers_local.png}
+
+
+Il peut être pratique de transformer une variable locale en une variable globale en écrivant global $S$ (si $S$ est la variable que l'on veut rendre globale) en début du programme. On peut alors faire appel à $S$ en dehors du programme.
+
+\centering\includegraphics[scale=0.5]{somme_entiers_global.png}
+
+C'est parfois pratique, notamment pour déboguer un programme. Cela permet de voir où s'arrête le programme.
+
+
+
+
+
+\subsection*{Test de Fermat}
+
+\begin{enumerate}
+\item  Écrire une fonction \texttt{fermat}$(n)$ qui prend en entrée un entier positif $n$ et qui renvoie vrai si pour tout $a\in \llbracket 1,n-1\rrbracket$, $a^{n-1}\equiv 1[n]$ et faux sinon. Que doit renvoyer \texttt{fermat}($n$) si $n$ est premier. Tester sur quelques valeurs de $n$. 
+
+\textit{On pourra par exemple utiliser «~power\_mod(x,e,n)~» qui renvoie $x^e\mathrm{\ mod\ }n$ ou «mod~(x,n)~» (ou de manière équivalente «~IntegerModRing(n)(x)~») qui renvoie $x\mathrm{\ mod\ }n$.}
+
+\item  Écrire une fonction \texttt{fermat(n,k)} qui prend en entrée deux entiers positifs $n$ et $k$, qui choisit un élément de $\llbracket 1,n-1\rrbracket$ au hasard et qui vérifie si $a^{n-1}\equiv 1[n]$. Si  $a^{n-1}\not \equiv 1[n]$, la fonction s'arête et renvoie «~$n$ n'est pas premier~» et si $a^{n-1}\equiv 1[n]$ le teste recommence, jusqu'à ce que $k$ valeurs de $a$ aient été testées. Si pour toute ces valeurs, $a^{n-1}\equiv[1]$, renvoyer «~$n$ est peut-être premier~».  Tester sur quelques valeurs de $n$ pour $k=10$.  
+
+\textit{On pourra utiliser la fonction «~ZZ.random\_element(x,y)~» qui renvoie un entier au hasard de $\llbracket x,y\llbracket$.}
+
+\item\label{liste} Créer la liste de tous les  $a\in \llbracket 2,10^6\rrbracket$ tels que \texttt{fermat}$(a,10)$ renvoie «~$a$ est peut-être premier~» alors que $a$ n'est pas premier. On pourra utiliser la fonction is\_prime et modifier la procédure fermat$(n,k)$ pour qu'elle renvoie «~True~» ou «~False~»). Même question avec fermat(n,3) au lieu de fermat(n,10). Combien y a-t-il de nombres premiers dans $\llbracket 2,10^6\rrbracket$ ? Qu'en déduisez-vous ?
+
+\item Écrire une fonction \texttt{proportion}($n$) qui prend en entrée un entier $n$, et qui renvoie une valeur approchée de \[\frac{|\{a\in \llbracket 1,n-1\rrbracket\mid a^{n-1}\not \equiv 1 [n]\}|}{n}.\] Calculer cette proportion pour des nombres premiers puis pour des nombres composés pris au hasard  (on rappelle qu'on a démontré en cours que pour un nombre composé qui n'est pas un nombre de Carmichaël, cette quantité est supérieure ou égale à $\frac{1}{2}$). Que constatez-vous ? Déterminer \texttt{proportion}($561$) et proportion($252601$). 
+
+
+\item Prendre un élément $n_0$ de la liste précédente (qui fait échouer fermat(a,10)). Ce nombre est-il un nombre de Carmichael (i.e a-t-on $a^{n_0-1}\equiv 1[n_0]$ pour tous $a\in \llbracket 2,n_0-1\rrbracket$ tels que $a\wedge n_0=1$) ? Si $a\in \llbracket 2,n_0-1\rrbracket$ est tel que $a\wedge n_0\neq 1$, pourquoi a-t-on $a^{n_0-1}\not \equiv 1[n_0]$ ? Factoriser $n_0$ (on pourra utiliser la fonction \texttt{factor}). 
+
+
+\item Soit $n\in \N_{\geq 2}$ un nombre de Carmichael. On suppose que $n$ s'écrit $p_1\ldots p_k$, où $p_1,\ldots,p_k$ sont des nombres premiers distincts (on verra en DM que tous les nombres de Carmichael peuvent se mettre sous cette forme). Montrer (mathématiquement, pas informatiquement) que la proportion d'éléments $a\in \llbracket 2,n-1\rrbracket$ tels que $a^{n-1}\not \equiv 1[n]$ est inférieur à $\frac{1}{p_1}+\frac{1}{p_2}+\ldots +\frac{1}{p_k}$ (on pourra commencer par compter le nombre de multiples de $p_i$ entre $1$ et $n$, pour $i\in \llbracket 1,k\rrbracket$). Que vaut cette quantité pour $n_0$ ? Calculer (à l'aide de l'ordinateur) \[\frac{|\{a\in \llbracket 1,n_0\rrbracket\mid a^{n_0-1}\not\equiv 1[n_0]\}|}{|\llbracket 1,n_0\rrbracket|}=\frac{|\{a\in \llbracket 1,n_0\rrbracket\mid a^{n_0-1}\not\equiv 1[n_0]\}|}{n_0}.\] Comparer avec $\frac{1}{p_1}+\ldots +\frac{1}{p_k}$. 
+
+\item (bonus) Soit $n\in \N_{\geq 2}$. Si la décomposition de $n$ en produit de facteurs premiers s'écrit  $n=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$, on pose $f(n)=\frac{1}{p_1}+\ldots +\frac{1}{p_k}$. On considère les listes $L_3$ et $L_{10}$ obtenues à la question~\ref{liste}.  Faire la liste $M_3$ (resp. $M_{10}$) des $f(i)$ tels que $i\in L_3$ (resp. $L_{10}$). Que constatez-vous ?
+
+\end{enumerate}
+
+
+
+
+\subsection*{Exercice 2 : Test de Miller-Rabin}
+\begin{enumerate}
+
+
+\item Soit $n\in \N$ impair. On écrit $n=-1=2^s t$, où $s\in \N$ et $t$ est impair. Soit $a\in \Z$. On rappelle que $a$ est un \textbf{témoin de Miller} si les conditions suivantes sont satisfaites : \begin{enumerate}
+\item $a^t\not \equiv 1[n]$ 
+
+\item pour tout $i\in \llbracket 1,s-1\rrbracket$, $a^{2^it}\not \equiv -1[n]$. 
+\end{enumerate}
+
+On rappelle que si $n\geq 9$ possède un témoin de Miller, alors $n$ est composé au moins les trois quarts des $a\in \llbracket 2,n-2\rrbracket$ sont des témoins de Miller.
+
+\item Implémenter un programme $\texttt{decompo}(n)$ qui prend en entrée un entier impair et qui renvoie $(s,t)$.
+
+\item Implémenter une fonction \texttt{TemoinMiller(n,a)} qui prend en entrée un entier impair $n$ et $a\in\Z$ et qui renvoie vrai si $a$ est un témoin de Miller et faux sinon. et le tester sur quelques valeurs de $a$ et $n$. 
+
+\item   Implémenter un test Miller\_rabin(n,k), qui prend en entrée un entier $n$ impair et un entier $k$ (par exemple $k=5$), qui teste jusqu'à $k$  valeurs de $a\in\llbracket 1,n-1\rrbracket$ premières avec $n$ au hasard et qui renvoie «~$n$ est peut-être premier~» s'il n'a trouvé aucun témoin de Miller et qui renvoie «~$n$ est composé~» s'il a trouvé un témoin de Miller.
+
+\end{enumerate}
+
+\subsection*{Exercice 3 (test de Lucas-Lehmer)}
+
+
+Soient $p$ un nombre premier impair et $M=2^p-1$. On pose $s_0=4$ et $s_{k+1}=s_k^2-2$ pour $k\in \N$. Le test de Lucas-Lehmer repose sur le théorème suivant :
+
+\[M\text{ est premier si et seulement si }s_{p-2}\equiv 0[M].\]
+
+Programmer le test de Lucas-Lehmer. Vérifier que $2^{23209}-1$ est premier. Quel est le nombre de chiffres de ce nombre en base $10$.  Vérifier que $2^{23209}-1$ est « probablement premier » en utilisant la commande «is\_pseudoprime ».
+
+\subsection*{Exercice 4 (\textit{Algorithme $\rho$ de Pollard })}
+
+L'algorithme de Pollard est un algorithme de factorisation des entiers. Il est efficace lorsque $n$ admet des «~petits~» facteurs premiers. On renvoie à Demazure, \textit{Cours d'algèbre} pour plus  de détails sur cet algorithme.
+
+
+Soit $n$ un entier naturel impair. Pour un $x_0$ choisi aléatoirement dans $\lb 0, n-1 \rb$, on définit une suite $(x_i)$ à valeurs dans cet ensemble par la relation de récurrence $x_{i+1}= x_i^2+1 \mod n$, pour $i\in \mathbb{N}$.
+\begin{enumerate}
+
+\item Écrire une fonction \texttt{pollard} prenant en argument $n$, choisissant un $x_0$ au hasard dans $\llbracket 0,n-1\rrbracket$ et déterminant le plus petit entier $ i \geqslant 1$ tel que $(x_{2i}-x_i)\wedge n \neq 1$, renvoyant ce pgcd s'il est différent de $n$ et déclenche une erreur sinon.
+
+\textit{Pour calculer $x_{2i}$, on pourra utiliser la fonction $f\circ f$, où $f:\Z/n\Z\rightarrow \Z/n\Z$ est définie par $f(x)=x^2+1$, pour $x\in \Z/n\Z$.}%(utiliser la syntaxe \texttt{raise Exception}).\\
+
+
+\item Écrire une fonction \texttt{premier} prenant en argument un entier $N$ et renvoyant un nombre premier choisi aléatoirement ayant $N$ chiffres (en base 10).
+
+% \textit{On pourra utiliser les fonctions next\_prime et ZZ.random\_element.}
+
+\item Écrire une fonction \texttt{semipremier}(N) renvoyant un produit de nombres $pq$ où $p$ et $q$ sont deux nombres premiers à $N$ chiffres tirés au sort.
+
+\item Effectuer plusieurs essais de factorisation de semipremier(N) pour différentes valeurs de $N$.
+
+
+\item Comparer avec la fonction \texttt{factor}. 
+\end{enumerate}
+
+
+
+\subsection*{Exercice 5 : nombres de Carmichael}
+
+\textbf{Theorème (Korselt)} Soit $n\in \N^*$. On suppose que $n$ est composé. Alors $n$ est un nombre de Carmichael si et seulement si les propriétés suivantes sont satisfaites : \begin{enumerate}
+\item $n$ est sans facteurs carrés (i.e, pour tout $k\in \N_{\geq 2}$, $k^2$ ne divise pas $n$),
+
+\item pour tout diviseur premier $p$ de $n$, $p-1$ divise $n-1$. 
+\end{enumerate}
+
+De plus, si $n$ est un nombre de Carmichael, alors $a|a^n-a$, pour tout $a\in \Z$. 
+
+
+\begin{enumerate}
+\item Écrire un programme prenant en entrée un entier $n$ et déterminant si $n$ est un nombre de Carmichael  en utilisant le critère de Korselt ($n$ est de Carmichael si et seulement si $n$ n'est pas premier, $n$ est sans facteurs multiples et pour tout diviseur premier $p$ de $n$, $p-1$ divise $n-1$). (On pourra utiliser les commandes \texttt{is\_prime} et \texttt{factor}).
+
+\item Déterminer la liste des nombres de Carmichael entre 3 et $10^6$. Combien cette liste possède-elle d'éléments ? Combien y a-t-il de nombres premiers entre $2$ et $10^6$ ?
+\end{enumerate}
+
+
+
+\subsection*{Exercice 6 (Résolution de systèmes d'équations modulaires)}
+
+Si $\underline{\nu}$, $\underline{m}$ sont des listes d'entiers ayant le même nombre d'éléments, noté $r$, on pose $S(\underline{\nu},\underline{m})$ le système de congruences 
+$$       x \equiv \nu_i (\text{mod } m_i), \quad 1 \leqslant i \leqslant r     ,$$ d'inconnue $x\in \Z$. 
+
+Écrire une fonction \texttt{systemeChinois(nu, m)} qui, à partir de listes d'entiers \texttt{nu} et \texttt{m}, renvoie l'ensemble des solutions du système de congruences \texttt{S(nu,m)}, si une telle solution existe et qui renvoie "le système n'a pas de solution" sinon. On écrira l'ensemble des solutions de \texttt{S(nu,m)} sous la forme $(x_0,\ell)$, pour dire que l'ensemble des solutions est $x_0+\ell \Z$ (on ne suppose pas que les $m_i$ sont deux à deux premiers entre eux).
+
+\begin{comment}
+\subsection*{Exercice 6 (\textit{groupe multiplicatif})}
+Soit $n \geqslant 1$ un entier. Écrire une fonction \texttt{ordre(a, n)} un couple d'entiers et renvoyant l'ordre de $a$ dans le groupe $(\mathbb{Z/n\mathbb{Z}})^{\times}$. On lèvera une exception si cette question n'a pas de sens.
+
+\end{comment}
+
+\end{document}
