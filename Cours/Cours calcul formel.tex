@@ -1755,7 +1755,7 @@ On dit que $n$ est un \textbf{nombre de Carmichael} (ou un nombre pseudo-premier
 Il existe une infinité de nombre de Carmichael (c'est un théorème de Alford, Grandville et Pomerance de 1994). Le plus petit nombre de Carmichael est $561=3\times 11\times 17$. L'ensemble des nombres de Carmichael est assez mal compris. Empiriquement il y en a beaucoup moins que de nombre premiers. Il y a par exemple 22 nombres de Carmichael entre $1$ et $10\ 000$ alors qu'il y a $1\ 229$ nombres premiers entre $1$ et $10\ 000$.  Un nombre de $50$ bits (respectivement $100$) choisi aléatoirement a moins d'une chance   sur $10^6$ (respectivement $10^{13}$) de faire échouer le test. Par rapport aux tests présentés précédemment, il est beaucoup plus rapide. Si on fixe $k$ (par exemple $k=30$), alors en utilisant l'exponentiation rapide, on a un coût en $O(k\log(n)^3)$ opérations élémentaires, alors que les tests que l'on a vus précédemment ont un coût supérieur à  $\sqrt{n}/\mathrm{ln}(n)$ opérations élémentaires. En revanche, lorsque le test renvoie que $n$ est composé, il ne fournit pas de diviseur de $n$. En pratique ce test n'est pas très utile, car il existe des tests à  peine plus sophistiqués (les tests de Miller-Rabin et de Solovay-Strassen par exemple) pour lesquels il n'existe pas de nombre «~pseudo-premiers~». 
 
 
-
+\newpage
 
 \section{Test de Miller-Rabin}
 
@@ -2019,7 +2019,7 @@ $$ \Big(  \frac{a}{n}\Big) =\prod_{j=1}^k \Big(  \frac{a}{p_j}\Big)^{\alpha_j} \
 \item $  \left(  \frac{m}{n_1 n_2}\right)= \left(  \frac{m}{n_1}\right)\left(  \frac{m}{n_2}\right) .  $
 \item  $     \left(  \frac{m}{n}\right)=0 \Longleftrightarrow m\wedge n \neq 1    .$
 
-\item Soit   $r$  le reste dans la division euclidienne de $m$ par $n$. Alors $\big(\frac{m}{n}\big)=\big(\frac{r}{n}\big)$. 
+\item Soit   $r\in m+n\Z$. Alors    $\big(\frac{m}{n}\big)=\big(\frac{r}{n}\big)$. C'est en particulier vrai si $r$ est le reste dans la division euclidienne de $m$ par $n$.
 
 \item Si $m$ est impair, 
 $   \left(  \frac{m}{n}\right)= (-1)^{\tfrac{m-1}{2}\cdot \tfrac{n-1}{2}} \left(  \frac{n}{m}\right) .   $
@@ -2074,7 +2074,7 @@ m=\prod_{i=1}^k p_i \equiv \prod_{i\in X_p} p_i\equiv (-1)^{|X_p|}[4].
 
 On a $\left(\frac{45}{33}\right)=\left(\frac{12}{33}\right)=\left(\frac{4}{33}\right)\left(\frac{3}{33}\right)$. Comme $3$ divise $33$, on en déduit que $\left(\frac{33}{45}\right)=0$. 
 
-\item Déterminons $\left(\frac{123}{259}\right)$. On a $\left(\frac{123}{259}\right)=(-1)^{(123-1)/2.(259-1)/2}\left(\frac{259}{123}\right)=- \left(\frac{259}{123}\right)=\left(\frac{13}{123}\right)$. On a $\left(\frac{13}{123}\right)=(-1)^{(13-1)/2.(123-1)/2}\left(\frac{123}{13}\right)=\left(\frac{6}{13}\right)$. On a $\left(\frac{6}{13}\right)=\left(\frac{2}{13}\right)\left(\frac{3}{13}\right)$. Comme $13\equiv 3[8]$, $\left(\frac{2}{13}\right)=-1$. On a $\left(\frac{3}{13}\right)=(-1)^{(13-1)/2.(3-1)/2}\left(\frac{13}{3}\right)=\left(\frac{1}{3}\right)=1$. On a donc $\left(\frac{123}{259}\right)=-1$.
+\item Déterminons $\left(\frac{123}{259}\right)$. On a $\left(\frac{123}{259}\right)=(-1)^{(123-1)/2.(259-1)/2}\left(\frac{259}{123}\right)=- \left(\frac{259}{123}\right)=\left(\frac{13}{123}\right)$. On a $\left(\frac{13}{123}\right)=(-1)^{(13-1)/2.(123-1)/2}\left(\frac{123}{13}\right)=\left(\frac{6}{13}\right)$. On a $\left(\frac{6}{13}\right)=\left(\frac{2}{13}\right)\left(\frac{3}{13}\right)$. Comme $13\equiv 3[8]$, $\left(\frac{2}{13}\right)=-1$. On a $\left(\frac{3}{13}\right)=(-1)^{(13-1)/2.(3-1)/2}\left(\frac{13}{3}\right)=\left(\frac{1}{3}\right)=1$. On a donc $\left(\frac{123}{259}\right)=1$.
 \end{enumerate}
 \end{ex}
 
@@ -2115,21 +2115,29 @@ Pour vérifier que le résultat renvoyé par Jacobi$(a,n)$ est le bon, on utilis
 
 \subsection{Le test}
 
-L'algorithme suivant est un nouveau test de primalité, fondé sur le symbole de Jacobi. On utilise à  nouveau la fonction Hasard$(a,b)$. Il prend en entrée un entier naturel impair $\geq 3$.\\
+\begin{lemme}\label{l_car_ss_gpe}
+Soient $G$ un groupe et $H$ un sous-ensemble fini de $G$ contenant $1$ et stable par multiplication. Alors $H$ est un sous-groupe de $G$. 
+\end{lemme}
+
+\begin{proof}
+Le seul point à montrer est que $H$ est stable par passage à l'inverse. Pour $g\in G$, on définit $m_g:H\rightarrow H$  par $m_g(h)=gh$, pour $h\in H$. Soit $g\in H$. Alors $m_g$ est bijective, d'inverse $m_{g^{-1}}$. En particulier, $m_g$ est surjective donc il existe $h\in H$ tel que $m_g(h)=1$. On a donc $gh=1$, donc $h=g^{-1}\in H$ et $H$ est un sous-groupe de $G$. 
+\end{proof}
 
 \begin{thm} 
 Soit  $n$ un entier impair $\geq 3$. Alors :\begin{enumerate}
 \item $n$ est premier si et seulement si pour tous $a\in \Z$ tel que $a\wedge n=1$, $ \big( \tfrac{a}{n} \big)\equiv a^{(n-1)/2} [n]$,
 
-\item si $n$ est composé, $\{a\in \llbracket 2,n-1\rrbracket\mid\ a^{(n-1)/2}\equiv \left(\frac{a}{n}\right) [n]\}$ a au plus $\varphi(n)/2$ éléments.
+\item si $n$ est composé, $\{\overline{a}\in (\Z/n\Z)^\times \mid  \overline{a^{(n-1)/2}}=\overline{\left(\frac{a}{n}\right)}\}$ a au plus $\varphi(n)/2$ éléments.
 \end{enumerate}
 \end{thm}
 
 \begin{proof}
 La preuve de (1) qui peut-être faite en utilisant les propriétés des nombres de Carmichael est admise.
 
-(2) On se place dans $(\Z/n\Z)^\times$. Alors $G:= \{\overline{a}\in (\Z/n\Z)^\times \mid\overline{a}^{(n-1)/2}=\overline{\left(\frac{a}{n}\right) }\}$ est un sous-groupe de $(\Z/n\Z)^\times$.   Par (1), on sait que $G$ est un sous groupe strict de $(\Z/n\Z)^\times$. Par le théorème de Lagrange, $|G|$ divise $|(\Z/n\Z)^\times|=\varphi(n)$, d'où le résultat.
+(2) Soit $H=\{\overline{a}\in \Z/n\Z\mid \overline{a}^{(n-1)/2}\equiv \left( \frac{a}{n}\right)\}$. Alors $\overline{1}\in H$. Soient $\overline{a},\overline{b}\in H$. Alors $\overline{ab}^{(n-1)/2}=\overline{a}^{(n-1)/2}\overline{b}^{(n-1)/2}=\overline{\frac{a}{n}}\overline{\frac{b}{n}}=\overline{\frac{ab}{n}}$. On en déduit que $H$ est stable par multiplication et donc que $H$ est un sous-groupe de $(\Z/n\Z)^\times$, d'après le lemme~\ref{l_car_ss_gpe}. D'après (1),  $H$ est un sous groupe strict de $(\Z/n\Z)^\times$. D'après  le théorème de Lagrange, $|H|$ divise $|(\Z/n\Z)^\times|=\varphi(n)$, d'où le résultat.
 \end{proof}
+
+L'algorithme suivant est un nouveau test de primalité, fondé sur le symbole de Jacobi. On utilise à  nouveau la fonction Hasard$(a,b)$. Il prend en entrée un entier naturel impair $\geq 3$.\\
 
 
 \begin{tabular}{ll}

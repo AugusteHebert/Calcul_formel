@@ -1,0 +1,127 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage[french]{babel}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{stmaryrd}
+\usepackage{graphics}
+\usepackage{comment}
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2025/2026  \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{ Université de Lorraine  \\ }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\newcommand{\md}[3]{#1 \equiv #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod #3 }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod #3 }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod #3 }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    TP n$^{\boldsymbol{\circ}}$6 : Racines carrées dans $\Z/n\Z$.
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+\vspace{0.01cm}
+
+L'objectif de ce TP est d'écrire un algorithme qui prend en entrée $a\in \Z$, $n\in \N^*$ tels que $n$ est impair et qui renvoie une racine carrée de $a$ modulo $n$ si $a$ est un carré modulo $n$.
+
+
+
+Soit $p\in \mathbb{P}$ tel que $p\equiv 3 [4]$. On se place dans $\Z/p\Z$. On rappelle (cf TD) que si $a\in \Z$, alors $(\overline{a}^{(p+1)/4})^2=\left(\frac{a}{p}\right)\overline{a}$ et que si $\left(\frac{a}{p}\right)=1$, alors l'ensemble des racines carrées de $\overline{a}$ dans $\Z/p\Z$ est $\{\overline{a}^{(p+1)/4},-\overline{a}^{(p+1)/4}\}$.
+
+\begin{itemize}
+\item[•] Écrire un programme qui prend en entrée un entier $a\in \Z$ et un nombre premier $p$ impair et qui renvoie "$p$ n'est pas congru à 3 modulo $4$" si $p\not\equiv 3 [4]$, qui renvoie "$a$ n'est pas un carré modulo $p$" si $\left(\frac{a}{p}\right)=-1$ et qui renvoie la liste (dans l'ordre croissant) des racines de $a$ modulo $p$ sinon (vues comme des entiers de $\llbracket 0,p-1\rrbracket$). On pourra utiliser la commande \texttt{legendre\_symbol}. On pourra utiliser la commande \texttt{sorted} pour trier la liste.
+\end{itemize}
+
+On va maintenant traiter le cas d'un nombre premier impair $p$ quelconque. Soit $p\in \mathbb{P}_{\geq 3}$. On écrit $p-1=2^{r+1}t$, où $r\in \N$ et $t\in \N$ est impair. On suppose que l'on dispose d'un élément $z$ de $\llbracket 0,p-1\rrbracket$ tel que $z^{2^r}\equiv -1[p]$. Alors l'algorithme (dû à Shanks, cf Demazure, \textit{Cours d'algèbre}) suivant renvoie une racine de $a$. Les entiers $a$ et $z$ sont vus comme des éléments de $\Z/p\Z$.
+
+\begin{tabular}{ll}
+\textbf{Algorithme } & racine($a,p$)\\
+& $b,x,y\leftarrow a^t,a^{(t+1)/2},z$ \\
+& tant que $r>0$ :\\
+& \ \ \ {\rm |} si $b^{2^{r-1}} =-1$:\\
+& \ \ \ \ \ \ {\rm |}$b,x \leftarrow b y^2,xy$\\
+& \ \ \ {\rm |}$y,r\leftarrow y^2,r-1$\\
+& renvoyer $x$.
+\end{tabular}
+ 
+Pour obtenir un entier $z$ tel que $z^{2^r}\equiv -1[p]$, il suffit de trouver un élément $m\in \llbracket 2,p-1\rrbracket$ qui n'est pas un carré modulo $p$, puis de prendre $z=m^t$.
+
+\begin{itemize}
+\item[•] Justifier la dernière affirmation.
+
+\item[•] Écrire un programme qui prend en entrée un entier $a\in \Z$ et un nombre premier $p$ impair  qui renvoie "$a$ n'est pas un carré modulo $p$" si $\left(\frac{a}{p}\right)=-1$ et qui renvoie la liste des racines de $a$ modulo $p$ sinon (vues comme des entiers de $\llbracket 0,p-1\rrbracket$). Pour obtenir un élément $m$ qui n'est pas un carré modulo $p$, on tirera un entier de $\llbracket 2,p-1\rrbracket$ aléatoirement jusqu'à obtenir un tel entier. Comme  la moitié des éléments de $\llbracket 1,p-1\rrbracket$ sont des non-résidus quadratique, cela devrait être rapide.
+
+\end{itemize}
+
+
+Nous allons maintenant déterminer des racines carrées modulo $p^k$, en utilisant le lemme de Hensel. On  admet les propriétés suivantes:
+
+
+\textbf{Propriétés :}\begin{enumerate}
+\item Soient  $p\in \mathbb{P}_{\geq 3}$, $k\in \N^*$ et $a\in \Z$ tels que $\left(\frac{a}{p}\right)=1$. On suppose que l'on connaît une racine carrée $\gamma_0$ de $a$ modulo $p^k$. Alors il existe une unique racine carrée $\gamma$ de $a$ modulo $p^{2k}$ qui est congrue à $\gamma_0$ modulo $p^k$. On peut l'obtenir de la façon suivante. On cherche $\gamma$ sous la forme $\gamma=\gamma_0+\ell p$, où $\ell\in \Z$. Alors $\gamma^2\equiv a[p^{2k}]$ si et seulement si $\ell \equiv (a-\gamma_0^2) (2\gamma_0)^{-1}[p^k]$, où $(2\gamma_0)^{-1}$ est un inverse de $2\gamma_0$ modulo $p^k$. 
+
+\item Les racines de $0$ modulo $p^k$ sont les $p^\alpha i$, où $\alpha=\lceil \frac{k}{2}\rceil$ et $i\in \llbracket 0, p^{k-\alpha}-1\rrbracket$. 
+
+\item Soit $a\in \llbracket 1,p^{k}-1\rrbracket$  tel que $p|a$. On écrit $a=p^{\alpha} a'$, où $\beta\in \llbracket 0,k-1\rrbracket$ et $a'\in \Z$ tel que $a'\wedge p=1$. Alors $a$ est un carré modulo $p^k$ si et seulement si $\beta$ est pair et $a'$ est un carré modulo $p$. Dans ce cas là, on note $\alpha=\beta/2$ et on choisit une racine $\gamma'_0$ de $a'$ modulo $p^{k-2\alpha}$, $\gamma'_0\in \llbracket 1,p^{k-2\alpha}-1\rrbracket$. Alors l'ensemble des racines de $a$ modulo $p^k$ est $\{\pm p^\alpha \gamma_0'+ip^{k-\alpha}|i\in \llbracket 0,p^{k-\alpha}-1\rrbracket\}$ (et les éléments décrits dans l'ensemble sont deux à deux distincts).
+\end{enumerate} 
+
+\begin{itemize}
+\item[•] Écrire un programme qui prend en entrée $p\in \mathbb{P}_{\geq 3}$, $a\in \Z$ et $k\in \Z$ et qui renvoie "$a$ n'est pas un carré modulo $p^k$" si $a$ n'est pas un carré modulo $p$ et qui renvoie la liste des racines de $a$ modulo $p^k$ si $a$ est un carré modulo $p^k$.
+\end{itemize}
+
+
+Soient $n$ un $\N^*$ et $a\in Z$. On écrit la décomposition de $n$ en produit de facteurs premiers $n=p_1^{\alpha_1}\ldots p^k_{\alpha^k}$, où les $p_i$ sont des nombres premiers distincts et les $\alpha_i$ sont des entiers naturels. Alors $a$ est un carré modulo $n$ si et seulement si $a$ est un carré modulo $p_i^{\alpha_i}$ pour tout $i\in \llbracket 1,k\rrbracket$. On trouve alors les racines de $a$ en utilisant la réciproque de l'isomorphisme chinois entre $\Z/n\Z$ et $\Z/p_1^{\alpha_1}\Z\times\ldots \Z/p_k^{\alpha_k}\Z$.
+
+\begin{itemize}
+\item[•] Écrire un programme qui prend en entrée une liste $L=[L_1,\ldots L_n]$ de listes non vides et qui renvoie la liste des  listes $[a_{i_1},a_{i_2}, \ldots,a_{i_n}]$, où les $a_{i_j}$ parcourent les $L_j$ pour $j\in \llbracket 1,n\rrbracket$ (par exemple pour $L=[[a,b],[c,d]]$, le programme renverra $[[a,c],[a,d],[b,c],[b,d]]$).
+
+\item[•] Écrire un programme qui prend en entrée un $n\in\N^*$ impair et $a\in \Z$ et qui renvoie l'ensemble des racines de $a$ modulo $n$. On pourra utiliser la commande \texttt{factor} ainsi que l'algorithme de Garner du TP3.
+
+\item[•] Comparer avec la recherche exhaustive pour différents exemples.
+\end{itemize}
+
+\end{document}
