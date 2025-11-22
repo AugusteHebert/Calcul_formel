@@ -111,7 +111,7 @@ Montrer qu'alors $t^{n-1}\equiv 1 [n]$. \\
 \item[$4.$] Résoudre l'équation $85p - 16k = 1$, où $(k, p)\in \mathbb{Z}^2$.\\
 Déterminer le plus petit nombre de Carmichaël divisible par $5$ et $17$.\\
 
-\item On veut montrer le critère de Solovay-Strassen: soit $n\in \N_{\geq 3}$ impair. Alors $n$ est premier si et seulement si \begin{equation}\label{e_critere}
+\item[5.] On veut montrer le critère de Solovay-Strassen: soit $n\in \N_{\geq 3}$ impair. Alors $n$ est premier si et seulement si \begin{equation}\label{e_critere}
 a^{n-1}\equiv a^{(n-1)/2} [n],\forall a\in \Z\mid a\wedge n =1.
 \end{equation} On a vu en cours le sens $\Rightarrow$. On veut donc montrer la réciproque. On fixe donc $n$ satisfaisant \eqref{e_critere}. On suppose que $n$ n'est pas premier.
 
@@ -124,13 +124,6 @@ a^{(n-1)/2}[p_1]=\left(\frac{r_1}{p_1}\right)\ldots \left(\frac{r_k}{p_k}\right)
 
 \item[c)] Aboutir à une contradiction (on pourra utiliser le théorème chinois).
 
-
-
-Si $a\in \Z$ est premier avec $n$, on a $\left(\frac{a}{n}\right)\in \{-1,1\}$, donc $\left(\frac{a}{n}\right)^2=1$. Soit $a\in \Z$ tel que $a\wedge n=1$. Alors $a^{n-1}=(a^{(n-1)/2})^2\equiv \left(\frac{a}{n}\right)^2=1[n]$, par hypothèse. On en déduit que $n$ est de Carmichael.
-
- On a  $\left(\frac{a}{n}\right)=\left(\frac{a}{p_1}\right)\ldots \left(\frac{a}{p_k}\right)$.  Soit $i\in \llbracket 1,k\rrbracket$. Alors $\left(\frac{a}{p_i}\right)=\left(\frac{r_i}{p_i}\right)$, d'où \eqref{e_rel}. 
- 
- Le terme de gauche de \eqref{e_rel} dépend uniquement de $a[p_1]$, alors que le terme de droite dépend de $a[p_2],\ldots, a[p_k]$. Soit $f:\Z/n\Z\rightarrow \Z/p_1\Z\times \ldots \Z/p_r\Z$ l'isomorphisme chinois. Soient $x\in \Z$ tel que $x$ n'est pas un carré modulo $p_2$ (on sait qu'un tel élément existe car $p_2\neq 2$ et qu'il existe exactement $(p_2+1)/2$ carrés modulo $p_2$). Soient $b,c\in \Z$ tels que   $b[n]=f^{-1}(r_1[p_1],x[p_2],1[p_3],\ldots,1[p_k])$ et $c[n]=f^{-1}(r_1[p_1],x[p_2],1[p_3],\ldots,1[p_k])$. Alors $a^{(n-1)/2}[p_1]=b^{(n-1)/2}[p_1]=c^{(n-1)/2}[p_1]$, $r_i(a)=r_i(b)=r_i(c)$ pour tout $i\in \llbracket 1,k\rrbracket\setminus \{2\}$. En revanche $-1=\left(\frac{r_2(b)}{p_2}\right)\neq \left(\frac{r_2(c)}{p_2}\right)=1$. On a donc $\left(\frac{b}{n}\right)\neq \left(\frac{c}{n}\right)$, donc \eqref{e_rel} n'est pas satisfaite pour $b$ et $c$ simultanément. On aboutit à une contradiction.
 
 
 

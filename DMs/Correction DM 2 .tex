@@ -76,7 +76,7 @@ Correction du DM n$^{\boldsymbol{\circ}}$3
 
 
 \begin{itemize}
-\item[$1.a)$]  Soit $\phi:\Z/n\Z\rightarrow \Z/p_1^{\alpha_1}\Z\times \ldots \times \Z/p_k^{\alpha_k}\Z$ l'isomorphisme chinois (défini par $\phi(x[n])=(x[p_1^{\alpha_1},\ldots, x[p_k^{\alpha_k}])$, pour $x\in \Z)$. Soit $x\in \Z$. Alors comme $\phi$ est injective,  $x\equiv 1[n]$ si et seulement si $\phi(x)\equiv \phi(1[n])$ si et seulement si, ($x\equiv 1[p_i^{\alpha_i}]$, pour tout $i\in \llbracket 1,k\rrbracket$).  \\
+\item[$1.a)$]  Soit $\phi:\Z/n\Z\rightarrow \Z/p_1^{\alpha_1}\Z\times \ldots \times \Z/p_k^{\alpha_k}\Z$ l'isomorphisme chinois (défini par $\phi(x[n])=(x[p_1^{\alpha_1}],\ldots, x[p_k^{\alpha_k}])$, pour $x\in \Z)$. Soit $x\in \Z$. Alors comme $\phi$ est injective,  $x\equiv 1[n]$ si et seulement si $\phi(x)\equiv \phi(1[n])$ si et seulement si, ($x\equiv 1[p_i^{\alpha_i}]$, pour tout $i\in \llbracket 1,k\rrbracket$).  \\
 \item[$1b.)$] Soit $a$ premier avec $n$. Pour $i\in \lb 1;k \rb$, $a$ est alors premier avec $p_i$, et par le petit théorème de Fermat, $ \mda{a^{p_i-1}}{1}{p_i} $. De plus, $(p_i-1) \mid (n-1)$, donc $\mda{a^{n-1}}{1}{p_i}$ pour tout $i \in \lb 1;k \rb$. Comme les $p_i$ sont deux à deux premiers entre eux, par le théorème des restes chinois,
 nous avons $\mda{a^{n-1}}{1}{n}$. Donc $n$ est un nombre de Carmichaël. \\
 Nous avons $561= 3\times 11 \times 17$; nous pouvons observer que $2 \mid 560$, $10 \mid 560$ et $16 \mid 560$, et qu'ainsi $561$ est un nombre de Carmichaël. De même, $10585= 5 \times 29 \times 73$ et $4 \mid 10584$, $28 \mid 10584$ et $72 \mid 10584$.\\
@@ -128,6 +128,15 @@ k=16+85 m
 \end{array} \right.  \qquad (m  \in \mathbb{Z})  . $$\\
 Cherchons à présent $n$ nombre de Carmichaël sous la forme $n=5 \times 17 \times p$ avec $p$ un nombre impair (on ne sait pas que $p$ est premier pour le moment). Si un tel $n$ existe, alors $4 \mid (n-1)$, $16 \mid (n-1)$, ce qui équivaut simplement à $16 \mid (n-1)$, ce qui signifie qu'il existe $k\in \mathbb{N}$ tel que $n-1=16k$, i.e. $85p-16k=1$. L'étude de cette équation nous permet d'affirmer que $p \in \{ -3+16 m ; m\in \mathbb{Z}  \}$. Si on choisit le plus petit entier positif de l'ensemble précédent, i.e. $p=13$, on peut remarquer que $13$ est premier, $12 \mid (n-1)$ car $4 \mid (n-1)$ et $3 \mid (n-1)$ (car $85p-1=(28.3+1)p-1\equiv p-1[3]\equiv[0[3]$ car $p=13$).
 Donc $5 \times 17 \times 13=1105$ est un nombre de Carmichaël et c'est le plus qui soit divisible par $5$ et $17$.\\
+
+
+5. a) Si $a\in \Z$ est premier avec $n$, on a $\left(\frac{a}{n}\right)\in \{-1,1\}$, donc $\left(\frac{a}{n}\right)^2=1$. Soit $a\in \Z$ tel que $a\wedge n=1$. Alors $a^{n-1}=(a^{(n-1)/2})^2\equiv \left(\frac{a}{n}\right)^2=1[n]$, par hypothèse. On en déduit que $n$ est de Carmichael.
+
+5.b) On a  $\left(\frac{a}{n}\right)=\left(\frac{a}{p_1}\right)\ldots \left(\frac{a}{p_k}\right)$.  Soit $i\in \llbracket 1,k\rrbracket$. Alors $\left(\frac{a}{p_i}\right)=\left(\frac{r_i}{p_i}\right)$, d'où \eqref{e_rel}. 
+ 
+5.c) Le terme de gauche de \eqref{e_rel} dépend uniquement de $a[p_1]$, alors que le terme de droite dépend de $a[p_2],\ldots, a[p_k]$. Soit $f:\Z/n\Z\rightarrow \Z/p_1\Z\times \ldots \Z/p_r\Z$ l'isomorphisme chinois. Soient $x\in \Z$ tel que $x$ n'est pas un carré modulo $p_2$ (on sait qu'un tel élément existe car $p_2\neq 2$ et qu'il existe exactement $(p_2+1)/2$ carrés modulo $p_2$). Soient $b,c\in \Z$ tels que   $b[n]=f^{-1}(r_1[p_1],x[p_2],1[p_3],\ldots,1[p_k])$ et $c[n]=f^{-1}(r_1[p_1],x[p_2],1[p_3],\ldots,1[p_k])$. Alors $a^{(n-1)/2}[p_1]=b^{(n-1)/2}[p_1]=c^{(n-1)/2}[p_1]$, $r_i(a)=r_i(b)=r_i(c)$ pour tout $i\in \llbracket 1,k\rrbracket\setminus \{2\}$. En revanche $-1=\left(\frac{r_2(b)}{p_2}\right)\neq \left(\frac{r_2(c)}{p_2}\right)=1$. On a donc $\left(\frac{b}{n}\right)\neq \left(\frac{c}{n}\right)$, donc \eqref{e_rel} n'est pas satisfaite pour $b$ et $c$ simultanément. On aboutit à une contradiction.
+
+
 
 \begin{comment}
 \item[$5.$] Soit $n= (6k+1)(12k+1)(18k+1)$. Vérifions que $6k \mid (n-1)$, $12k \mid (n-1)$ et $18k \mid (n-1)$, ce qui équivaut à vérifier que $36 k \mid (n-1)$.\\
