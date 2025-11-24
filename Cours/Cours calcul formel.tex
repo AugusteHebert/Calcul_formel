@@ -2372,7 +2372,7 @@ Réciproquement, on suppose que l'on connaît $n,e$ et $d$. On va montrer commen
 Comme $ed \equiv 1 [\varphi]$, il existe $k \in \mathbb{Z}$ tel que $1=ed + k \varphi$, donc si $a \in (\mathbb{Z}/n\mathbb{Z})^{\times}  $, on a $a^{ed-1}\equiv 1 [n]$. Décomposons à  présent $ed-1$ sous la forme $ed-1=2^s t$ où $s \in \mathbb{N}$ et $t$ impair.
 
 
-Pour cela, on se base sur le lemme suivant. Si $x\in \Z$ et $\ell\in \N$, on note $x[\ell]$ l'image de $x$ dans $\Z/\ell\Z$. On note $f:\Z/n\Z\rightarrow \Z/p\Z\times \Z/q\Z$ l'isomorphisme chinois, définit par $f(x[n])=(x[p],x[q])$ pour $x[n]\in \Z/n\Z$. 
+Pour cela, on se base sur le lemme suivant. Si $x\in \Z$ et $\ell\in \N$, on note $x[\ell]$ l'image de $x$ dans $\Z/\ell\Z$. On note $f:\Z/n\Z\rightarrow \Z/p\Z\times \Z/q\Z$ l'isomorphisme chinois, défini par $f(x[n])=(x[p],x[q])$ pour $x[n]\in \Z/n\Z$. 
 
 \begin{lemme}\label{l_fact_n}
 Soit $b\in \Z$. On suppose que $b^2\equiv 1[n]$ et $b\not \equiv \pm 1[n]$. Alors $(b-1)\wedge n$ est un diviseur non trivial de $n$. 
@@ -2388,7 +2388,7 @@ L'idée est alors de trouver $a\in \Z/n\Z$ tel que :\begin{enumerate}
 
 \item il existe $j\in \llbracket 1,s\rrbracket$ tel que $a^{2^{j-1}t}\neq \pm 1[n]$ et $a^{2^jt}=1[n]$.
 \end{enumerate}
-On peut alors appliquer le lemme~\ref{l_fact_n} à $a^{2^{j-1}t}$, ce qui permet de factoriser $n$. Il suffit donc de voir qu'il est possible de trouver $a$ satisfaisant les deux propriétés précédentes. On va montrer qu'au moins $3/8$ éléments de $(Z/n\Z)^\times$ satisfont cette propriété (voir \eqref{e_suffisament}). Il suffit  donc de choisir des éléments de $(\Z/n\Z)^\times$ au hasard et de tester s'ils satisfont cette propriété. La suite de la partie est dédiée à la preuve de \eqref{e_suffisament}.
+On peut alors appliquer le lemme~\ref{l_fact_n} à $a^{2^{j-1}t}$, ce qui permet de factoriser $n$. Il suffit donc de voir qu'il est possible de trouver $a$ satisfaisant les deux propriétés précédentes. On va montrer qu'au moins $3/8$ éléments de $(\Z/n\Z)^\times$ satisfont cette propriété (voir \eqref{e_suffisament}). Il suffit  donc de choisir des éléments de $(\Z/n\Z)^\times$ au hasard et de tester s'ils satisfont cette propriété. La suite de la partie est dédiée à la preuve de \eqref{e_suffisament}.
 
 
 
@@ -2396,17 +2396,19 @@ On peut alors appliquer le lemme~\ref{l_fact_n} à $a^{2^{j-1}t}$, ce qui permet
 On pose $G=(\Z/n\Z)^\times$.
 
 \begin{lemme}\label{l_X_G}
-Soit $X=\{a\in G^\times\mid a^t\neq \overline{1}\}$. Alors $|X|\geq \frac{3}{4}\varphi$.
+Soit $X=\{a\in G\mid a^t\neq \overline{1}\}$. Alors $|X|\geq \frac{3}{4}\varphi$.
 \end{lemme}
 
 \begin{proof}
-Soit $H=\{a\in G\mid a^t=\overline{1}\}$. Alors $H$ est un sous-groupe de $G$. Soit $f:G\rightarrow (\Z/p\Z)^\times \times (\Z/q\Z)^{\times}$ définie par $f(x[n])=(x[p],x[q])$, pour $x\in \Z$ tel que $x\wedge n =1$. Soient $\epsilon_1=f^{-1}((-1[p],1[q])$ et $\epsilon_2=f^{-1}((1[p],-1[q]))=-\epsilon_1$. Comme $t$ est impair, on a $(1[n])^t=1[n]$, $(-1[n])^t=-1[n]$, $\epsilon_1^t=f^{-1}((-1[p],1[q])^t)=f^{-1}((-1[p],1[q]))=\epsilon_1$ et $\epsilon_2^t=f^{-1}(1[p],-1[q])^t)=f^{-1}(1[p],-1[q])=\epsilon_2$. On en déduit que les images de $1[n],-1[n],\epsilon_1$ et $\epsilon_2$ dans $G/H$ sont distinctes. En particulier, $|G/H|\geq 4$, donc $|H|\leq 1/4 |G|$. On a $X=G\setminus H=\bigsqcup_{gH\in  G/H\setminus \{H\}}gH$, donc \[|X|=(|G/H|-1)|H|=|G|-|H|\geq 3/4 |G|.\]
+Soit $\psi:G\rightarrow G$ défini par $\psi(a)=a^t$, pour $a\in G$.   Soit $H=\ker(\psi)$. On a $|G|=|\ker(\psi)||\mathrm{Im}(\psi)|=|H||\mathrm{Im}(\psi)|$, donc $|G/H|=\mathrm{Im}(\psi)$. Comme $X=G\setminus H$, on a \[X=|G|-|H|=(1-|H|/|G|)|G|=(1-1/|\mathrm{Im}(\psi)|)|G|.\]  
+
+
+Si $y\in \{(\pm 1[p],\pm 1[q])\}\subset \Z/p\Z\times \Z/q\Z$, $y^t=y$, car $t$ est impair, donc si $x\in \{f^{-1}(\pm1[p],1[q])\}\subset G$, on a $x^t=x$, donc $x\in \mathrm{Im}(\psi)$. On en déduit que $|\mathrm{Im}(\psi)|\geq 4$ et donc $|X|\geq 3/4 |X|$. 
 \end{proof}
 
 Pour $a\in G$, on a $a^\varphi=\overline{1}$, donc $a^{2^st}=\overline{1}$. Si $j\in \llbracket 1,s\rrbracket$, on pose \[X_j=\{a\in X\mid a^{2^{j-1}t}\neq \overline{1}, a^{2^j t}=\overline{1}\}.\] On a \[X=\bigsqcup_{j=1}^s X_j.\]
 
 
-Soit \[Y= \{a\in X\mid \exists j\in \llbracket 1,s\rrbracket, a^{2^{j-1}t}\neq \pm \overline{1}, a^{2^jt}=\overline{1}.\] Si $j\in \llbracket 1,s\rrbracket$, on pose $Y_j=Y\cap Y_j$. 
 
 
 
@@ -2420,17 +2422,18 @@ Soit $j\in \llbracket 1,s\rrbracket$ tel que $X_j\neq \emptyset$. Alors $j\leq s
 \end{lemme}
 
 \begin{proof}
-Soit  $a\in X_j$. Soit $b=a^t\in G$.  On a $b^{2^{j-1}}\neq \overline{1}$, donc $f(b^{2^{j-1}})\neq (1[p],1[q])$. Autrement dit,  $b^{2^{j-1}}[p]\neq 1[p]$ ou $b^{2^{j-1}}[q]\neq 1[q]$. On a donc $b[p]$ d'ordre $2^j$ ou $b[q]$ d'ordre $2^j$. On a donc $2^j| (p-1)$ ou $2^j|(q-1)$, d'après le théorème de Lagrange. 
+Soit  $a\in X_j$. Soit $b=a^t\in G$.  On a $b^{2^{j-1}}\neq \overline{1}$, donc $f(b^{2^{j-1}})\neq (1[p],1[q])$. Autrement dit,  $b^{2^{j-1}}[p]\neq 1[p]$ ou $b^{2^{j-1}}[q]\neq 1[q]$. On a donc $b[p]$ d'ordre $2^j$ ou $b[q]$ d'ordre $2^j$. On en déduit que $2^j| (p-1)$ ou $2^j|(q-1)$, d'après le théorème de Lagrange. 
 \end{proof}
 
 \begin{lemme}\label{l_Y_X}
+Soit $Y= \{a\in X\mid \exists j\in \llbracket 1,s\rrbracket, a^{2^{j-1}t}\neq \pm \overline{1}, a^{2^jt}=\overline{1}\}.$
 On a $|Y|\geq \frac{1}{2}|X|$.
 \end{lemme} 
 
 \begin{proof}
-Soit $j\in \llbracket 1,s\rrbracket$ tel que $X_j\neq \emptyset$. Comme $((\Z/q\Z)^\times,.)$ est cyclique d'ordre $q-1$, on peut choisir un générateur $\alpha$ de $(\Z/q\Z)^\times$. Soit $\beta=\alpha^{2^{s_q-j}t_q}\in (\Z/q\Z)^\times$ (par le lemme~\ref{l_ineq_j}, $s_q-j\geq 0$). Alors $\beta$ est d'ordre $2^j$. On a donc $(\beta^{2^{j-1}})^2=1[q]$ et $\beta^{2^{j-1}}\neq 1[q]$. Comme $\Z/q\Z$ est un corps, on en déduit que $\beta^{2^{j-1}}=-1[q]$. 
+ Si $j\in \llbracket 1,s\rrbracket$, on pose $Y_j=Y\cap Y_j$. On a alors $Y_j=\{a\in X\mid a^{2^{j-1}t}\neq  \pm \overline{-1}, a^{2^j t}=\overline{1}\}$.  Soit $j\in \llbracket 1,s\rrbracket$ tel que $X_j\neq \emptyset$. Comme $((\Z/q\Z)^\times,.)$ est cyclique, on peut choisir un générateur $\alpha$ de $(\Z/q\Z)^\times$. Soit $\beta=\alpha^{2^{s_q-j}t_q}\in (\Z/q\Z)^\times$ (par le lemme~\ref{l_ineq_j}, $s_q-j\geq 0$). Alors $\beta$ est d'ordre $2^j$. On a donc $(\beta^{2^{j-1}})^2=1[q]$ et $\beta^{2^{j-1}}\neq 1[q]$. Comme $\Z/q\Z$ est un corps, on en déduit que $\beta^{2^{j-1}}=-1[q]$ (par le corollaire~\ref{corRacines_carrées_moins_un}). 
 
- Soit $\eta_j=f^{-1}(1[p],\beta)\in G$. Montrons que $|Y_j|\geq |X_j|/2$. Si $X_j=Y_j$, c'est clair. Supposons que $X_j\neq Y_j$. Soit $a\in X_j\setminus Y_j$. On a $a^{2^{j-1}t}=-1[n]$. On a $(a\eta_j)^{2^jt}=a^{2^jt}=1[n]$. On a également $(a\eta_j)^{2^{j-1}t}=a^{2^{j-1}t} (\eta_j)^{2^{j-1}t}$. On a  \[f(\eta_j^{2^{j-1}t})=(1[p],\beta^{2^{j-1}t})=(1[p],(-1)^t[q])=(1[p],-1[q]),\] donc $\eta_j^{2^{j-1}t}=f^{-1}(1[p],-1[q])$. On a donc $f((a\eta_j)^{2^{j-1}t})=(-1[p],1[q])\neq f(-1[n])$, donc $a\eta_j\in Y_j$. On a donc montré : \[\eta_j \cdot (X_j\setminus X_j)\subset Y_j,\] donc $|Y_j|\geq 1/2 |X_j|$.  
+ Montrons que $|Y_j|\geq |X_j|/2$. Si $X_j=Y_j$, c'est clair. Supposons que $X_j\neq Y_j$. Soit $\eta_j=f^{-1}(1[p],\beta)\in G$. Soit $a\in X_j\setminus Y_j$. On a $a^{2^{j-1}t}=-1[n]$ et  $(a\eta_j)^{2^jt}=a^{2^jt}=1[n]$. On a également $(a\eta_j)^{2^{j-1}t}=a^{2^{j-1}t} (\eta_j)^{2^{j-1}t}$. On a  \[f(\eta_j^{2^{j-1}t})=(1[p],\beta^{2^{j-1}t})=(1[p],(-1)^t[q])=(1[p],-1[q]),\] donc $\eta_j^{2^{j-1}t}=f^{-1}(1[p],-1[q])$. On a donc $f((a\eta_j)^{2^{j-1}t})=(-1[p],1[q])\neq f(-1[n])$, donc $a\eta_j\in Y_j$. On a donc montré : \[\eta_j \cdot (X_j\setminus Y_j)\subset Y_j,\] donc $|Y_j|\geq 1/2 |X_j|$.  
  
  Comme $Y_j=\bigsqcup_{j=1}^s Y_j$ et $X=\bigsqcup_{j=1}^s X_j$, on en déduit que $|Y|\geq 1/2 |X|$. 
 \end{proof}
@@ -2440,24 +2443,6 @@ En combinant les lemmes~\ref{l_X_G} et \ref{l_Y_X}, on en déduit : \begin{equat
 \end{equation}
 
 
-\begin{lemme}\label{lemProba}
-Soit $a\in (\Z/n\Z)^\times$. Alors la probabilité que $a^t\neq 1$ et qu'il existe $j\in \llbracket 1,s\rrbracket$ tel que $a^{2^{j-1}t}\neq \pm\overline{1}$ et $a^{2^jt}=\overline{1}$ est supérieure ou égale à  $\frac{3}{8}$.
-\end{lemme}
-
-
-\begin{proof}
-Soit $X=\{a\in (\Z/n\Z)^\times\mid a^t=\overline{1}\}$. Soient $\phi:\Z/n\Z\rightarrow \Z/p\Z\times \Z/q\Z$ l'isomorphisme chinois et $X'=\phi(X)=\{(x_1,x_2)\in \Z/p\Z\times \Z/q\Z\mid(x_1^t,x_2^t)=(\overline{1},\overline{1})\}$. Soit $a=(a_1,a_2)\in X'$. Alors $O(a):=\{a,(a_1,-a_2),(-a_1,a_2),-a\}$ vérifie $O(a)\cap X=\{a\}$. En effet soit $\epsilon_1,\epsilon_2\in \{-1,1\}$.  Alors $(\epsilon_1 a_1,\epsilon_2  a_2)^t=(\epsilon_1 a_1^t,\epsilon_2 a_2^t)=(\overline{\epsilon_1},\overline{\epsilon_2})$, par hypothèse sur $a$. Le seul choix permettant d'obtenir $(\epsilon_1 a_1,\epsilon_2 a_2)\in X'$ est donc $\epsilon_1=\epsilon_2=1$. 
-
-De plus, comme $X'\subset (\Z/p\Z\times \Z/q\Z)^\times=(\Z/p\Z)^\times \times (\Z/q\Z)^\times \simeq \Z/(p-1)\Z\times \Z/(q-1)\Z$, $\{a,-a,\pm(a_1,-a_2)\}=4$. Soit maintenant $b=(b_1,b_2)\in X$. Supposons que $O(a)\cap O(b)\neq \emptyset$. Alors il existe $\epsilon_1,\epsilon_2,\epsilon_1',\epsilon_2'\in \{-1,1\}$ tel que $(\epsilon_1a_1,\epsilon_2 a_2)=(\epsilon'_1 b_1,\epsilon'_2 b_2)$.  On a donc $a=(\epsilon_1\epsilon_1' b_1,\epsilon_2\epsilon_2' b_2)$. Comme $a^t=b^t=(\overline{1},\overline{1})$ et que $t$ est impair, on en déduit que $\epsilon_1\epsilon_1'=1$ et $\epsilon_2\epsilon_2'=1$ et donc $\epsilon_1=\epsilon_1'$ et $\epsilon_2=\epsilon_2'$. Donc $a=b$. On a donc $\bigsqcup_{a\in X'}O(a)\subset \phi\big((\Z/n\Z)^\times\big)$. En prenant les cardinaux, on obtient que $4|X'|=4|X|\leq |\phi\big((\Z/n\Z)^\times\big)|=|(\Z/n\Z)^\times|$. Soit maintenant $Y=(\Z/n\Z)^\times \setminus X$.  Soit $Z=\{a\in Y\mid\exists j\in \llbracket 1,s\rrbracket\mid a^{2^{j-1}}\neq \pm\overline{1}\text{ et }a^{2^j}=\overline{1}\}$. On verra en TD que $|Z|\geq \frac{|Y|}{2}$. On a donc $|Z|\geq \frac{|Y|}{2}=\frac{\varphi(n)-|X|}{2}\geq \frac{\varphi(n)-1/4\varphi(n)}{2}=\frac{3\varphi(n)}{8}$. 
-\end{proof}
- 
-
-
-Soient $x$ et $j$ deux entiers tels que $a=\overline{x}$ et $j$ soient comme dans le lemme~\ref{lemProba}. Alors $(x^{2^{j-1}t}-1)\wedge n$ est un facteur non trivial de $n$. En effet, $\overline{x^{2^j t}-1} =\overline{(x^{2^{j-1}t}-1)}\overline{(x^{2^{j-1}t}+1)} =\overline{0}$ et $\overline{(x^{2^{j-1}t}-1)},\overline{(x^{2^{j-1}t}+1)}\neq \overline{0}$ dans $\Z/n\Z$. On en déduit que $\overline{x^{2^j t}-1}$ et $\overline{x^{2^j t}+1}$ ne sont pas inversibles dans $\Z/n\Z$ et donc que $(x^{2^{j-1}t}+1)$ et $(x^{2^{j-1}t}-1)$ ne sont pas premiers avec $n$.\\
-Il suffit alors de choisir aléatoirement des entiers $x$ jusqu'à  ce qu'on obtienne un facteur non trivial de $n$ pour factoriser $n$.
-
-
- \newpage 
  
 
  
