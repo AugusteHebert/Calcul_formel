@@ -40,7 +40,7 @@
 \fancyhead{}
  \fancyfoot{}
 
- \lhead{ 2023/2024 \\  L3 Mathématiques
+ \lhead{ 2025/2026 \\  L3 Mathématiques
 }
 \chead{\textbf{ Calcul formel}\\} 
  \rhead{  Université de Lorraine \\}
@@ -56,6 +56,7 @@
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\md}{\mathrm{\ mod\ }}
+\newcommand{\ja}[2]{\left(\frac{#1}{#2}\right)}
 
 
 \thispagestyle{fancy}
@@ -72,13 +73,14 @@
 
 \
 
-
+\begin{comment}
 \
 \begin{ex}
 Déterminer l'ensemble des solutions de l'équation $x^2+\overline{3}x+\overline{6}=\overline{0}$, d'inconnue $x\in \Z/23\Z$.
 \end{ex}
-
 % Les solutions sont $\overline{5}$ et $\overline{15}$.
+\end{comment}
+
 
 
 \begin{ex}\label{exemple_RSA} \
@@ -164,6 +166,61 @@ On suppose que $k$ personnes $B_1, \ldots, B_k$ ont pour exposant public RSA $e 
 \end{ex}
 
 
+\begin{ex}{Test de primalité de Lucas-Lehmer pour les nombres de Mersenne}
+
+\begin{enumerate}
+\item Soient $a$ et $n\in \N_{\geq 2}$ tels que $a^n-1$ est premier. Montrer que $a=2$ et que $n$ est premier.
+
+Soient $p$ un nombre premier impair et $M=2^p-1$. On pose $s_0=4$ et $s_{k+1}=s_k^2-2$ pour $k\in \N$. L'objectif est de démontrer le théorème suivant : \begin{equation}
+(*) M\text{ est premier si et seulement si }s_{p-2}\equiv 0[M].
+\end{equation}
+
+
+\item Donner une majoration de la complexité d'un test de primalité de $M$ utilisant $(*)$ en fonction  de la taille de $M$.
+
+On pose $\omega=2+\sqrt{3}$ et $\overline{\omega}=2-\sqrt{3}$.
+
+\item Vérifier que $s_k=\omega^{2^k}+\overline{\omega}^{2^k}$ pour tout $k\in \N$.
+
+\item Supposons que $s_{p-2}\equiv 0[M]$. Soit $k\in \N$ tel que $s_{p-2}=kM$. Montrer que $\omega^{2^{p-1}}=kM\omega^{2^{p-2}}-1$.
+
+  On suppose que $M$ n'est pas premier et que $s_{p-2}\equiv 0[M]$. Soit $q$ le plus petit facteur (impair) premier de $M$. Soit $X$ l'anneau $\Z[\sqrt{3}]/q\Z[\sqrt{3}]$. Si $x=(a,b)\in \mathbb{F}_q^2$, on note $x=a+b\sqrt{3}$ et on note $\mathbb{F}_q\oplus \mathbb{F}_q \sqrt{3}$ au lieu de $\mathbb{F}_q^2$.
+
+\item Soit $\phi:X\rightarrow \mathbb{F}_q\oplus \mathbb{F}_q \sqrt{3}$ définie par : \[\phi(a+b\sqrt{3}+q\Z[\sqrt{3}])=a[q]+b[q]\sqrt{3},\] pour tous $a,b\in \Z$. Montrer que $\phi:(X,+)\rightarrow ( \mathbb{F}_q\oplus \mathbb{F}_q \sqrt{3},+)$ est un isomorphisme de groupes. Est-ce un morphisme d'anneaux ?
+
+\begin{enumerate}
+\item[a)] Quel est le cardinal de $X$ ?
+ Soit $\pi: \Z[\sqrt{3}]\twoheadrightarrow X$ la projection canonique.
+
+
+\item[b)] Montrer que $\pi(\omega)$ est d'ordre $2^p$ dans $X^\times$.
+
+\item[c)]  Aboutir à une contradiction.
+\end{enumerate}
+
+
+
+\item  On suppose maintenant que $M$ est premier.
+\begin{enumerate}
+\item Montrer que $\ja{3}{M}=-1$ (où $\ja{\cdot}{\cdot}$ désigne le symbole de Legendre).
+
+\item Montrer que $\ja{2}{M}=1$ (on pourra montrer directement que $2$ est un carré modulo $M$ en partant de $2^p\equiv 1[M]$).
+
+Soient $X=\Z[\sqrt{3}]/M\Z[\sqrt{3}]$ et $\pi:\Z[\sqrt{3}]\twoheadrightarrow X$ la projection canonique. Soit $\sigma=2\sqrt{3}$.
+
+\item Montrer que $\pi\big((6+\sigma)^M\big)=\pi(6-\sigma).$
+
+\item Montrer que $\omega=\frac{(6+\sigma)^2}{24}$. Montrer que $\pi(\omega^{(M+1)/2})=\pi(-1)$ (on pourra utiliser le fait que $24^{(M-1)/2}=(2^{(M-1)/2})^3.3^{(M-1)/2}$).
+
+\item Conclure en multipliant chaque membre de l'égalité par $\overline{\omega}^{(M+1)/4}$.
+\end{enumerate}
+
+\end{enumerate}
+
+\end{ex}
+
+\begin{comment}
+
 \begin{ex}\label{Chiffrement_Hill}\ $($Chiffrement de Hill$)$\\
 Dans le chiffrement de Hill, chaque lettre de l'alphabet est représentée par un entier compris entre $0$ et $25$. L'algorithme est un chiffrement par blocs de $m$ lettres, qui transforme un bloc $(x_1, \ldots, x_m)$ en un bloc $(y_1, \ldots, y_m)$ défini par la relation suivante:
 $$ (y_1, \ldots, y_m)=(x_1, \ldots, x_m).A,  $$
@@ -183,9 +240,9 @@ Le déchiffrement d'un bloc se fait en multipliant le bloc chiffré par la matri
 \begin{rem}
 Un des défauts du fait  de chiffrer un message en le chiffrant lettres par lettres est que si l'on a accès à un message chiffré assez long, on peut regarder pour chaque lettre la fréquence à laquelle elle apparaît dans le message et la comparer avec la fréquence de cette lettre dans la langue du message. Le fait de chiffrer par blocs permet de pallier en partie ce problème.
 \end{rem}
+\end{comment}
 
-
-
+\begin{comment}
 \begin{ex}\label{indicatrice_d_Euler}(voir Saux-Picart, \textit{cours de calcul formel})
 
 \begin{enumerate}
@@ -244,7 +301,7 @@ Soient $K$ un corps (commutatif) et $G$ un sous-groupe  de $(K,.)$. On suppose q
 
 \end{ex}
 
-
+\end{comment}
 
 \begin{comment}
 Exercice~\ref{exemple_RSA}

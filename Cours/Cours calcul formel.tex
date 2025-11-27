@@ -2460,7 +2460,7 @@ Par simplicité, on se restreint au cas où $n$ est un produit de nombres impair
 
 Supposons que l'on sache factoriser $n$.  On écrit $n=\prod_{i=1}^k p_i^{\alpha_i}$, où $k\in \N$,  $p_i\in \mathbb{P}$ pour tout $i\in \llbracket 1,k\rrbracket$, $\alpha_i\in \N^*$ pour tout $i\in \llbracket 1,k\rrbracket$ et les $p_i$ sont tous distincts.  Ce problème se réduit, grâce au théorème chinois, à la recherche des racines carrées de $a$ modulo $p_i^{\alpha_i}$, pour tout $i\in \llbracket 1,k\rrbracket$. 
 
-Soit $p\in \mathbb{P}$ et $\alpha\in \N^*$. Nous allons commencer par décrire un algorithme qui permet de trouver une racine carrée de $a$ modulo $p$. Nous verrons ensuite comment en déduire une racine carrée de $a$ modulo $p^\alpha$.
+Soient $a\in \Z$ et $p\in \mathbb{P}_{\geq 3}$. Nous allons commencer par décrire un algorithme qui permet de trouver une racine carrée de $a$ modulo $p$. Nous verrons ensuite comment en déduire une racine carrée de $a$ modulo $p^\alpha$, pour tout $\alpha\in \N^*$.
 
 Cette partie se base sur \cite{demazure2008cours}. 
 
@@ -2543,7 +2543,7 @@ En effet, soit $y\in \mathrm{im}(f)$ et $x_y\in (\Z/p\Z)^*$ tel que $f(x_y)=y$. 
 
 Soient $p\in\mathbb{P}_{\geq 3}$, $\alpha\in \N^*$ et $a\in \Z$. On cherche une racine de $a$ modulo $p^\alpha$. Nous allons partir d'une racine carrée de $a$ modulo $p$, puis nous allons en déduire une racine carrée modulo $p^2$, modulo $p^4$, etc. Par simplicité, nous nous intéresserons au cas où $a$ est inversible modulo $p$. 
 
-Dans le cas $p\neq 2$, nous nous basons sur le lemme suivant, qui est une version simplifiée du lemme de Hensel, qui permet de trouver les racines d'un polynôme de $\Z[X]$ modulo $p^{2n}$ lorsque l'on connaît une racine de $P$ modulo $p^n$ qui n'est pas une racine de $P'$ modulo $p$.
+Nous nous basons sur le lemme suivant, qui est une version simplifiée du lemme de Hensel, qui permet de trouver une racine d'un polynôme de $\Z[X]$ modulo $p^{2n}$ lorsque l'on connaît une racine de $P$ modulo $p^n$ qui n'est pas une racine de $P'$ modulo $p$.
 
 \begin{lemme}\label{lemHensel}(Hensel)
 Soient $P\in  \Z[X]$ et $n\in \N^*$. On suppose qu'il existe $c\in \Z$ tel que $P(c)\equiv 0[p^n]$ et $P'(c)\not \equiv 0[p]$. Alors il existe $c'\in \Z$, unique modulo $p^{2n}$, tel que $c'\equiv c [p^n]$ et  $P(c')\equiv 0[p^{2n}]$. 
@@ -2577,7 +2577,7 @@ Soit $a\in \Z$ et $p\in \mathbb{P}_{\geq 3}$. On suppose que $\left(\frac{a}{p}\
 \end{lemme}
 
 \begin{proof}
-  Soit $P=X^2-a\in \Z[X]$. Soit $\gamma_0\in \Z$ tel que $P(\gamma_0)\equiv 0[p]$. Alors $P'(\gamma_0)=2\gamma_0$. Comme $p$ ne divise pas $a$, $p$ ne divise pas $\gamma_0$. Par récurrence, en utilisant le lemme~\ref{lemHensel}, on en déduit une suite $(\gamma_k)\in \Z^{\N^*}$ telle que pour tout $k\in \N^*$, on ait $\gamma_{k+1}\equiv \gamma_k [p^{2^k}]$ et $P(\gamma_k)\equiv 0[p^{2^k}]$. 
+  Soit $P=X^2-a\in \Z[X]$. Soit $\gamma_0\in \Z$ tel que $P(\gamma_0)\equiv 0[p]$. Alors $P'(\gamma_0)=2\gamma_0$. Comme $p$ ne divise pas $a=\gamma_0^2$, $p$ ne divise pas $\gamma_0$. Par récurrence, en utilisant le lemme~\ref{lemHensel}, on en déduit une suite $(\gamma_k)\in \Z^{\N^*}$ telle que pour tout $k\in \N^*$, on ait $\gamma_{k+1}\equiv \gamma_k [p^{2^k}]$ et $P(\gamma_k)\equiv 0[p^{2^k}]$. 
   
   Soit $k\in \N$ tel que $2^k\geq n$. Alors il existe $m\in \Z$ tel que $\gamma_k^2+m p^{2^k}=a=\gamma_k^2+p^n.p^{2^k-n}m$, donc $\gamma_k$ est une racine carrée de $a$ modulo $p^n$. 
 \end{proof}
@@ -2590,6 +2590,24 @@ Soit $a\in \Z$ impair et $\alpha\in \N_{\geq 3}$. Alors $a$ est un résidu quadr
 \end{lemme}
 
 \end{comment}
+
+
+
+\begin{Prop}
+Soient $p\in \mathbb{P}_{\geq 3}$ , $\alpha\in \N^*$ et $a\in \Z$.  On écrit $a=p^k a'$, où $k\in \llbracket 0,\alpha-1\rrbracket$ et $a'\in \Z$ vérifie $a'\wedge p=1$. Alors $a$ est un carré modulo $p^\alpha$ si et seulement les conditions suivantes sont vérifiées : \begin{equation}
+\item 
+\end{equation}
+
+ Alors $x$ est un carré modulo $p^\alpha$ si et seulement si $k$ est pair et $a'$ est un carré modulo $p$.
+
+
+\end{Prop}
+
+\begin{proof}
+ On le démontre par récurrence sur $k$. On suppose que pour tout $\tilde{\alpha}\in \llbracket 0,\alpha-1\rrbracket$, pour tout $\tilde{k}\in \llbracket 0,\tilde{\alpha}-1\rrbracket$, pour tout $\tilde{a}\in \llbracket 0,p^{\tilde{\alpha}-\tilde{k}}-1\rrbracket$ tel que $\tilde{a}\wedge p=1$, $p^{\tilde{k}}\tilde{a}$ admet une racine carrée modulo $p^{\tilde{\alpha}}$, alors $\tilde{k}$ est pair et $\tilde{a}$ est un carré modulo $p$.    Si $k=0$, c'est une conséquence du lemme~\ref{lemExistence_racine_modulo_pAlpha_inversible}. Supposons que $k\geq 1$. Supposons qu'il existe une racine $\gamma$ de $a$ modulo $p^\alpha$. Alors il existe $\ell\in \Z$ tel que $\gamma^2=a+\ell p^\alpha=p^k a'+\ell p^\alpha$. On en déduit que $p$ divise $\gamma^2$. D'après le lemme d'Euclide, $p$ divise  $\gamma$. On peut donc écrire $\gamma=p \gamma'$, où $\gamma'\in \Z$. Alors $p^2\gamma'^2=p^k a'+\ell p^\alpha$. On a donc $p\gamma'-\ell p^{\alpha-1}=p^{k-1} a'$. Comme $\alpha>k>1$, on en déduit que $p$ divise $p^{k-1}a'$, donc $p$ divise $p^{k-1}$, d'après le lemme de Gauss. On a donc $k\geq 2$. Alors \[\gamma'^2=p^{k-2} a'+\ell p^{\alpha-2}.\] D'après l'hypothèse de récurrence, on en déduit que $k-2$ est pair et que $a'$ est un carré modulo $p$.
+
+Réciproquement, supposons que $k$ est pair et que $a'$ est un carré modulo $p$. D'après le lemme~\ref{lemExistence_racine_modulo_pAlpha_inversible}, il existe $\gamma',\ell'\in \Z$ tel que $\gamma'^2=a'+\ell'p^{\alpha-k}$. Alors $(p^{k/2}\gamma')^2=p^k(a'+\ell'p^{\alpha-k})=p^k\alpha+\ell' p^\alpha$. Donc $a$ est bien un carré modulo $p^\alpha$, ce qui démontre (1). 
+\end{proof}
 
 
 \begin{Prop}
