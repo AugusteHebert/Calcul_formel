@@ -2594,35 +2594,29 @@ Soit $a\in \Z$ impair et $\alpha\in \N_{\geq 3}$. Alors $a$ est un résidu quadr
 
 
 \begin{Prop}
-Soient $p\in \mathbb{P}_{\geq 3}$ , $\alpha\in \N^*$ et $a\in \Z$.  On écrit $a=p^k a'$, où $k\in \llbracket 0,\alpha-1\rrbracket$ et $a'\in \Z$ vérifie $a'\wedge p=1$. Alors $a$ est un carré modulo $p^\alpha$ si et seulement les conditions suivantes sont vérifiées : \begin{equation}
-\item 
-\end{equation}
+Soient $p\in \mathbb{P}_{\geq 3}$ , $\alpha\in \N^*$ et $a\in \Z\setminus p^\alpha\Z$.  On écrit $a=p^k a'$, où $k\in \llbracket 0,\alpha-1\rrbracket$ et $a'\in \Z$ est premier avec $p$. Alors $a$ est un carré modulo $p^\alpha$ si et seulement les conditions suivantes sont vérifiées : \begin{enumerate}
+\item $\left(\frac{a'}{p}\right)=1$, autrement dit, $a$ est un carré modulo $p$,
 
- Alors $x$ est un carré modulo $p^\alpha$ si et seulement si $k$ est pair et $a'$ est un carré modulo $p$.
+\item $k$ est pair.
+\end{enumerate}
 
-
-\end{Prop}
-
-\begin{proof}
- On le démontre par récurrence sur $k$. On suppose que pour tout $\tilde{\alpha}\in \llbracket 0,\alpha-1\rrbracket$, pour tout $\tilde{k}\in \llbracket 0,\tilde{\alpha}-1\rrbracket$, pour tout $\tilde{a}\in \llbracket 0,p^{\tilde{\alpha}-\tilde{k}}-1\rrbracket$ tel que $\tilde{a}\wedge p=1$, $p^{\tilde{k}}\tilde{a}$ admet une racine carrée modulo $p^{\tilde{\alpha}}$, alors $\tilde{k}$ est pair et $\tilde{a}$ est un carré modulo $p$.    Si $k=0$, c'est une conséquence du lemme~\ref{lemExistence_racine_modulo_pAlpha_inversible}. Supposons que $k\geq 1$. Supposons qu'il existe une racine $\gamma$ de $a$ modulo $p^\alpha$. Alors il existe $\ell\in \Z$ tel que $\gamma^2=a+\ell p^\alpha=p^k a'+\ell p^\alpha$. On en déduit que $p$ divise $\gamma^2$. D'après le lemme d'Euclide, $p$ divise  $\gamma$. On peut donc écrire $\gamma=p \gamma'$, où $\gamma'\in \Z$. Alors $p^2\gamma'^2=p^k a'+\ell p^\alpha$. On a donc $p\gamma'-\ell p^{\alpha-1}=p^{k-1} a'$. Comme $\alpha>k>1$, on en déduit que $p$ divise $p^{k-1}a'$, donc $p$ divise $p^{k-1}$, d'après le lemme de Gauss. On a donc $k\geq 2$. Alors \[\gamma'^2=p^{k-2} a'+\ell p^{\alpha-2}.\] D'après l'hypothèse de récurrence, on en déduit que $k-2$ est pair et que $a'$ est un carré modulo $p$.
-
-Réciproquement, supposons que $k$ est pair et que $a'$ est un carré modulo $p$. D'après le lemme~\ref{lemExistence_racine_modulo_pAlpha_inversible}, il existe $\gamma',\ell'\in \Z$ tel que $\gamma'^2=a'+\ell'p^{\alpha-k}$. Alors $(p^{k/2}\gamma')^2=p^k(a'+\ell'p^{\alpha-k})=p^k\alpha+\ell' p^\alpha$. Donc $a$ est bien un carré modulo $p^\alpha$, ce qui démontre (1). 
-\end{proof}
-
-
-\begin{Prop}
-Soient $p\in \mathbb{P}_{\geq 3}$ , $\alpha\in \N^*$ et $a\in \llbracket 0,p^\alpha-1\rrbracket$. On écrit $a=p^k a'$, où $k\in \llbracket 0,\alpha-1\rrbracket$ et $a'\in \llbracket 0,p^{\alpha-k}-1\rrbracket$ vérifie $a'\wedge p=1$.
-
- Alors $x$ est un carré modulo $p^\alpha$ si et seulement si $k$ est pair et $a'$ est un carré modulo $p$.
 
 
 \end{Prop}
 
 \begin{proof}
- On le démontre par récurrence sur $k$. On suppose que pour tout $\tilde{\alpha}\in \llbracket 0,\alpha-1\rrbracket$, pour tout $\tilde{k}\in \llbracket 0,\tilde{\alpha}-1\rrbracket$, pour tout $\tilde{a}\in \llbracket 0,p^{\tilde{\alpha}-\tilde{k}}-1\rrbracket$ tel que $\tilde{a}\wedge p=1$, $p^{\tilde{k}}\tilde{a}$ admet une racine carrée modulo $p^{\tilde{\alpha}}$, alors $\tilde{k}$ est pair et $\tilde{a}$ est un carré modulo $p$.    Si $k=0$, c'est une conséquence du lemme~\ref{lemExistence_racine_modulo_pAlpha_inversible}. Supposons que $k\geq 1$. Supposons qu'il existe une racine $\gamma$ de $a$ modulo $p^\alpha$. Alors il existe $\ell\in \Z$ tel que $\gamma^2=a+\ell p^\alpha=p^k a'+\ell p^\alpha$. On en déduit que $p$ divise $\gamma^2$. D'après le lemme d'Euclide, $p$ divise  $\gamma$. On peut donc écrire $\gamma=p \gamma'$, où $\gamma'\in \Z$. Alors $p^2\gamma'^2=p^k a'+\ell p^\alpha$. On a donc $p\gamma'-\ell p^{\alpha-1}=p^{k-1} a'$. Comme $\alpha>k>1$, on en déduit que $p$ divise $p^{k-1}a'$, donc $p$ divise $p^{k-1}$, d'après le lemme de Gauss. On a donc $k\geq 2$. Alors \[\gamma'^2=p^{k-2} a'+\ell p^{\alpha-2}.\] D'après l'hypothèse de récurrence, on en déduit que $k-2$ est pair et que $a'$ est un carré modulo $p$.
+Si $k=0$, le résultat est vrai, d'après le lemme~\ref{lemExistence_racine_modulo_pAlpha_inversible}. On suppose donc $k\geq 1$. 
 
-Réciproquement, supposons que $k$ est pair et que $a'$ est un carré modulo $p$. D'après le lemme~\ref{lemExistence_racine_modulo_pAlpha_inversible}, il existe $\gamma',\ell'\in \Z$ tel que $\gamma'^2=a'+\ell'p^{\alpha-k}$. Alors $(p^{k/2}\gamma')^2=p^k(a'+\ell'p^{\alpha-k})=p^k\alpha+\ell' p^\alpha$. Donc $a$ est bien un carré modulo $p^\alpha$, ce qui démontre (1). 
+On démontre le résultat par récurrence sur $\alpha$. Si $\alpha=1$, on a nécessairement $k=0$ et le résultat découle de la définition du symbole de Legendre.  Soit $\alpha\in \N_{\geq 2}$. On suppose le résultat vrai pour tout $\alpha'\in \llbracket 1,\alpha-1\rrbracket$. 
+
+Supposons que $a$ est un carré modulo $p^\alpha$. Soit $\gamma$ une racine de $a$ modulo $p^\alpha$. Alors \begin{equation}\label{e_div}
+p\alpha\mid  p^k a'-\gamma^2.
+\end{equation} Comme $\alpha>1$, on en déduit que $p|p^ka'-\gamma^2$ et comme $k>0$, $p|\gamma^2$. Comme $p$ est premier, cela implique que $p$ divise $\gamma$. On peut donc écrire $\gamma=p \gamma'$. D'après \eqref{e_div}, comme $\alpha\geq 2$, on a $p^2| (p^{k}a'-p^2\gamma')$, donc $p^2|p^{k}a'$. Comme $a'\wedge p=1$, $a'\wedge p^2=1$, donc d'après le lemme de Gauss, $p^2|p^k$, donc $k\geq 2$. L'équation \eqref{e_div} devient $p^{\alpha-2}|(p^{k-2}a'-\gamma'^2)$, donc $p^{k-2}a'$ est un carré modulo $p^{\alpha-2}$. Comme $\alpha>k$, $\alpha-2\geq 1$. On peut donc appliquer l'hypothèse de récurrence et on en déduit que 1 et 2 sont satisfaites.
+
+Réciproquement, supposons que 1 et 2 sont satisfaites. D'après le lemme~\ref{lemExistence_racine_modulo_pAlpha_inversible}, il existe une racine $\gamma$ de $a'$ modulo $p^{\alpha-k}$. Soit $\gamma_0$ une racine de $a'$ modulo $p^{\alpha-k}$. Alors $p^{\alpha-k}|(\gamma^2-a')$ donc $p^\alpha| ((\gamma p^{k/2})^2-a'p^k)$ donc $\gamma p^{k/2}$ est une racine de $a$ modulo $p^\alpha$. 
 \end{proof}
+
+
 
 
 
@@ -2642,7 +2636,7 @@ On a montré comment déterminer une racine modulo $n$ si l'on sait factoriser $
 \end{remarque}
 
  
- 
+ \newpage
  
  \section*{Preuves à connaître}
  
