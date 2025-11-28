@@ -28,6 +28,7 @@
 \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
 \newcommand{\hsp}{\hspace{20pt}}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\newcommand{\F}{\mathbb{F}}
 
 \title{}
 
@@ -68,9 +69,6 @@
     \HRule \\[0.5cm]
 \end{center}
 
-\begin{ex}[Algorithme de Cipolla (1907)]
-Soit $p\in \mathbb{P}\setminus\{2\}$. Soit $n\in \F_p$ qui est un carré. Soit $a\in \F_p$ tel que $a^2-n$ n'est pas un carré. Soit $\sqrt{a^2-n}=\overline{X}\in \F_p[X]/(X^2-(a^2-n))=\F_{p^2}$. Montrer que $(a+\sqrt{a^2-n})^{(p+1)/2}\in \F_p$ est une racine carrée de $n$.
-\end{ex}
 
 \begin{ex}\label{exRacines_carrées}
 \begin{enumerate}
@@ -102,5 +100,70 @@ Soit $p\in \mathbb{P}_{\geq 3}$.  Soit $\alpha\in \N^*$.
 \item Déterminer l'ensemble des racines de $0$ modulo $p^\alpha$. 
 \end{enumerate}
 \end{ex}
+
+\begin{ex}[Algorithme de Cipolla (1907)]
+Soit $p\in \mathbb{P}\setminus\{2\}$. Soit $n\in \F_p^\times$.
+\begin{enumerate}
+\item Soit $X=\{(a,b)\in \F_p^2\mid a^2-n=b^2\}$. Montrer que $|X|=(p-1)$.
+
+\textit{Indication : on pourra factoriser $a^2-b^2$ et considérer $X_z:=\{(a,b)\in X\mid a+b=z\}$, pour $z\in \F_p$}
+
+\item Soit $\pi:\F_p^2\rightarrow \F_p$ définie par $\pi((x,y)=x$, pour $x\in \F_p$. Montrer que pour tout $a\in \pi(X)$, $|\{b\in \F_p\mid (a,b)\in X\}|=2$.
+
+
+\item Montrer que $|\{a\in \F\mid a^2-n\text{ n'est pas un carré de }\F_p\}|=(p-1)/2$.
+
+
+On suppose maintenant que $n$ n'est pas un carré.
+
+\item On choisit $a$ au hasard dans $\F_p^\times $. Quelle est la probabilité que $a^2-n$ ne soit pas un carré de $\F_p$ ? Comment vérifier rapidement que $a^2-n$ n'est pas un carré ?
+
+\item Soit $a\in \F_p^\times$ tel que $a^2-n$ n'est pas un carré de $\F_p$.  Soit $\mathbb{K}=\F_p[X]/(X^2-(a^2-n))$, où $X$ est une indeterminée. Montrer que $\mathbb{K}$ est un corps à $p^2$ éléments.
+
+\item Soit $\sqrt{a^2-n}=\overline{X}$. Que vaut $(\sqrt{a^2-n})^2$ ?
+
+\item Montrer que pour tout $\alpha,\beta\in \mathbb{K}$, on a $(\alpha+\beta)^p=\alpha^p+\beta^p$.
+
+\item Montrer que $(a+\sqrt{a^2-n})^{(p+1)/2}\in \mathbb{K}$ est une racine carrée de $n$. Montrer que c'est en fait un élément de $\F_p$.
+
+\item On pose $p=29$, $n=7$ et $a=3$. On se place dans $\Z/p\Z$. Vérifier que $\overline{7}$ est un carré  et $a^2-n=\overline{2}$ n'en est pas un. Déterminer $(\overline{3}+\overline{\sqrt{2}})^{15}$.
+\end{enumerate}
+
+\end{ex}
+
+
+
+\begin{ex}
+Soit $\mathbb{K}$ un corps, $x\in \mathbb{K}$ et $n\in \N^*$. On dit que $x$ est une racine primitive $n$-ème de l'unité si $x^n=1$ et $x$ est d'ordre $n$ dans $\mathbb{K}^\times$.
+
+ Soit $p$ un nombre premier impair. On veut montrer la deuxième loi complémentaire de la loi de réciprocité quadratique, c'est à dire  que $2$ est un carré dans $\F_p$ si et seulement si $p\equiv \pm 1 [8]$.
+
+\begin{enumerate}
+
+
+
+
+
+                                                                                                                                   \item Soit $P$ un facteur irréductible de $X^4+1$ dans $\F_p[X]$. Soit $\mathbb{K}=\F_p[X]/(P)$. Montrer que $\mathbb{K}$ est un corps. Quel est son cardinal ?
+
+                                                                                                                                   \item Soit $\zeta=\overline{X}\in \mathbb{K}$. Montrer que $\zeta$ est une racine primitive $8$-ème de l'unité.
+
+                                                                                                                                   \item Montrer que $(\zeta+\zeta^{-1})^2 =2$.
+
+                                                                                                                                   \item Montrer que $\F_p=\{x\in \mathbb{K}\mid x^p=x\}$.
+
+                                                                                                                                   \item Conclure.
+
+
+
+                                                                                                                                  \end{enumerate}
+
+
+
+
+
+\end{ex}
+
+
 
 \end{document}
