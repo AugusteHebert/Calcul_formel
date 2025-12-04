@@ -64,7 +64,7 @@
 \begin{center}
 %    \HRule \\[0.6cm]
     { \huge \bfseries
-    Feuille de TD n$^{\boldsymbol{\circ}}$6
+    Feuille de TD n$^{\boldsymbol{\circ}}$8
      \\ [0cm] }
     \HRule \\[0.5cm]
 \end{center}
@@ -76,7 +76,7 @@
 
 \item Déterminer une racine de $\overline{8}$ dans $\Z/23^2\Z$ et une racine de $\overline{19}$ dans $\Z/31^2\Z$ (pour déterminer une racine de $\overline{x}$ dans $\Z/p^2\Z$, avec $p\in \mathbb{P}_{\geq 3}$ alors que l'on connaît une racine  $\overline{\gamma_0}$ de $\overline{x}$ dans $\Z/p\Z$, on peut chercher $\gamma$ sous la forme $\gamma_0+pk$, où $k\in \Z$, calculer $(\gamma_0+pk)^2$ puis essayer d'en déduire une valeur de $k$).
 
-\item Déterminer une racine de $\overline{33}$ dans $\Z/44\Z$.
+\item Déterminer l'ensemble des  racines de $\overline{33}$ dans $\Z/44\Z$.
 \end{enumerate}
 \end{ex}
 
@@ -87,6 +87,37 @@
 \item Résoudre l'équation $x^2+x-\overline{1}=\overline{0}$, d'inconnue $x\in \Z/31^2\Z$. 
 \end{enumerate} 
 \end{ex}
+
+
+
+\textbf{Définition : } 
+Soient $A$ un anneau et $\omega:A\rightarrow \Z\cup \{\infty\}$. On dit que $\omega$ est une valuation si on a, pour tous $x,x'\in A$:  \begin{enumerate}
+\item $\omega(x)=\infty$ si et seulement si $x=0$,
+
+\item $\omega(xx')=\omega(x)+\omega(x')$,
+
+\item $\omega(x+x')\geq \min (\omega(x),\omega(x'))$.
+\end{enumerate}
+
+
+
+\textbf{Définition : }
+Soit $p\in \mathbb{P}$. On définit la valuation $p$-adique $\omega_p:\mathbb{Q}\rightarrow \Z\cup \{\infty\}$ de la façon suivante. Si $x=0$, on pose $\omega_p(x)=-\infty$. Si $x\in \mathbb{Q}\setminus \{0\}$, on écrit $x=p^k x' $, avec $k\in \Z$, $x'=\frac{u}{v}$, avec $(u,v)\in \Z\times \Z\setminus \{0\}$ et $u,v$ premiers avec $p$. On pose alors $\omega_p(x)=k$.
+
+\begin{ex}
+\begin{enumerate}
+\item Soit $p\in \mathbb{P}$. Montrer que $\omega_p$ est une valuation de $\Z$. 
+
+\item Soit $\omega:K\rightarrow \Z\cup \{\infty\}$, où $K$ est un corps. Soient $x,x'\in K$. On suppose que $\omega(x)\neq \omega(x')$. Que vaut $\omega(x+x')$ ?
+
+\item Soit $K$ un corps. Donner des exemples de valuations non triviales  sur $K[X]$. 
+
+\item Soit $K$ un corps fini. Déterminer l'ensemble des valuations sur $K$.
+\end{enumerate}
+\end{ex}
+
+
+
 
 \begin{ex}\label{exNombres_racines}
 Soit $p\in \mathbb{P}_{\geq 3}$.  Soit $\alpha\in \N^*$.
@@ -155,14 +186,37 @@ Soit $\mathbb{K}$ un corps, $x\in \mathbb{K}$ et $n\in \N^*$. On dit que $x$ est
 
                                                                                                                                    \item Conclure.
 
+                                                                                                                                \end{enumerate}
+\end{ex}
 
 
-                                                                                                                                  \end{enumerate}
+\begin{ex}(cf Demazure, \textit{cours d'algèbre}, 5.1.4)
+On veut montrer que pour tout $n\in \Z$ impair et  $r\in \N_{\geq 3}$, \begin{equation}\label{e_racines_mod_2r}
+(n\text{ est un carré modulo }2^r)\text{si et seulement si } (n\equiv 1[8]).
+\end{equation} 
+
+\begin{enumerate}
+\item Déterminer l'ensemble des carrés de $\Z/8\Z$. 
+
+\item Soit $n\in \Z$ impair et soit $r\in \N_{\geq 3}$. On suppose que $n$ est un carré modulo $2^r$. Montrer que $n\equiv 1[8]$.
+
+On veut montrer la réciproque, c'est à dire que si $n\in 1+8\Z$, alors $n$ est un carré modulo $2^r$, pour tout $r\in \N$. Soit $n\in 1+8\Z$. On écrit $n=1+8b$, où $b\in \Z$. On cherche une racine $a$ de $n$ sous la forme $a=a(y)=1+4y$, où $y\in \Z$. On définit $N:\Z\rightarrow \Z$ par $N(z)=b-2z^2$, pour $z\in \Z$. 
 
 
+\item Soit $r\in \N_{\geq 3}$. Montrer que $a(y)^2\equiv n[2^r]$ si et seulement si $N(y)\equiv y[2^{r-3}]$. 
 
+On pose $y_0=0$ et on définit $(y_k)\in \Z^\N$ par $y_{k+1}=N(y_k)$, pour $k\in  \N$. 
 
+\item Soient $k\in \N$ et $\ell\in \N^*$. On suppose que $4^\ell|(N(y_k)-y_k)$.  Montrer que $4^{\ell+1}|(N(y_{k+1})-y_{k+1})$. 
 
+\item Montrer \eqref{e_racines_mod_2r}.
+
+\item Soit $n\in \Z$. On écrit $n=2^k n'$, où $n'\in \Z$ est impair et $k\in \N$. Soit $r\in \N_{\geq k+1}$. On suppose que $r\geq 3$.  Montrer que  $n$ est un carré modulo $2^r$ si et seulement si  les deux conditions suivantes sont satisfaites : \begin{enumerate}
+\item $n'\equiv 1 [8]$,
+
+\item $k$ est pair.
+\end{enumerate}
+\end{enumerate}
 \end{ex}
 
 

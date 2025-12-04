@@ -2593,8 +2593,36 @@ Soit $a\in \Z$ impair et $\alpha\in \N_{\geq 3}$. Alors $a$ est un résidu quadr
 
 
 
+
+
+\begin{definition}
+Soient $A$ un anneau et $\omega:K\rightarrow \Z\cup \{\infty\}$. On dit que $\omega$ est une valuation si on a, pour tous $x,x'\in A$:  \begin{enumerate}
+\item $\omega(x)=\infty$ si et seulement si $x=0$,
+
+\item $\omega(xx')=\omega(x)+\omega(x')$,
+
+\item $\omega(x+x')\geq \min (\omega(x),\omega(x')$.
+\end{enumerate}
+
+\end{definition}
+
+
+\begin{definition}
+Soit $p\in \mathbb{P}$. On définit la valuation $p$-adique $\omega_p:\Q\rightarrow \Z\cup \{\infty\}$ de la façon suivante. Si $x=0$, on pose $\omega_p(x)=-\infty$. Si $x\in \Q\setminus \{0\}$, on écrit $x=p^k x' $, avec $k\in \Z$ $x'=\frac{u}{v}$, avec $(u,v)\in \Z\times \Z\setminus \{0\}$ et $u,v$ premiers avec $p$. On pose alors $\omega_p(x)=k$.
+\end{definition}
+
+On peut vérifier (exercice) que si $p\in \mathbb{P}$, alors $\omega_p$ est une valuation sur  $\Z$. 
+
+
+\begin{lemme}\label{l_val}(voir TD)
+
+Soient $A$ un anneau et $\omega:A\rightarrow \Z\cup \{\infty\}$ une valuation. Soient $x,x'\in A$ tels que $\omega(x)\neq \omega(x')$. Alors $\omega(x+x')=\min(\omega(x),\omega(x'))$.
+
+\end{lemme}
+
+
 \begin{Prop}
-Soient $p\in \mathbb{P}_{\geq 3}$ , $\alpha\in \N^*$ et $a\in \Z\setminus p^\alpha\Z$.  On écrit $a=p^k a'$, où $k\in \llbracket 0,\alpha-1\rrbracket$ et $a'\in \Z$ est premier avec $p$. Alors $a$ est un carré modulo $p^\alpha$ si et seulement les conditions suivantes sont vérifiées : \begin{enumerate}
+Soient $p\in \mathbb{P}_{\geq 3}$ , $\alpha\in \N^*$ et $a\in \Z\setminus p^\alpha\Z$.  On écrit $a=p^k a'$, où $k=\omega_p(a)\in \llbracket 0,\alpha-1\rrbracket$ et $a'\in \Z$ est premier avec $p$. Alors $a$ est un carré modulo $p^\alpha$ si et seulement les conditions suivantes sont vérifiées : \begin{enumerate}
 \item $\left(\frac{a'}{p}\right)=1$, autrement dit, $a$ est un carré modulo $p$,
 
 \item $k$ est pair.
@@ -2605,16 +2633,19 @@ Soient $p\in \mathbb{P}_{\geq 3}$ , $\alpha\in \N^*$ et $a\in \Z\setminus p^\alp
 \end{Prop}
 
 \begin{proof}
-Si $k=0$, le résultat est vrai, d'après le lemme~\ref{lemExistence_racine_modulo_pAlpha_inversible}. On suppose donc $k\geq 1$. 
+On suppose que $a$ admet une racine $\gamma$ modulo $p^\alpha$. On a $p^\alpha | a-\gamma^2$, donc $\omega_p(p^\alpha)=p^\alpha\geq \omega(a-\gamma^2)$. 
 
-On démontre le résultat par récurrence sur $\alpha$. Si $\alpha=1$, on a nécessairement $k=0$ et le résultat découle de la définition du symbole de Legendre.  Soit $\alpha\in \N_{\geq 2}$. On suppose le résultat vrai pour tout $\alpha'\in \llbracket 1,\alpha-1\rrbracket$. 
+Supposons que $\omega_p(a)<\omega_p(\gamma^2)$. Alors d'après le lemme~\ref{l_val}, $\omega_p(a-\gamma^2)=\omega(a)$, donc $\alpha\leq \omega_p(a)$ donc $p^\alpha$ divise $a$: c'est absurde par hypothèse.
 
-Supposons que $a$ est un carré modulo $p^\alpha$. Soit $\gamma$ une racine de $a$ modulo $p^\alpha$. Alors \begin{equation}\label{e_div}
-p\alpha\mid  p^k a'-\gamma^2.
-\end{equation} Comme $\alpha>1$, on en déduit que $p|p^ka'-\gamma^2$ et comme $k>0$, $p|\gamma^2$. Comme $p$ est premier, cela implique que $p$ divise $\gamma$. On peut donc écrire $\gamma=p \gamma'$. D'après \eqref{e_div}, comme $\alpha\geq 2$, on a $p^2| (p^{k}a'-p^2\gamma')$, donc $p^2|p^{k}a'$. Comme $a'\wedge p=1$, $a'\wedge p^2=1$, donc d'après le lemme de Gauss, $p^2|p^k$, donc $k\geq 2$. L'équation \eqref{e_div} devient $p^{\alpha-2}|(p^{k-2}a'-\gamma'^2)$, donc $p^{k-2}a'$ est un carré modulo $p^{\alpha-2}$. Comme $\alpha>k$, $\alpha-2\geq 1$. On peut donc appliquer l'hypothèse de récurrence et on en déduit que 1 et 2 sont satisfaites.
 
-Réciproquement, supposons que 1 et 2 sont satisfaites. D'après le lemme~\ref{lemExistence_racine_modulo_pAlpha_inversible}, il existe une racine $\gamma$ de $a'$ modulo $p^{\alpha-k}$. Soit $\gamma_0$ une racine de $a'$ modulo $p^{\alpha-k}$. Alors $p^{\alpha-k}|(\gamma^2-a')$ donc $p^\alpha| ((\gamma p^{k/2})^2-a'p^k)$ donc $\gamma p^{k/2}$ est une racine de $a$ modulo $p^\alpha$. 
-\end{proof}
+ Supposons que $\omega_p(a)>\omega_p(\gamma^2)$. Alors d'après le lemme~\ref{l_val}, on a $\omega_p(a-\gamma^2)=\omega_p(\gamma^2)$, donc $\alpha\leq \omega_p(\gamma^2)< \omega_p(a)$. C'est aussi absurde. On en déduit que $\omega_p(a)=\omega_p(\gamma^2)=2\omega_p(\gamma)$. On en déduit que $k$ est pair.
+ 
+ Soient $\ell=\omega(\gamma)$ et $\gamma'=p^{-\ell}\gamma\in \Z$. Alors $\gamma^2=p^{k}\gamma'^2\equiv p^k a'[p^\alpha]$, donc $\gamma'^2\equiv a'[p^{\alpha-k}]$ donc $a'$ est un carré modulo $p^{\alpha-k}$. En particulier, $\gamma$ est un carré modulo $p$. On a bien 1 et 2. 
+ 
+ Réciproquement, supposons que 1 et 2 sont satisfaites. D'après le lemme~\ref{lemExistence_racine_modulo_pAlpha_inversible}, il existe une racine $\gamma$ de $a'$ modulo $p^{\alpha-k}$. Soit $\gamma_0$ une racine de $a'$ modulo $p^{\alpha-k}$. Alors $p^{\alpha-k}|(\gamma^2-a')$ donc $p^\alpha| ((\gamma p^{k/2})^2-a'p^k)$ donc $\gamma p^{k/2}$ est une racine de $a$ modulo $p^\alpha$. 
+ \end{proof}
+
+
 
 
 
