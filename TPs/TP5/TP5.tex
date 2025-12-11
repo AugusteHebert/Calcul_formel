@@ -58,7 +58,7 @@
 \begin{center}
 %    \HRule \\[0.6cm]
     { \huge \bfseries
-    TP n$^{\boldsymbol{\circ}}$4
+    TP n$^{\boldsymbol{\circ}}$5
      \\ [0cm] }
     \HRule \\[0.5cm]
 \end{center}
@@ -67,12 +67,11 @@
 
 
 
-\subsection*{Exercice 1 (\textit{groupe multiplicatif})}
-Soit $n \geqslant 1$ un entier. Écrire une fonction \texttt{ordre(a, n)} un couple d'entiers et renvoyant l'ordre de $a$ dans le groupe $(\mathbb{Z}/n\mathbb{Z})^{\times}$. On renverra un message d'erreur lorsque cette  question n'a pas de sens. Comparer avec la fonction «~multiplicative\_order~».
 
 
 
-\subsection*{Exercice 2 (\textit{Chiffrement de César})}
+
+\subsection*{Exercice 1(\textit{Chiffrement de César})}
 
 Dans \textit{Vie des douze Césars}, Suétone rapporte que, pendant la guerre des Gaules, Jules César communiquait avec ses généraux grâce à un code secret qu'il avait imaginé. La technique est ainsi: faire une permutation circulaire des lettres de l'alphabet en remplaçant chaque lettre par celle située trois rangs après elle: D remplace A, E remplace B, F remplace C et ainsi de suite jusqu'à la lettre Z qui est remplacée par la lettre C.
 
@@ -105,8 +104,8 @@ En généralisant la méthode de Jules César, \textbf{la méthode affine} trans
 \end{enumerate}
 
 
-
-\subsection*{Exercice 3 (\textit{Algorithme $\rho$ de Pollard })}
+\begin{comment}
+\subsection*{Exercice 2 (\textit{Algorithme $\rho$ de Pollard })}
 
 L'algorithme de Pollard est un algorithme de factorisation des entiers. Il est efficace lorsque $n$ admet des «~petits~» facteurs premiers. On renvoie à Demazure, \textit{Cours d'algèbre} pour plus  de détails sur cet algorithme.
 
@@ -132,10 +131,10 @@ Soit $n$ un entier naturel impair. Pour un $x_0$ choisi aléatoirement dans $\lb
 \end{enumerate}
 
 
+\end{comment}
 
 
-
-\subsection*{Exercice 4 \textit{(Chiffrement de Vigenère)}}
+\subsection*{Exercice 3 \textit{(Chiffrement de Vigenère)}}
 Le chiffrement de Vigenère fonctionne sur le principe suivant : on dispose d'une clé qui est une chaîne de caractères (en général un mot), et on décale la première lettre du texte d'un rang correspondant à celui de la première lettre de la clé dans l'alphabet et ainsi de suite. Par exemple, si la clé est « python », la première
 lettre sera décalée de 15 (p est la 15ème lettre de l'alphabet, en partant de 0), le deuxième de 24 etc. On
 revient au début de la clé si le texte à crypter est plus long que la clé).
@@ -164,7 +163,7 @@ chaînes de caractères en majuscule et sans espaces) et effectuant le chiffreme
 
 
 
-\subsection*{Exercice 5 (\textit{Encodage, RSA})}
+\subsection*{Exercice 4 (\textit{Encodage, RSA})}
 
 Pour chiffrer/déchiffrer des messages, on va représenter les 26 lettres (majuscules) de l'alphabet latin par les nombres entiers de 2 à 27, l'espace étant représenté par un 1. Si $n$ est un (grand) entier, et $k$ le plus grand entier tel que $28^{k} \leqslant n$, on représente un «~mot~» $w_0 w_1 \ldots w_{k-1}$ (avec $w_i \in \lb 1;27 \rb$) par l'entier $\sum_{i=0}^{k-1} w_i 28^i$. Pour encoder une phrase ayant plus de $k$ lettres, on la découpera en une suite de blocs de $k$ lettres, encodés chacun par le procédé ci-dessous:
 \begin{itemize}
@@ -188,7 +187,7 @@ m=$[$1478185749,1160141687,2221916040,2447771658,1098373102,
 
 \end{itemize}
 
-
+\begin{comment}
 
 \subsection*{Exercice 6 (\textit{restes chinois})}
 
@@ -196,6 +195,7 @@ m=$[$1478185749,1160141687,2221916040,2447771658,1098373102,
 $$       x \equiv c_i[m_i], \quad 1 \leqslant i \leqslant r     $$
 en supposant que les $m_i$ sont des entiers 2 à 2 premiers entre eux. On utilisera l'algorithme de Garner. On pourra utiliser la fonction power\_mod($x,-1,n$) qui renvoie l'inverse de $x$ modulo $n$ lorsque cela a un sens.
 
+\end{comment}
 
 
 \end{document}

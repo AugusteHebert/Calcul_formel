@@ -93,7 +93,10 @@ Pour obtenir un entier $z$ tel que $z^{2^r}\equiv -1[p]$, il suffit de trouver u
 \begin{itemize}
 \item[•] Justifier la dernière affirmation.
 
-\item[•] Écrire un programme qui prend en entrée un entier $a\in \Z$ et un nombre premier $p$ impair  qui renvoie "$a$ n'est pas un carré modulo $p$" si $\left(\frac{a}{p}\right)=-1$ et qui renvoie la liste des racines de $a$ modulo $p$ sinon (vues comme des entiers de $\llbracket 0,p-1\rrbracket$). Pour obtenir un élément $m$ qui n'est pas un carré modulo $p$, on tirera un entier de $\llbracket 2,p-1\rrbracket$ aléatoirement jusqu'à obtenir un tel entier. Comme  la moitié des éléments de $\llbracket 1,p-1\rrbracket$ sont des non-résidus quadratique, cela devrait être rapide.
+
+\item[•] Pour obtenir un élément $m$ qui n'est pas un carré modulo $p$, on tire un entier de $\llbracket 2,p-1\rrbracket$ aléatoirement jusqu'à obtenir un tel entier. Cette stratégie vous paraît-elle raisonnable ? En moyenne, combien d'entier faut-il tirer pour obtenir un non-résidu quadratique ? 
+
+\item[•] Écrire un programme qui prend en entrée un entier $a\in \Z$ et un nombre premier $p$ impair  qui renvoie "$a$ n'est pas un carré modulo $p$" si $\left(\frac{a}{p}\right)=-1$ et qui renvoie la liste des racines de $a$ modulo $p$ sinon (vues comme des entiers de $\llbracket 0,p-1\rrbracket$). 
 
 \end{itemize}
 
@@ -114,7 +117,7 @@ Nous allons maintenant déterminer des racines carrées modulo $p^k$, en utilisa
 \end{itemize}
 
 
-Soient $n$ un $\N^*$ et $a\in Z$. On écrit la décomposition de $n$ en produit de facteurs premiers $n=p_1^{\alpha_1}\ldots p^k_{\alpha^k}$, où les $p_i$ sont des nombres premiers distincts et les $\alpha_i$ sont des entiers naturels. Alors $a$ est un carré modulo $n$ si et seulement si $a$ est un carré modulo $p_i^{\alpha_i}$ pour tout $i\in \llbracket 1,k\rrbracket$. On trouve alors les racines de $a$ en utilisant la réciproque de l'isomorphisme chinois entre $\Z/n\Z$ et $\Z/p_1^{\alpha_1}\Z\times\ldots \Z/p_k^{\alpha_k}\Z$.
+Soient $n\in \N^*$ et $a\in \Z$. On écrit la décomposition de $n$ en produit de facteurs premiers $n=p_1^{\alpha_1}\ldots p_k^{\alpha^k}$, où les $p_i$ sont des nombres premiers distincts et les $\alpha_i$ sont des entiers naturels. Alors $a$ est un carré modulo $n$ si et seulement si $a$ est un carré modulo $p_i^{\alpha_i}$ pour tout $i\in \llbracket 1,k\rrbracket$. On trouve alors les racines de $a$ en utilisant la réciproque de l'isomorphisme chinois entre $\Z/n\Z$ et $\Z/p_1^{\alpha_1}\Z\times\ldots \Z/p_k^{\alpha_k}\Z$.
 
 \begin{itemize}
 \item[•] Écrire un programme qui prend en entrée une liste $L=[L_1,\ldots L_n]$ de listes non vides et qui renvoie la liste des  listes $[a_{i_1},a_{i_2}, \ldots,a_{i_n}]$, où les $a_{i_j}$ parcourent les $L_j$ pour $j\in \llbracket 1,n\rrbracket$ (par exemple pour $L=[[a,b],[c,d]]$, le programme renverra $[[a,c],[a,d],[b,c],[b,d]]$).

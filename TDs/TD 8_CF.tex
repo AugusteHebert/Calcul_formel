@@ -104,11 +104,11 @@ Soient $A$ un anneau et $\omega:A\rightarrow \Z\cup \{\infty\}$. On dit que $\om
 \textbf{Définition : }
 Soit $p\in \mathbb{P}$. On définit la valuation $p$-adique $\omega_p:\mathbb{Q}\rightarrow \Z\cup \{\infty\}$ de la façon suivante. Si $x=0$, on pose $\omega_p(x)=-\infty$. Si $x\in \mathbb{Q}\setminus \{0\}$, on écrit $x=p^k x' $, avec $k\in \Z$, $x'=\frac{u}{v}$, avec $(u,v)\in \Z\times \Z\setminus \{0\}$ et $u,v$ premiers avec $p$. On pose alors $\omega_p(x)=k$.
 
-\begin{ex}
+\begin{ex}\label{e_val}
 \begin{enumerate}
 \item Soit $p\in \mathbb{P}$. Montrer que $\omega_p$ est une valuation de $\Z$. 
 
-\item Soit $\omega:K\rightarrow \Z\cup \{\infty\}$, où $K$ est un corps. Soient $x,x'\in K$. On suppose que $\omega(x)\neq \omega(x')$. Que vaut $\omega(x+x')$ ?
+\item\label{q_som} Soit $\omega:K\rightarrow \Z\cup \{\infty\}$, où $K$ est un corps. Soient $x,x'\in K$. On suppose que $\omega(x)\neq \omega(x')$. Que vaut $\omega(x+x')$ ?
 
 \item Soit $K$ un corps. Donner des exemples de valuations non triviales  sur $K[X]$. 
 
@@ -123,12 +123,34 @@ Soit $p\in \mathbb{P}$. On définit la valuation $p$-adique $\omega_p:\mathbb{Q}
 Soit $p\in \mathbb{P}_{\geq 3}$.  Soit $\alpha\in \N^*$.
 
 \begin{enumerate}
-\item Soit $a\in \Z$ tel que $a\wedge p=1$. On suppose que $a$ admet une racine modulo $p^\alpha$. Montrer que $\overline{a}$ admet exactement deux racines dans $\Z/p^\alpha\Z$.
+
+\item À quelle condition $\Z/p^\alpha\Z$ est-il intègre ?
+
+
+\item Soit $a\in \Z$ tel que $a\wedge p=1$. On suppose que $a$ admet une racine modulo $p^\alpha$.  On veut montrer que $\overline{a}$ admet exactement deux racines dans $\Z/p^\alpha\Z$. \begin{enumerate}
+\item Soit $\gamma\in \Z$ tel que $\overline{\gamma}$ soit une racine de $\overline{a}$ dans $\Z/p\Z$. Soit $X$ une indéterminée. Factoriser $X-\overline{\gamma}$ dans $\Z/p^\alpha\Z [X]$. 
+
+\item Soit $x\in \Z$. Montrer que $(x-\gamma)\wedge (x+\gamma)$ divise $2\gamma$. 
+
+\item Conclure.
+\end{enumerate}
 
 \item Déterminer les racines de $\overline{9}$ dans $\Z/27\Z$. Combien-y-en a-t-il ?
 
-\item Soit $a\in \Z\setminus p^\alpha \Z$. On écrit $a=p^k a'$. On suppose que $k$ est pair et que $\left(\frac{a}{p}\right)=1$. Déterminer l'ensemble des racines de $a$ modulo $p^\alpha$, en fonction de celles de $a'$ modulo $p^{\alpha-k}$. Combien $\overline{a}$ admet-il de racines dans $\Z/p^\alpha \Z$ ?
-\item Déterminer l'ensemble des racines de $0$ modulo $p^\alpha$. 
+\item Soit $a\in \Z\setminus p^\alpha \Z$. On écrit $a=p^k a'$. On s'intéresse aux racines de $\overline{a}$ dans $\Z/p^\alpha\Z$.  On suppose que $k$ est pair et que $\left(\frac{a'}{p}\right)=1$. \begin{enumerate}
+\item Exprimer $k$ à l'aide de $\omega_p$. 
+
+\item Soit $\gamma\in \Z$ telle que $\overline{\gamma}$ soit une racine de $\overline{a}$ dans $\Z/p^\alpha\Z$. Montrer que $\omega_p(\gamma)=1/2k$ (on pourra raisonner par l'absurde et utiliser la question~\ref{q_som} de l'exercice~\ref{e_val}).
+
+\item Déterminer l'ensemble des racines de $a$ modulo $p^\alpha$, en fonction de celles de $a'$ modulo $p^{\alpha-k}$ (on pourra écrire $\gamma=p^{\omega_p(\gamma)}\gamma'$, où $\gamma'\in \Z$).
+
+\item Combien $\overline{a}$ admet-il de racines dans $\Z/p^\alpha \Z$ ?
+\end{enumerate}  
+\item \begin{enumerate}
+\item Déterminer l'ensemble des racines de $0$ modulo $p^\alpha$ (on pourra les caractériser à l'aide de $\omega_p$).
+
+\item Montrer qu'il y en a $p^{\lfloor \alpha/2\rfloor}$.
+\end{enumerate} 
 \end{enumerate}
 \end{ex}
 
