@@ -38,7 +38,7 @@
 \fancyhead{}
  \fancyfoot{}
 
- \lhead{ 2023/2024 \\  L3 Mathématiques \\ Semestre 5
+ \lhead{ 2025/2026 \\  L3 Mathématiques \\ Semestre 5
 }
 \chead{\textbf{ Calcul formel}\\} 
  \rhead{\  Université de Lorraine \\}
@@ -66,7 +66,7 @@
 \end{center}
 
 \begin{center}
-  mercredi 10 janvier 2024 \\
+ mardi 16 décembre 2025 \\
 \textbf{Durée: 2 heures}
 \end{center}
 
@@ -85,7 +85,7 @@ On rappelle que si $a,b\in \Z$, $a\wedge b$ s'obtient grâce à la fonction \tex
 
 \begin{enumerate}
 
-\item Écrire un programme \texttt{factorielle}($n$), qui prend en entrée un entier $n$ et qui renvoie $n!$, sans utiliser la fonction \texttt{factorial}.
+\item Écrire un programme \texttt{factorielle}($n$), qui prend en entrée un entier $n$ et qui renvoie $n!$, sans utiliser la fonction \texttt{factorial}. Calculer $1000!$.
 
 
 
@@ -116,7 +116,7 @@ On rappelle que si $a,b\in \Z$, $a\wedge b$ s'obtient grâce à la fonction \tex
 
 \begin{ex}
 \begin{enumerate}
-\item Écrire un programme qui prend en entrée un entier $n\in \N_{\geq 2}$, et qui renvoie "True" s'il est premier et "False" s'il ne l'est pas, sans utiliser la commande \texttt{is\_prime} (on pourra par exemple tester si les nombres  entre $1$ et $ \sqrt{n}$ divisent $n$).
+\item Écrire un programme qui prend en entrée un entier $n\in \N_{\geq 2}$, et qui renvoie "True" s'il est premier et "(False,k)" s'il ne l'est pas, où $k$ est le plus petit diviseur non-trivial positif de $n$, en testant si les nombres  entre $1$ et $ \sqrt{n}$ divisent $n$ (on ne sera pas obligé de tous les tester).
 
 \item En utilisant la commande "\texttt{is\_prime}"  écrire un programme qui prend en entrée un entier $n$ et qui renvoie le $n$-ième nombre premier. Quel est le $1000$-ème nombre premier ?
 
@@ -153,7 +153,7 @@ Si $n$ est composé et si $a\in \llbracket 2,n-1\rrbracket$, on dit que $a$ est 
 
 \item Implémenter le test de Solovay-Strassen, qui prend en entrée un entier $n$ et un entier $k$.
 
-\item Faire la liste des nombres composés impairs $n\in \llbracket 3,10^5\rrbracket$ pour lesquels \texttt{Solovay\_strassen}($n$,2) renvoie $n$ est peut-être premier. Faire la liste des nombres composés impairs $n\in \llbracket 3,10^5\rrbracket$ pour lesquels \texttt{Solovay\_strassen}($n$,5) renvoie $n$ est peut-être premier. 
+\item Faire la liste des nombres composés impairs $n\in \llbracket 3,10^5\rrbracket$ pour lesquels \texttt{Solovay\_strassen}($n$,2) renvoie $n$ est peut-être premier. Faire la liste des nombres composés impairs $n\in \llbracket 3,10^5\rrbracket$ pour lesquels \texttt{Solovay\_strassen}($n$,5) renvoie "$n$ est peut-être premier". 
 \end{enumerate}
 
 \end{ex}
@@ -182,7 +182,7 @@ texte crypté &  J &  L &  X &  E &  S &  Z  &  E &  J  & X  & K  & S  & P &  W 
 \begin{itemize}
 \item[$1.$] Écrire un programme prenant comme argument une clé \texttt{cle} et le texte à crypter \texttt{texte} (deux
 chaînes de caractères en majuscule et sans espaces) et effectuant le chiffrement.
-\item[$2.$] Comment déchiffrer le texte en connaissant la clé ? Écrire le programme.
+\item[$2.$] Écrire un programme prenant en entré une clé \texttt{cle} et un texte crypté à l'aide de cette clé et qui renvoie le texte décrypté.
 \end{itemize}
 
 \end{ex}
@@ -194,7 +194,7 @@ On rappelle le fonctionnement du cryptosystème RSA. Soient $p$ et $q$ deux nomb
 \begin{enumerate}
 \item Écrire un programme \texttt{premier\_aleatoire} qui prend en entrée un entier $K$ et qui renvoie un nombre nombre premier aléatoire entre $10^K$ et $10^{K+1}$. Le résultat devra changer à chaque exécution du programme (sauf malchance). On pourra utiliser la fonction \texttt{ZZ.random\_element}.
 
-\item Écrire un programme \texttt{cle} qui prend en entrée un entier $K$ et qui renvoie une liste $[(n,e)],[d,\varphi)]$, où $n=pq$, $\varphi=(p-1)(q-1)$, $e\in \llbracket 2,\varphi-1\rrbracket$ est tel que $e\wedge \varphi=1$, $d\in \llbracket 2,\varphi-1\rrbracket$ est tel que $ed\equiv 1[\varphi]$ et $p,q$ sont deux nombres premiers aléatoires entre $10^K$ et $10^{K+1}$ (si le programme de la question précédente ne fonctionne pas, on pourra fixer $p=708641$ et $q=817787$).
+\item Écrire un programme \texttt{cle} qui prend en entrée un entier $K$ et qui renvoie une liste $[(n,e)],[(d,\varphi)]$, où $n=pq$, $\varphi=(p-1)(q-1)$, $e\in \llbracket 2,\varphi-1\rrbracket$ est tel que $e\wedge \varphi=1$, $d\in \llbracket 2,\varphi-1\rrbracket$ est tel que $ed\equiv 1[\varphi]$ et $p,q$ sont deux nombres premiers aléatoires entre $10^K$ et $10^{K+1}$ (si le programme de la question précédente ne fonctionne pas, on pourra fixer $p=708641$ et $q=817787$).
 
 \item Crypter le message $2\  718\  281\ 828$, avec $p=708641$ et $q=817787$, $n=pq$ et $e=691$.
 
