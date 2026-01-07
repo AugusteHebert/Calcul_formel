@@ -1,0 +1,210 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\usepackage{comment}
+\usepackage{xr-hyper}
+
+\title{}
+
+\date{}
+
+
+
+\makeatletter%pour faire référence aux exercices de examen.tex
+\newcommand*{\addFileDependency}[1]{% argument=file name and extension
+  \typeout{(#1)}
+  \@addtofilelist{#1}
+  \IfFileExists{#1}{}{\typeout{No file #1.}}
+}
+\makeatother
+
+\newcommand*{\myexternaldocument}[1]{%
+    \externaldocument{#1}%
+    \addFileDependency{#1.tex}%
+    \addFileDependency{#1.aux}%
+}
+\myexternaldocument{examen_CF}%pour faire référence aux exercices de enonce.tex
+
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\KK}{\mathbb{K}}
+
+
+\begin{document}
+
+
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2025/2026 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{ Université de Lorraine \\  }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+
+
+
+\newcommand{\md}[3]{#1\ \equiv \ #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod {#3} }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod {#3} }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod {#3} }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\moa}[2]{#1 \! \!  \pmod {#2} }
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+Corrigé examen 12 janvier
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+
+\begin{ex}\label{monogeneite}(Question de cours)
+
+
+\begin{enumerate}
+
+\item Soient $n\in \N_{\geq 2}$ et $G$ un sous-groupe de $(\Z/n\Z,+)$. Montrer que $G$ est monogène.
+
+\item Déterminer les sous-groupes suivants : $\langle \overline{6},\overline{22}\rangle\subset \Z/73\Z$ et $\langle \overline{6},\overline{22}\rangle\subset \Z/74\Z$ (on précisera notamment les cardinaux de ces sous-groupes). 
+\end{enumerate}
+
+\end{ex}
+
+
+
+
+
+\textbf{Exercice~\ref{RSA}}
+
+1) On a $221=13\times 17$.
+
+2) Le message crypté $c$ est  $2^e\%n$. On se place dans $\Z/n\Z$. On a $\overline{2^8}=\overline{256}=\overline{35}$. On a donc $\overline{2^{11}}=\overline{280}=\overline{59}$. On a donc $c=59$.
+
+3) Soit $\varphi=(p-1)(q-1)=16\times 12=192$. Le nombre $d$ est l'inverse de $e$ modulo $192$. On effectue l'algorithme d'Euclide étendu. On a $192-17\times 11=5$, $11=2\times 5+1$, donc $11-2\times(192-17\times 11)=1$, soit $35\times 11-2\times 192=1$. On a donc $d=35$.
+
+4) a) Comme $13\wedge 17=1$, cette équation a une unique solution. On effectue l'algorithme de Garner : on cherche $x$ sous la forme $x=3+17\nu$, où $\nu\in \llbracket 0,12\rrbracket$. On a $x\equiv 2[13]$, donc $3+17\nu\equiv 2[13]$, donc $4\nu\equiv -1[13]$, donc $\nu=3$. On a donc $x=54$. 
+
+b) Soit $m'\in \llbracket 0,220\rrbracket$ le message d'origine. On a $m'=c'^d\%n= 7^{35}\% 221$, où $c'=7$.. Calculons $m'\% 13$ et $m'\% 17$. Dans $\Z/13\Z$, on a $\overline{m'}=\overline{7}^{35}$. Comme $(\Z/13\Z)^\times$ est d'ordre $12$, on a $a^12=\overline{1}$, pour tout $a\in (\Z/13\Z)^\times$. On a  $\overline{7}^{35}=\overline{7}^{3.12-1}=\overline{7}^{-1}$. Comme $\overline{7}.\overline{2}=\overline{1}$, on en déduit que $\overline{7}^{-1}=\overline{2}$, donc $\overline{m'}=\overline{2}$. Plaçons nous maintenant dans $\Z/17\Z$. Comme $(\Z/17\Z)^\times$ est d'ordre $16$, on a $a^{16}=\overline{1}$ pour tout $a\in (\Z/17\Z)^\times$. On a donc $\overline{7}^{35}=\overline{7}^{2.16+3}=\overline{7}^{3}=\overline{49}.\overline{7}=\overline{-2}.\overline{7}=\overline{3}$. On a donc $\overline{m'}=\overline{3}$. À l'aide de la question précédente, on en déduit que le message initial était $54$. 
+
+
+
+\textbf{Exercice~\ref{e_rac_car} :}
+
+1) Comme $31\equiv 3[4]$, si $\overline{18}$ admet une racine carrée alors ce sont $\pm\overline{18}^{(31+1)/4}=\pm\overline{18}^{8}$. On a $\overline{18}=\overline{12}$ donc $\overline{18}^2=\overline{13}^2=\overline{169}=\overline{14}$. On a $\overline{18}^4=\overline{14}^2=\overline{196}=\overline{10}$. On a $\overline{18}^8=\overline{10}^2=\overline{7}$. Comme $\overline{7}^2=\overline{18}$, on en déduit que les deux racines de $\overline{18}$ dans $\Z/31\Z$ sont $\overline{7}$ et $\overline{-7}$. 
+
+  2) Soit $\gamma\in \Z$. Si $\gamma$ est une racine de $18$ modulo $31^2$, alors $\gamma$ est une racine de $18$ modulo $31$. De plus, on a vu en cours que pour chaque racine $\gamma_1$ de $18$ modulo $31$, il existe un unique $\gamma\in \llbracket 0,31^2\rrbracket$ tel que $\gamma^2\equiv 18[31^2]$ et $\gamma\equiv\gamma_0[31]$. On cherche donc $\gamma$ sous la forme $7+31k$, où $k\in \Z$. On a $(7+31k)^2=49+2.7.31k+31^2$, donc $(7+31k)$ est une racine de $18$ modulo $31^2$ si et seulement si $49+2.7.31k\equiv 18[31^2]$ ssi $2.7.31k\equiv -31[31^2]$ ssi $14k \equiv -1[31]$. On constate que $14.11\equiv -1[31]$ donc $k\equiv 11[31]$.Les racines de $\overline{18}$ dans $\Z/31^2\Z$ sont donc $\overline{7+11.31}=\overline{348}$ et $-\overline{348}$.
+  
+  
+  3) On écrit $99=9.11$. Soit $\Phi:\Z/99\Z\rightarrow \Z/9\Z\times \Z/11\Z$ l'isomorphisme chinois: $\Phi(x[99])=(x[9],x[11])$, pour $x\in \Z$. Soit $E=\{x\in \Z/99\Z\mid x^2=45[99]\}$. Alors $\Phi(E)=\{x\in \Z/9\Z\times \Z/11\Z\mid x^2=\Phi(45[99])=(0[9],1[11])\}$. Les racines de $0[9]$ dans $\Z/9\Z$ sont $0[9], 3[9]$ et $6[9]$ et les racines de $1[11]$ sont $\pm 1[11]$. Comme $\Phi$ est une bijection, on a  \[E=\Phi^{-1}(\Phi(E))=\{x\in \Z/99\Z\mid x[9]\in \{0[9],3[9],6[9]\}, x[11]\in \{1[11],-1[11]\}\}.\] On cherche donc les $x\in \llbracket 0,98\rrbracket$ tels que $x\equiv 1[11]$ et $x[9]\in \{0[9],3[9],6[9]\}$. On teste donc $1, 12, ...$ et on obtient que ce $\{12,45,78\}$. L'ensemble des racines carrées de $45$ modulo $99$ est donc $\pm\{12[99],45[99],78[99]\}=\pm\{-11[99],12[99],44[99]\}$. 
+
+
+
+\textbf{\textbf{Exercice}~\ref{Dirichlet_faible}}
+
+1) On a $3\in X$, donc $X$ est non-vide.
+
+2) Soit $E=\{ 4k+1\mid k\in \N\}$. On se place dans $\Z/4\Z$. Alors $E=\{x\in \N\mid \overline{x}=\overline{1}\}$. Soient $x,y\in E$. Alors $xy\in \N$ et $\overline{xy}=\overline{x}.\overline{y}=\overline{1}$, donc $xy\in E$, ce qui démontre que $E$ est stable par produit.
+
+3) Soient $n\in \N^*$,  $p_1,\ldots,p_n\in X$ et $m=4p_1\ldots p_n-1$. Écrivons $m=q_1\ldots q_\ell$, où $\ell\in \N^*$ et les $q_i$ sont premiers, pour tout $i\in \llbracket 1,\ell\rrbracket$ (une telle écriture existe car tout nombre admet une décomposition en produit de facteurs premiers). Si on avait $q_i\in E$ pour tout $i\in \llbracket 1,\ell\rrbracket$, on aurait $m\in E$, d'après la question précédente. Or $\overline{m}=\overline{-1}$, donc $m\notin X$ et il existe bien un diviseur premier de $m$ qui est dans $X$ (comme $m$ est impair, les diviseurs de $m$ sont impairs, donc congrus à $1$ ou $3$ modulo $4$). 
+
+
+4) Si $i\in \llbracket 1,n\rrbracket$, on a $m- p_i (4\prod_{j\in \llbracket 1,n\rrbracket, j\neq i} p_j)=-1$, donc $p_i\wedge m$ divise $-1$, donc $p_i\wedge m=1$. On en déduit que l'ensemble des diviseurs premiers de $m$ est disjoint de $\{p_1,\ldots,p_n\}$. Ainsi, \[\{p\in X\mid (p\mid m)\}\subset X\setminus \{p_1,\ldots,p_n\}.\] On a vu que le membre de gauche de cette inclusion est non-vide, donc $X\neq \{p_1,\ldots,p_n\}$. Comme $\{p_1,\ldots,p_n\}$ était n'importe quel sous-ensemble fini de $X$, on en déduit que $X$ est infini.  
+
+
+
+
+
+Exercice~\ref{Carmichael}: cf corrigé DM2
+
+\begin{ex}\label{ex_divisibilite}
+Soit $n\in  \Z$. 
+\begin{enumerate}
+\item Montrer que $6$ divise $n^3-n$.
+
+\item Montrer que $30$ divise $n^5-n$.
+\end{enumerate}
+\end{ex}
+
+
+Exercice~\ref{ex_divisibilite}
+
+Soit $k\in \Z$. Si $k$ est divisible par $6$, alors $2$ et $3$ divisent $k$. Réciproquement, si $2$ et $3$ divisent $k$, alors d'après le lemme de Gauss  (que l'on peut appliquer car $2\wedge 3 =1$) $6=2.3$ divise $k$. De même, si $k\in \Z$, alors $30$ divise $k$ si et seulement si $2$, $3$ et $5$ divisent $k$. Soit $n\in \Z$. 
+
+1) Dans $\Z/2\Z$, on a $\overline{0}^3=\overline{0}$ et $\overline{1}^3=\overline{1}$, donc $\overline{n}^3=\overline{n}$. Autrement dit, $2$ divise $n^3-n$. Dans $\Z/3\Z$, $\overline{0}^3=\overline{0}$, $\overline{\pm 1}^3=\overline{\pm 1}$. On a donc $\overline{n}^3=\overline{n}$, donc $3$ divise $n^3-n$. On a donc montré que $6$ divise $n^3-n$.
+
+2) Dans $\Z/2\Z$, $\overline{0}^5=\overline{0}$, $\overline{1}^5=\overline{1}$, donc $2$ divise $n^5-n$. Dans $\Z/3\Z$, $\overline{0}^5=\overline{0}$, $\overline{\pm 1}^5=\overline{\pm 1}$, donc $3$ divise $n^5-n$. Dans  $\Z/5\Z$, $\overline{0}^5=\overline{0}$, $\overline{\pm 1}^5=\overline{\pm 1}$, $\overline{\pm 2}^5=\overline{\pm 32}=\overline{\pm 2}$, donc $\overline{n}^5=\overline{n}$ (on pouvait aussi utiliser le théorème de Fermat), donc $5$ divise $n^5-n$. On a donc montré que $30$ divise $n^5-n$. 
+
+
+
+
+
+
+\textbf{Exercice~\ref{Cipolla}}
+
+
+1) Le polynôme $X^2-(a^2-n)$ n'a pas de racine dans $\F_p$, par hypothèse. Il est donc irréductible et $\mathbb{K}$ est un corps.
+
+2) Le corps $\mathbb{K}$ est un $\F_p$-espace vectoriel. Si $P\in \F_p[X]$, on peut effectuer sa division euclidienne par $X^2-(a^2-n)$: on  écrit $P=(X^2-(a^2-n)) Q+R$, où $Q,R\in \F_p[X]$ et $\deg(R)\leq 1$. Alors $\overline{P}=\overline{R}$. On en déduit que $\mathbb{K}=\F_p \overline{1}+\F_p \overline{X}$, donc $\mathbb{K}$ est de dimension au plus $2$. Si $\lambda,\mu\in \F_p$, alors $\lambda \overline{1}+\mu \overline{X}=\overline{0}$ si et seulement si $(X^2-(a^2-n))$ divise $\lambda+\mu X$ si et seulement si $\lambda=\mu=0$. Donc $(\overline{1},\overline{X})$ est une $\F_p$-base de 
+$\mathbb{K}$, qui est donc de cardinal $p^2$. 
+
+3) On a $\overline{X}^2=\overline{X^2}=\overline{X^2-(X^2-(a^2-n))}=\overline{a^2-n}=a^2-n$.
+
+4) Comme $\KK$  est de caractéristique $p$ (c'est à dire que $p.1_\KK=0_\KK$), on a $(\alpha+\beta)^p=\alpha^p+\beta^p$, pour tout $\alpha,\beta\in \KK$. 
+
+5) Cf cours.
+
+6) On a $((\sqrt{a^2-n})^p)^2=((\sqrt{a^2-n})^2)^p=(a^2-n)^p=a^2-n$, d'après la question précédente. Dans $\KK$, $a^2-n$ a exactement deux racines : $\sqrt{a^2-n}$ et $-\sqrt{a^2-n}$. Comme $\sqrt{a^2-n}\notin \F_p$, on  a $\sqrt{a^2-n}^p\neq \sqrt{a^2-n}$ donc $(\sqrt{a^2-n})^p)=-\sqrt{a^2-n}$. 
+
+7) Soit  $b=(a+\sqrt{a^2-n})^{(p+1)/2}$. Alors \begin{align*}b^2&=(a+\sqrt{a^2-n})^{p+1}=(a+\sqrt{a^2-n})^{p}(a+\sqrt{a^2-n})\\
+&=(a^p+\sqrt{a^2-n}^p)(a+\sqrt{a^2-n})\\
+&=(a-\sqrt{a^2-n}^p)(a+\sqrt{a^2-n})\\
+&= a^2-(a^2-n)=n.
+\end{align*} 
+
+
+8) Par hypothèse, $n$ est un carré dans $\F_p$.   Le polynôme $Y^2-n\in \KK[Y]$ s'écrit $(Y-b)(Y+b)$. Ses deux racines sont donc $b$ et $-b$. On en déduit que $b$ est dans $\F_p$.
+
+
+
+\end{document}
+
+

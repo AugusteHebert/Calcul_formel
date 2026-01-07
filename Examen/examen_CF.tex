@@ -1,0 +1,210 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\usepackage{comment}
+\newcommand{\F}{\mathbb{F}}
+
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2025/2026 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{ Université de Lorraine \\  }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+\newcommand{\KK}{\mathbb{K}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+
+
+
+\newcommand{\md}[3]{#1\ \equiv \ #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod {#3} }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod {#3} }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod {#3} }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\moa}[2]{#1 \! \!  \pmod {#2} }
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+Examen
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+
+
+
+
+\begin{center}
+\textbf{lundi 12 janvier 2026, durée : 3 heures}
+
+\end{center}
+
+
+\begin{ex}\label{monogeneite}
+
+
+\begin{enumerate}
+
+\item Soient $n\in \N_{\geq 2}$ et $G$ un sous-groupe de $(\Z/n\Z,+)$. Montrer que $G$ est monogène.
+
+\item Déterminer les sous-groupes suivants : $\langle \overline{6},\overline{22}\rangle\subset \Z/73\Z$ et $\langle \overline{6},\overline{22}\rangle\subset \Z/74\Z$ (on précisera notamment les cardinaux de ces sous-groupes). 
+\end{enumerate}
+
+\end{ex}
+
+
+
+
+
+
+\begin{ex}\label{RSA}
+On s'intéresse ici à un cryptosystème utilisant l'algorithme RSA dont la clé publique vaut $(221,11)$, i.e. $n=221$ et $e=11$ : pour transmettre un message $m\in \llbracket 0,n-1\rrbracket$, on transmet le reste dans la division euclidienne de $m^e$ par $n$.
+    
+\begin{itemize}
+\item[$1.$] Déterminer les nombres premiers $p$ et $q$ tels que $pq=221$.
+\item[$2.$] Donner le chiffrement avec la clé publique du message $m=2$.
+\item[$3.$] Calculer $d$ la clé privée correspondant à la clé publique $e$.
+\item[$4.$]
+\begin{itemize}
+\item[$(a)$]
+ Résoudre  l'équation suivante, d'inconnue $x\in \llbracket 0,n-1\rrbracket$:
+\begin{eqnarray*}
+ \left \{  \begin{array}{c}
+\md{x}{3}{17},\\
+\md{x}{2}{13} . \end{array}  \right. 
+\end{eqnarray*}
+\item[$(b)$]
+En déduire le déchiffrement du message $c=7$.
+\end{itemize}
+\end{itemize}
+
+\end{ex}
+
+
+
+
+
+
+\begin{ex}\label{ex_divisibilite}
+Soit $n\in  \Z$. 
+\begin{enumerate}
+\item Montrer que $6$ divise $n^3-n$.
+
+\item Montrer que $30$ divise $n^5-n$.
+\end{enumerate}
+\end{ex}
+
+
+
+
+
+\begin{ex}\label{e_rac_car}
+
+\begin{enumerate}
+\item Déterminer les racines carrées de $\overline{18}$ dans $\Z/31\Z$. 
+
+\item Déterminer les racines carrées de $\overline{18}$ dans $\Z/31^2\Z$. 
+
+
+\item Déterminer les racines carrées de $\overline{45}$ dans $\Z/99\Z$. 
+\end{enumerate}
+
+\end{ex}
+
+
+\begin{ex}\label{Dirichlet_faible}
+Soit $X$ l'ensemble des nombres premiers congrus à $3$ modulo $4$. 
+\begin{enumerate}
+
+
+\item Montrer que $X$ est non-vide.
+
+\item Montrer que l'ensemble $\{4k+1\mid k\in \N\}$ est stable par produit.
+
+\item Soient $n\in \N^*$ et  $p_1,\ldots,p_n\in X$. Montrer que $4p_1\ldots p_n-1$ admet un diviseur dans $X$.
+
+\item En déduire que $X$ est infini. 
+
+\end{enumerate}
+\end{ex}
+
+
+
+
+
+\begin{ex}\label{Cipolla}[Algorithme de Cipolla (1907)]
+
+On étudie ici l'algorithme de Cipolla, qui permet de déterminer une racine carrée d'un élément $\overline{n}$ de $\F_p=\Z/p\Z$, pour $p$ premier impair. L'algorithme fonctionne de la façon suivante. On suppose que l'on connaît  $a\in \F_p^\times$ tel que $a^2-n$ n'est pas un carré de $ \F_p$. On peut alors considérer $a+\sqrt{a^2-n}$  dans un corps contenant $\F_p$ strictement. On constate alors que $(a+\sqrt{a^2-n})^{(p+1)/2}$ est une racine carrée de $n$ dans $\F_p$. 
+
+On fixe donc $p$ un nombre premier impair positif et $n\in \F_p^\times$ qui est un carré.
+
+
+
+\begin{enumerate}
+\item Soit $a\in \F_p^\times$ tel que $a^2-n$ n'est pas un carré de $\F_p$.  Soit $\mathbb{K}=\F_p[X]/(X^2-(a^2-n))$, où $X$ est une indeterminée. Montrer que $\mathbb{K}$ est un corps.
+
+\item Déterminer un base de $\mathbb{K}$. En déduire que $\mathbb{K}$ a $p^2$ éléments.
+
+On identifie $\F_p$ à un sous-corps de $\KK$ via l'injection $x\mapsto \overline{x}$, pour $x\in \F_p$.
+
+\item Soit $\sqrt{a^2-n}=\overline{X}$. Que vaut $(\sqrt{a^2-n})^2$ ?
+
+\item Montrer que pour tout $\alpha,\beta\in \mathbb{K}$, on a $(\alpha+\beta)^p=\alpha^p+\beta^p$.
+
+\item Montrer que $\F_p=\{x\in \KK\mid x^p=x\}$. 
+
+\item Montrer que $(\sqrt{a^2-n})^p=-\sqrt{a^2-n}$ (on pourra calculer $((\sqrt{a^2-n})^p)^2$).
+
+\item Montrer que $(a+\sqrt{a^2-n})^{(p+1)/2}\in \mathbb{K}$ est une racine carrée de $n$.
+
+\item  Montrer que $(a+\sqrt{a^2-n})^{(p+1)/2}$ est en fait un élément de $\F_p$.
+\end{enumerate}
+
+
+\end{ex}
+
+\end{document}
