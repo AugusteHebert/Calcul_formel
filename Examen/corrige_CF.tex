@@ -112,6 +112,14 @@ Corrigé examen 12 janvier
 
 b) Soit $m'\in \llbracket 0,220\rrbracket$ le message d'origine. On a $m'=c'^d\%n= 7^{35}\% 221$, où $c'=7$.. Calculons $m'\% 13$ et $m'\% 17$. Dans $\Z/13\Z$, on a $\overline{m'}=\overline{7}^{35}$. Comme $(\Z/13\Z)^\times$ est d'ordre $12$, on a $a^12=\overline{1}$, pour tout $a\in (\Z/13\Z)^\times$. On a  $\overline{7}^{35}=\overline{7}^{3.12-1}=\overline{7}^{-1}$. Comme $\overline{7}.\overline{2}=\overline{1}$, on en déduit que $\overline{7}^{-1}=\overline{2}$, donc $\overline{m'}=\overline{2}$. Plaçons nous maintenant dans $\Z/17\Z$. Comme $(\Z/17\Z)^\times$ est d'ordre $16$, on a $a^{16}=\overline{1}$ pour tout $a\in (\Z/17\Z)^\times$. On a donc $\overline{7}^{35}=\overline{7}^{2.16+3}=\overline{7}^{3}=\overline{49}.\overline{7}=\overline{-2}.\overline{7}=\overline{3}$. On a donc $\overline{m'}=\overline{3}$. À l'aide de la question précédente, on en déduit que le message initial était $54$. 
 
+\textbf{Exercice~\ref{e_rac_car} :}
+
+1) Comme $31\equiv 3[4]$, si $\overline{18}$ admet une racine carrée alors ce sont $\pm\overline{18}^{(31+1)/4}=\pm\overline{18}^{8}$. On a $\overline{18}=\overline{12}$ donc $\overline{18}^2=\overline{13}^2=\overline{169}=\overline{14}$. On a $\overline{18}^4=\overline{14}^2=\overline{196}=\overline{10}$. On a $\overline{18}^8=\overline{10}^2=\overline{7}$. Comme $\overline{7}^2=\overline{18}$, on en déduit que les deux racines de $\overline{18}$ dans $\Z/31\Z$ sont $\overline{7}$ et $\overline{-7}$. 
+
+  2) Soit $\gamma\in \Z$. Si $\gamma$ est une racine de $18$ modulo $31^2$, alors $\gamma$ est une racine de $18$ modulo $31$. De plus, on a vu en cours que pour chaque racine $\gamma_1$ de $18$ modulo $31$, il existe un unique $\gamma\in \llbracket 0,31^2\rrbracket$ tel que $\gamma^2\equiv 18[31^2]$ et $\gamma\equiv\gamma_0[31]$. On cherche donc $\gamma$ sous la forme $7+31k$, où $k\in \Z$. On a $(7+31k)^2=49+2.7.31k+31^2$, donc $(7+31k)$ est une racine de $18$ modulo $31^2$ si et seulement si $49+2.7.31k\equiv 18[31^2]$ ssi $2.7.31k\equiv -31[31^2]$ ssi $14k \equiv -1[31]$. On constate que $14.11\equiv -1[31]$ donc $k\equiv 11[31]$.Les racines de $\overline{18}$ dans $\Z/31^2\Z$ sont donc $\overline{7+11.31}=\overline{348}$ et $-\overline{348}$.
+  
+  
+  3) On écrit $99=9.11$. Soit $\Phi:\Z/99\Z\rightarrow \Z/9\Z\times \Z/11\Z$ l'isomorphisme chinois: $\Phi(x[99])=(x[9],x[11])$, pour $x\in \Z$. Soit $E=\{x\in \Z/99\Z\mid x^2=45[99]\}$. Alors $\Phi(E)=\{x\in \Z/9\Z\times \Z/11\Z\mid x^2=\Phi(45[99])=(0[9],1[11])\}$. Les racines de $0[9]$ dans $\Z/9\Z$ sont $0[9], 3[9]$ et $6[9]$ et les racines de $1[11]$ sont $\pm 1[11]$. Comme $\Phi$ est une bijection, on a  \[E=\Phi^{-1}(\Phi(E))=\{x\in \Z/99\Z\mid x[9]\in \{0[9],3[9],6[9]\}, x[11]\in \{1[11],-1[11]\}\}.\] On cherche donc les $x\in \llbracket 0,98\rrbracket$ tels que $x\equiv 1[11]$ et $x[9]\in \{0[9],3[9],6[9]\}$. On teste donc $1, 12, ...$ et on obtient que ce $\{12,45,78\}$. L'ensemble des racines carrées de $45$ modulo $99$ est donc $\pm\{12[99],45[99],78[99]\}=\pm\{-11[99],12[99],44[99]\}$. 
 
 
 
@@ -125,14 +133,6 @@ Soit $k\in \Z$. Si $k$ est divisible par $6$, alors $2$ et $3$ divisent $k$. Ré
 
 
 
-\textbf{Exercice~\ref{e_rac_car} :}
-
-1) Comme $31\equiv 3[4]$, si $\overline{18}$ admet une racine carrée alors ce sont $\pm\overline{18}^{(31+1)/4}=\pm\overline{18}^{8}$. On a $\overline{18}=\overline{12}$ donc $\overline{18}^2=\overline{13}^2=\overline{169}=\overline{14}$. On a $\overline{18}^4=\overline{14}^2=\overline{196}=\overline{10}$. On a $\overline{18}^8=\overline{10}^2=\overline{7}$. Comme $\overline{7}^2=\overline{18}$, on en déduit que les deux racines de $\overline{18}$ dans $\Z/31\Z$ sont $\overline{7}$ et $\overline{-7}$. 
-
-  2) Soit $\gamma\in \Z$. Si $\gamma$ est une racine de $18$ modulo $31^2$, alors $\gamma$ est une racine de $18$ modulo $31$. De plus, on a vu en cours que pour chaque racine $\gamma_1$ de $18$ modulo $31$, il existe un unique $\gamma\in \llbracket 0,31^2\rrbracket$ tel que $\gamma^2\equiv 18[31^2]$ et $\gamma\equiv\gamma_0[31]$. On cherche donc $\gamma$ sous la forme $7+31k$, où $k\in \Z$. On a $(7+31k)^2=49+2.7.31k+31^2$, donc $(7+31k)$ est une racine de $18$ modulo $31^2$ si et seulement si $49+2.7.31k\equiv 18[31^2]$ ssi $2.7.31k\equiv -31[31^2]$ ssi $14k \equiv -1[31]$. On constate que $14.11\equiv -1[31]$ donc $k\equiv 11[31]$.Les racines de $\overline{18}$ dans $\Z/31^2\Z$ sont donc $\overline{7+11.31}=\overline{348}$ et $-\overline{348}$.
-  
-  
-  3) On écrit $99=9.11$. Soit $\Phi:\Z/99\Z\rightarrow \Z/9\Z\times \Z/11\Z$ l'isomorphisme chinois: $\Phi(x[99])=(x[9],x[11])$, pour $x\in \Z$. Soit $E=\{x\in \Z/99\Z\mid x^2=45[99]\}$. Alors $\Phi(E)=\{x\in \Z/9\Z\times \Z/11\Z\mid x^2=\Phi(45[99])=(0[9],1[11])\}$. Les racines de $0[9]$ dans $\Z/9\Z$ sont $0[9], 3[9]$ et $6[9]$ et les racines de $1[11]$ sont $\pm 1[11]$. Comme $\Phi$ est une bijection, on a  \[E=\Phi^{-1}(\Phi(E))=\{x\in \Z/99\Z\mid x[9]\in \{0[9],3[9],6[9]\}, x[11]\in \{1[11],-1[11]\}\}.\] On cherche donc les $x\in \llbracket 0,98\rrbracket$ tels que $x\equiv 1[11]$ et $x[9]\in \{0[9],3[9],6[9]\}$. On teste donc $1, 12, ...$ et on obtient que ce $\{12,45,78\}$. L'ensemble des racines carrées de $45$ modulo $99$ est donc $\pm\{12[99],45[99],78[99]\}=\pm\{-11[99],12[99],44[99]\}$. 
 
 
 
@@ -160,7 +160,7 @@ Soit $k\in \Z$. Si $k$ est divisible par $6$, alors $2$ et $3$ divisent $k$. Ré
 
 \textbf{Exercice~\ref{Cipolla}}
 
-
+\textbf{Première partie}
 1) Le polynôme $X^2-(a^2-n)$ n'a pas de racine dans $\F_p$, par hypothèse. Il est donc irréductible et $\mathbb{K}$ est un corps.
 
 2) Le corps $\mathbb{K}$ est un $\F_p$-espace vectoriel. Si $P\in \F_p[X]$, on peut effectuer sa division euclidienne par $X^2-(a^2-n)$: on  écrit $P=(X^2-(a^2-n)) Q+R$, où $Q,R\in \F_p[X]$ et $\deg(R)\leq 1$. Alors $\overline{P}=\overline{R}$. On en déduit que $\mathbb{K}=\F_p \overline{1}+\F_p \overline{X}$, donc $\mathbb{K}$ est de dimension au plus $2$. Si $\lambda,\mu\in \F_p$, alors $\lambda \overline{1}+\mu \overline{X}=\overline{0}$ si et seulement si $(X^2-(a^2-n))$ divise $\lambda+\mu X$ si et seulement si $\lambda=\mu=0$. Donc $(\overline{1},\overline{X})$ est une $\F_p$-base de 
@@ -168,20 +168,43 @@ $\mathbb{K}$, qui est donc de cardinal $p^2$.
 
 3) On a $\overline{X}^2=\overline{X^2}=\overline{X^2-(X^2-(a^2-n))}=\overline{a^2-n}=a^2-n$.
 
-4) Comme $\KK$  est de caractéristique $p$ (c'est à dire que $p.1_\KK=0_\KK$), on a $(\alpha+\beta)^p=\alpha^p+\beta^p$, pour tout $\alpha,\beta\in \KK$. 
+4) $(1+\sqrt{-1})^4=(1+-1+2\sqrt{-1})^2=(2\sqrt{-1})^2=\overline{-4}=\overline{3}$. On constate que $\overline{3}$ est un élément de  $\F_7$ et que c'est une racine de $\overline{2}$.
 
-5) Cf cours.
+5) Comme $\KK$  est de caractéristique $p$ (c'est à dire que $p.1_\KK=0_\KK$), on a $(\alpha+\beta)^p=\alpha^p+\beta^p$, pour tout $\alpha,\beta\in \KK$. 
 
-6) On a $((\sqrt{a^2-n})^p)^2=((\sqrt{a^2-n})^2)^p=(a^2-n)^p=a^2-n$, d'après la question précédente. Dans $\KK$, $a^2-n$ a exactement deux racines : $\sqrt{a^2-n}$ et $-\sqrt{a^2-n}$. Comme $\sqrt{a^2-n}\notin \F_p$, on  a $\sqrt{a^2-n}^p\neq \sqrt{a^2-n}$ donc $(\sqrt{a^2-n})^p)=-\sqrt{a^2-n}$. 
+6) Cf cours.
 
-7) Soit  $b=(a+\sqrt{a^2-n})^{(p+1)/2}$. Alors \begin{align*}b^2&=(a+\sqrt{a^2-n})^{p+1}=(a+\sqrt{a^2-n})^{p}(a+\sqrt{a^2-n})\\
+7) On a $((\sqrt{a^2-n})^p)^2=((\sqrt{a^2-n})^2)^p=(a^2-n)^p=a^2-n$, d'après la question précédente. Dans $\KK$, $a^2-n$ a exactement deux racines : $\sqrt{a^2-n}$ et $-\sqrt{a^2-n}$. Comme $\sqrt{a^2-n}\notin \F_p$, on  a $\sqrt{a^2-n}^p\neq \sqrt{a^2-n}$ donc $(\sqrt{a^2-n})^p)=-\sqrt{a^2-n}$. 
+
+8) Soit  $b=(a+\sqrt{a^2-n})^{(p+1)/2}$. Alors \begin{align*}b^2&=(a+\sqrt{a^2-n})^{p+1}=(a+\sqrt{a^2-n})^{p}(a+\sqrt{a^2-n})\\
 &=(a^p+\sqrt{a^2-n}^p)(a+\sqrt{a^2-n})\\
 &=(a-\sqrt{a^2-n}^p)(a+\sqrt{a^2-n})\\
 &= a^2-(a^2-n)=n.
 \end{align*} 
 
 
-8) Par hypothèse, $n$ est un carré dans $\F_p$.   Le polynôme $Y^2-n\in \KK[Y]$ s'écrit $(Y-b)(Y+b)$. Ses deux racines sont donc $b$ et $-b$. On en déduit que $b$ est dans $\F_p$.
+9) Par hypothèse, $n$ est un carré dans $\F_p$.   Le polynôme $Y^2-n\in \KK[Y]$ s'écrit $(Y-b)(Y+b)$. Ses deux racines sont donc $b$ et $-b$. On en déduit que $b$ est dans $\F_p$.
+
+\textbf{Deuxième partie :}
+
+
+1) On peut calculer $\left(\frac{a^2-n}{p}\right)=(a^2-n)^{(p-1)/2}$ dans $\F_p$. On a vu en cours que le coût du calcul d'une multiplication dans $\Z/p\Z$ est $O(\log(p)^2)$. Avec l'exponentiation rapide, on effectue $O(\log(p))$ calculs de produits dans $\F_p$, on a donc un coût en $O(\log(p)^3)$. 
+
+2) Soit $(a,b)\in \F_p^2$. Si $z=0$, alors $(a,b)\in X_z$ implique $a^2=b^2$ ce qui implique que $n=0$, ce qui contredit notre hypothèse. On a donc $X_0=\emptyset$. 
+
+On choisit maintenant $z\in \F_p^\times$. Soit $(a,b)\in \F_p^2$. Alors $(a,b)\in X_z$ si et seulement si $\begin{cases} a^2-n&=b^2\\ a+b &=z \end{cases}$ si et seulement si $\begin{cases} (a-b)(a+b)&=n\\ a+b &=z \end{cases}$ si et seulement si $\begin{cases} (a-b)&=n/z\\ a+b &=z \end{cases}$ si et seulement si $\begin{cases} (a-b)&=n/z\\ a+b &=z \end{cases}$ si et seulement si $\begin{cases} a&=1/2(z+n/z)\\  b &=1/2(z-n/z) \end{cases}$. On a donc $X_z=\{1/2(z+n/z,z-n/z)\}$. En particulier, $|X_z|=1$. On en déduit :  \[|X|=|\bigsqcup_{z\in \F_p} X_z|=|\bigsqcup_{z\in \F_p^\times} X_z|=\sum_{z\in \F_p^\times} |X_z|=(p-1).\]
+
+3) On a $X\cap (\F_p\times \{0\})=\{(a,0)\in \F_p\times \{0\}\mid a^2-n=0\}$, donc $X\cap (\F_p\times \{0\})=\{(\pm \gamma,0)\}$, où $\gamma$ est une racine de $n$.
+
+4) Soit $a\in \pi(E)$. Alors $\{b\in \F_p\mid (a,b)\in X\}$ est l'ensemble des racines carrées de $a^2-n$, qui est un élément non nul de $\F_p$. Cet ensemble est de cardinal $2$. 
+
+5) On a $X\setminus E=X\cap (\F_p\times \{0\})$. Soit $a\in X\cap (\F_p\times \{0\})$. Alors $a^2-n=0$, donc $\pi^{-1}(\{a\})=\{(a,0)\}$.
+
+6)  Commençons par déterminer $|\pi(X)$.  D'après les questions 4) et 5) $\pi(E)\cap \pi(X\setminus E)=\emptyset$. On a \[\pi(X)=\pi(E\cup X\setminus E)=\pi(E)\cup \pi(X\setminus E)=\pi(E)\sqcup \pi(X\setminus E),\]  donc $|\pi(X)|=|\pi(E)|+|\pi(X\setminus E)|$.
+
+On a $E=\bigsqcup_{a\in \pi(E)}\pi^{-1}(\{a\})$, donc $|E|=\sum_{a\in \pi(E)}|\pi^{-1}(\{a\})|=2|\pi(E)|$, donc $|\pi(E)|=(p-3)/2$. 
+
+On a $|X\setminus E|=|\bigcup_{a\in \pi(X\setminus E)} \pi^{-1}(\{a\})|=|X\setminus E|=2$. On en déduit que $\pi(X)=(p+1)/2$. De plus, $\pi(X)$ est l'ensemble des $a\in \F_p$ tels que $a^2-n$ est un carré, donc $|\{a\in \F_p\mid a^2-n \text{ n'est pas un carré }\}|=p-(p+1)/2=(p-1)/2$. 
 
 
 
